@@ -2,13 +2,13 @@ export class Player{
     private id?: number;
     private address: string;
     private age: number;
-    private experiance: number;
+    private experience: number;
 
-    constructor(player: {id?: number, address: string, age: number, experiance: number}){
+    constructor(player: {id?: number, address: string, age: number, experience: number}){
         this.id = player.id;
         this.address = player.address;
         this.age = player.age;
-        this.experiance = player.experiance;
+        this.experience = player.experience;
     }
 
     getId(): number | undefined{
@@ -23,7 +23,7 @@ export class Player{
         return this.age;
     }
 
-    getExperiance(): number{
-        return this.experiance;
+    getExperience(): number{
+        return this.experience;
     }
 }

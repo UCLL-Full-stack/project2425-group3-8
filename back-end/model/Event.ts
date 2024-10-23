@@ -5,6 +5,8 @@ export class Event{
     private endDate: Date;
 
     constructor(event: {id?: number, name:string, startDate: Date, endDate: Date}){
+        this.validate(event)
+
         this.id = event.id;
         this.name = event.name;
         this.startDate = event.startDate;
@@ -25,6 +27,19 @@ export class Event{
 
     getEndDate(): Date{
         return this.endDate
+    }
+
+    validate(event: {name:string, startDate: Date, endDate: Date}) {
+        if (!event.startDate || !event.endDate) {
+            throw new Error('Start and end date are required');
+        }
+
+        if (event.startDate > event.endDate) {
+            throw new Error('Start date cannot be after end date');
+        }
+        if(!event.name){
+            throw new Error('Name is required');
+        }
     }
 
 }
