@@ -3,6 +3,8 @@ type EventInput = {
     name: string;
     startDate: Date;
     endDate: Date;
+    sport?: SportInput;
+    location?: LocationInput
 }
 
 type LocationInput = {

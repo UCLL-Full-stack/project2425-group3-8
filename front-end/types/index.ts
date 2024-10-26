@@ -3,6 +3,8 @@ export type Event = {
     name: string;
     startDate: Date;
     endDate: Date;
+    sport: Sport;
+    location: Location;
 }
 
 export type Location = {

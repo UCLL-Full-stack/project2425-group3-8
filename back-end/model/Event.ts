@@ -1,16 +1,23 @@
+import { Sport } from "./sport";
+import { Location} from "./location"
+
 export class Event{
     private id?: number;
     private name: string;
     private startDate: Date; 
     private endDate: Date;
+    private sport?: Sport; 
+    private location?: Location;
 
-    constructor(event: {id?: number, name:string, startDate: Date, endDate: Date}){
+    constructor(event: {id?: number, name:string, startDate: Date, endDate: Date, sport?: Sport, location?: Location}){
         this.validate(event)
 
         this.id = event.id;
         this.name = event.name;
         this.startDate = event.startDate;
         this.endDate = event.endDate;
+        this.sport= event.sport
+        this.location = event.location;
     }
 
     getId(): number | undefined{
@@ -28,6 +35,15 @@ export class Event{
     getEndDate(): Date{
         return this.endDate
     }
+    
+    getSport(): Sport | undefined{
+        return this.sport
+    }
+    
+    getLocation(): Location | undefined{
+        return this.location
+    }
+
 
     validate(event: {name:string, startDate: Date, endDate: Date}) {
         if (!event.startDate || !event.endDate) {
