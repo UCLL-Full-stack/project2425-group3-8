@@ -1,3 +1,5 @@
+import {Event as EventPrisma, Sport as SportPrisma, Location as LocationPrisma} from '@prisma/client';
+
 export class Sport{
     private id?: number;
     private playerCount: number;
@@ -8,6 +10,18 @@ export class Sport{
         this.playerCount = sport.playerCount;
         this.name = sport.name;
     }
+
+static from({
+    id,
+    playerCount,
+    name
+}: SportPrisma) {
+    return new Sport({
+        id,
+        playerCount,
+        name
+    });
+}
 
     getId(): number | undefined{
         return this.id;

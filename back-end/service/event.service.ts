@@ -1,13 +1,9 @@
 import { Event } from "../model/Event"
 import eventDb from "../repository/event.db"
 
-const getAllEvents = (): Event[] =>{
-    return eventDb.getAllEvents()
-}
+const getAllEvents = async (): Promise<Event[]> => eventDb.getAllEvents();
 
-const getEventByName = (name: string): Event[] =>{
-    return eventDb.getEventByName(name)
-}
+const getEventByName = async (name: string): Promise<Event | null> => eventDb.getEventByName(name);
 
 export default{
     getAllEvents,

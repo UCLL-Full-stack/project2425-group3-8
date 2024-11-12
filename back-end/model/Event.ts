@@ -1,6 +1,6 @@
-import { Sport } from "./sport";
-import { Location} from "./location"
-
+import { Sport } from "./Sport";
+import { Location} from "./Location";
+import {Event as EventPrisma, Sport as SportPrisma, Location as LocationPrisma} from '@prisma/client';
 export class Event{
     private id?: number;
     private name: string;
@@ -19,6 +19,24 @@ export class Event{
         this.sport= event.sport
         this.location = event.location;
     }
+
+static from({
+    id,
+    name,
+    startDate,
+    endDate,
+    sport,
+    location
+}: EventPrisma & { sport: SportPrisma, location: LocationPrisma }) {
+    return new Event({
+        id,
+        name,
+        startDate,
+        endDate,
+        sport: Sport.from(sport),
+        location: Location.from(location)
+    });
+}
 
     getId(): number | undefined{
         return this.id;

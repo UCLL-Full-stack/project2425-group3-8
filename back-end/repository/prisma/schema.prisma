@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Event{
+    id          Int   @id @default(autoincrement())
+    name        String
+    startDate   DateTime
+    endDate     DateTime
+    sportid     Int @unique
+    sport       Sport @relation(fields: [sportid], references: [id])
+    locationid  Int @unique
+    location    Location @relation(fields: [locationid], references: [id])
+}
+
+model Sport{
+    id         Int   @id @default(autoincrement())
+    playerCount Int
+    name       String
+
+    Event Event[]
+}
+
+model Location{
+    id         Int   @id @default(autoincrement())
+    city      String
+    cityCode  String
+    street    String
+    number    String
+
+    Event Event[]
+}
+
+

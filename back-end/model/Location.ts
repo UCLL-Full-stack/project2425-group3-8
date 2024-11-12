@@ -1,3 +1,4 @@
+import {Event as EventPrisma, Sport as SportPrisma, Location as LocationPrisma} from '@prisma/client';
 export class Location{
     private id?: number;
     private city: string;
@@ -12,6 +13,22 @@ export class Location{
         this.street = location.street;
         this.number = location.number;
     }
+
+static from({
+    id,
+    city,
+    cityCode,
+    street,
+    number
+}: LocationPrisma) {
+    return new Location({
+        id,
+        city,
+        cityCode,
+        street,
+        number: Number(number)
+    });
+}
 
     getId(): number | undefined{
         return this.id;
