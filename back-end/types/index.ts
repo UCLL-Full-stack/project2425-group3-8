@@ -25,7 +25,7 @@ type MatchesInput = {
 
 type PlayerInput = {
     id?: number;
-    address: string;
+    address: Location;
     age: number;
     experience: number;
 }

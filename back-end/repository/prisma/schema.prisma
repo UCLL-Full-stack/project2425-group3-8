@@ -16,6 +16,7 @@ model Event{
     sport       Sport @relation(fields: [sportid], references: [id])
     locationid  Int @unique
     location    Location @relation(fields: [locationid], references: [id])
+    matches     Matches[]
 }
 
 model Sport{
@@ -34,6 +35,62 @@ model Location{
     number    String
 
     Event Event[]
+
+    Player Player[]
+
+    Admin Admin[]
+
+    Visitor Visitor[]
 }
+
+model User{
+    id        Int   @id @default(autoincrement())
+    fullName  String
+    phoneNumber  String
+    email    String
+}
+
+model Player {
+    id          Int      @id @default(autoincrement())
+    fullName    String
+    phoneNumber String
+    email       String
+    playerId    Int      @unique  
+    addressid   Int       @unique       
+    address     Location @relation(fields: [addressid], references: [id])
+    age         Int
+    experience  Int
+}
+
+model Admin {
+    id          Int      @id @default(autoincrement())
+    fullName    String
+    phoneNumber String
+    email       String
+    adminId     Int      @unique
+    addressid   Int       @unique
+    address     Location @relation(fields: [addressid], references: [id])
+}
+
+model Visitor {
+    id          Int      @id @default(autoincrement())
+    fullName    String
+    phoneNumber String
+    email       String
+    visitorId   Int      @unique
+    addressid   Int       @unique
+    address     Location @relation(fields: [addressid], references: [id])
+}
+
+model Matches {
+    id          Int      @id @default(autoincrement())
+    winner      String
+    result      String
+    date        DateTime
+    hour        String
+    eventId     Int
+    event       Event @relation(fields: [eventId], references: [id])
+}
+
 
 

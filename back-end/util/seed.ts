@@ -8,6 +8,9 @@ const main = async () => {
     await prisma.event.deleteMany();
     await prisma.location.deleteMany();
     await prisma.sport.deleteMany();
+    await prisma.matches.deleteMany();
+
+    
 
     const sport1 = await prisma.sport.create({
         data: {
@@ -104,6 +107,7 @@ const main = async () => {
                     id: location1.id
                 }
             }
+
         }
     });
 
@@ -121,8 +125,9 @@ const main = async () => {
                 connect: {
                     id: location2.id
                 }
-            }
-        }
+            },
+            
+    }
     });
 
     const event3 = await prisma.event.create({
@@ -174,6 +179,33 @@ const main = async () => {
             location: {
                 connect: {
                     id: location5.id
+                }
+            }
+        }
+    });
+    const matches1 = await prisma.matches.create({
+        data: {
+            winner: 'Team A',
+            result: '3-2',
+            date: new Date(),
+            hour: '12:00',
+            event: {
+                connect: {
+                    id: event1.id
+                }
+            }
+        }
+    });
+
+    const matches2 = await prisma.matches.create({
+        data: {
+            winner: 'Team B',
+            result: '2-1',
+            date: new Date(),
+            hour: '14:00',
+            event: {
+                connect: {
+                    id: event2.id
                 }
             }
         }

@@ -1,29 +1,71 @@
-export class Player{
-    private id?: number;
-    private address: string;
+import { User } from "./User";
+import { Location } from "./Location";
+import { Player as PlayerPrisma, Location as LocationPrisma} from '@prisma/client'
+
+export class Player extends User {
+    private playerId?: number;
+    private address?: Location;
     private age: number;
     private experience: number;
 
-    constructor(player: {id?: number, address: string, age: number, experience: number}){
-        this.id = player.id;
+    constructor(player: {
+        id?: number;
+        fullName: string;
+        phoneNumber: string;
+        email: string;
+        playerId?: number; 
+        address?: Location;
+        age: number;
+        experience: number;
+    }) {
+        super({
+            id: player.id,
+            fullName: player.fullName,
+            phoneNumber: player.phoneNumber,
+            email: player.email
+        });
+
+        this.playerId = player.playerId;
         this.address = player.address;
         this.age = player.age;
         this.experience = player.experience;
     }
 
-    getId(): number | undefined{
-        return this.id;
+static from({
+    id,
+    fullName,
+    phoneNumber,
+    email,
+    playerId,
+    address,
+    age,
+    experience
+}: PlayerPrisma & { address: LocationPrisma}){
+    return new Player({
+        id,
+        fullName,
+        phoneNumber,
+        email,
+        playerId,
+        address: Location.from(address),
+        age,
+        experience
+    })
+}
+
+    getPlayerId(): number | undefined {
+        return this.playerId;
     }
 
-    getAddress(): string{
+    getAddress(): Location | undefined {
         return this.address;
     }
 
-    getAge(): number{
+    getAge(): number {
         return this.age;
     }
 
-    getExperience(): number{
+    getExperience(): number {
         return this.experience;
     }
 }
