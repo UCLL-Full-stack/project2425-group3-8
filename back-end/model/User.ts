@@ -1,3 +1,5 @@
+import { User as UserPrisma} from '@prisma/client';
+
 export class User{
     private id?: number;
     private fullName: string;
@@ -12,6 +14,22 @@ export class User{
         this.email = user.email;
         this.password = user.password;
     }
+
+static from({
+    id,
+    fullName,
+    phoneNumber,
+    email,
+    password
+}: UserPrisma) {
+    return new User({
+        id,
+        fullName,
+        phoneNumber,
+        email,
+        password
+    });
+}
 
     getId(): number | undefined{
         return this.id;

@@ -6,21 +6,25 @@ const LoginForm: React.FC = () => {
     const [email, setMail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>, mail: string, password: string) => {
-        event.preventDefault()
+    const handleSubmit = async (
+        event: React.FormEvent<HTMLFormElement>, 
+        mail: string, 
+        password: string
+    ) => {
+        event.preventDefault();
+    
         try {
-            if ( await UserService.getUserByMail(mail, password)!== null) {
-                sessionStorage.setItem("UserEmail", mail)
-                console.log('welcome ' + email)
+            const user = await UserService.getUserByMail(mail, password);
+            if (user) {
+                sessionStorage.setItem("UserEmail", mail);
+                console.log("hello " + mail);
             }
-            else (
-                console.log('email or password is incorrect :) L bozo')
-            )
         } catch (error) {
-            console.log('Server error/could not connect', error)
+            console.error("Error during login:", error);
         }
-
-    }
+    };
+    
+    
 
     return (
         <>

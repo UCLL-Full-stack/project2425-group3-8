@@ -5,15 +5,14 @@ import { set } from 'date-fns';
 const prisma = new PrismaClient();
 
 const main = async () => {
-    await prisma.admin.deleteMany();
-    await prisma.matches.deleteMany();
-    await prisma.event.deleteMany();
-    await prisma.location.deleteMany();
-    await prisma.sport.deleteMany();
-    await prisma.user.deleteMany();
 
+        await prisma.matches.deleteMany();
+        await prisma.event.deleteMany();
+        await prisma.admin.deleteMany();
+        await prisma.user.deleteMany();
+        await prisma.location.deleteMany();
+        await prisma.sport.deleteMany();
 
-    
 
     const sport1 = await prisma.sport.create({
         data: {
@@ -222,26 +221,29 @@ const main = async () => {
             }
         }
     });
+    const user = await prisma.user.create({
+        data: {
+            fullName: 'John Doe',
+            phoneNumber: '0487654321',
+            email: 'johndoe@gmail.com',
+            password: await bcrypt.hash('john', 10),
+        }
+    });
+
 
     const admin = await prisma.admin.create({
         data: {
-            fullName: 'Oscaar Doe',
-            phoneNumber: '0487654321',
-            email: 'oscaardoe@gmail.com',
-            password: await bcrypt.hash('oscaar', 10),
-            adminId: 1, 
-            address: {  
-                create: {
-                    city: 'Leuven',
-                    cityCode: '3000',
-                    street: 'Oude Markt',
-                    number: '1'
-                },
-        }
-    }    });
-};
+            user: { connect: { id: user.id } },
+            address: { connect: { id: location1.id } },
+        },
+    });
 
-    (async () => {
+
+
+
+
+};
+(async () => {
         try {
             await main();
             await prisma.$disconnect();
@@ -251,3 +253,4 @@ const main = async () => {
             process.exit(1);
         }
 })();
+

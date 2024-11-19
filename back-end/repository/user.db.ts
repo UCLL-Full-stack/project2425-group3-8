@@ -1,26 +1,26 @@
-import { User } from "@prisma/client"
 import database from "./database"
 import { Admin } from "../model/Admin"
 import { Location } from "../model/Location"
+import { User } from "../model/User"
 
-const getUserByEmail = async (email: string): Promise<Admin | null> => {
-    try{
-        const AdminPrisma = await database.admin.findFirst({
+const getUserByEmail = async (email: string): Promise<User> => {
+    try {
+        const UserPrisma = await database.user.findFirst({
             where: {
                 email: email
-            },
-            include: { address: true }
+            }
         })
-        if(AdminPrisma === null){
-            return null
+
+        if (UserPrisma === null) {
+            throw new Error('User not found')
         }
-        return Admin.from(AdminPrisma)
-    } catch(error){
-        console.log(error);
-        throw new Error('Database error for events. See server log for details.')
+
+        return User.from(UserPrisma)
+    } catch (error) {
+        throw error
     }
 }
 
-export default{
+export default {
     getUserByEmail
 }
