@@ -7,8 +7,8 @@ export class Admin extends User {
     private adminId?: number;
     private address?: Location;
 
-    constructor(admin: { id?: number; adminId?: number; fullName: string; phoneNumber: string; email: string; address?: Location }) {
-        super({ id: admin.id, fullName: admin.fullName, phoneNumber: admin.phoneNumber, email: admin.email });
+    constructor(admin: { id?: number; adminId?: number; fullName: string; phoneNumber: string; email: string; password: string; address?: Location }) {
+        super({ id: admin.id, fullName: admin.fullName, phoneNumber: admin.phoneNumber, email: admin.email, password: admin.password });
 
         this.adminId = admin.adminId;
         this.address = admin.address;
@@ -19,7 +19,8 @@ export class Admin extends User {
         fullName,
         phoneNumber,
         email,
-        address
+        address,
+        password
 
     }: AdminPrisma & { address: LocationPrisma}){
         return new Admin({
@@ -27,6 +28,7 @@ export class Admin extends User {
             fullName,
             phoneNumber,
             email,
+            password,	
             address: Location.from(address),
         })
     } 

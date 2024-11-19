@@ -48,6 +48,7 @@ model User{
     fullName  String
     phoneNumber  String
     email    String
+    password String
 }
 
 model Player {
@@ -67,6 +68,7 @@ model Admin {
     fullName    String
     phoneNumber String
     email       String
+    password    String
     adminId     Int      @unique
     addressid   Int       @unique
     address     Location @relation(fields: [addressid], references: [id])

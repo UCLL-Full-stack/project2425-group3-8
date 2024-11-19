@@ -5,6 +5,7 @@ import * as bodyParser from 'body-parser';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import { eventRouter } from './controller/event.routes';
+import { userRouter } from './controller/user.routes';
 
 const app = express();
 dotenv.config();
@@ -22,3 +23,4 @@ app.listen(port || 3000, () => {
 });
 
 app.use('/event', eventRouter)
+app.use('/user', userRouter)

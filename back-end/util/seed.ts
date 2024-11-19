@@ -5,10 +5,13 @@ import { set } from 'date-fns';
 const prisma = new PrismaClient();
 
 const main = async () => {
+    await prisma.admin.deleteMany();
+    await prisma.matches.deleteMany();
     await prisma.event.deleteMany();
     await prisma.location.deleteMany();
     await prisma.sport.deleteMany();
-    await prisma.matches.deleteMany();
+    await prisma.user.deleteMany();
+
 
     
 
@@ -88,6 +91,15 @@ const main = async () => {
             city: 'Leuven',
             cityCode: '3000',
             street: 'Oude Markt',
+            number: '1'
+        }
+    });
+
+    const location6 = await prisma.location.create({
+        data: {
+            city: 'Mechelen',
+            cityCode: '2800',
+            street: 'Grote Markt',
             number: '1'
         }
     });
@@ -210,6 +222,23 @@ const main = async () => {
             }
         }
     });
+
+    const admin = await prisma.admin.create({
+        data: {
+            fullName: 'Oscaar Doe',
+            phoneNumber: '0487654321',
+            email: 'oscaardoe@gmail.com',
+            password: await bcrypt.hash('oscaar', 10),
+            adminId: 1, 
+            address: {  
+                create: {
+                    city: 'Leuven',
+                    cityCode: '3000',
+                    street: 'Oude Markt',
+                    number: '1'
+                },
+        }
+    }    });
 };
 
     (async () => {

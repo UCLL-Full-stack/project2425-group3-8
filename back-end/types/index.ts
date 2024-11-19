@@ -41,6 +41,7 @@ type UserInput = {
     fullName: string;
     phoneNumber: string;
     email: string;
+    password: string;
 }
 
 export {

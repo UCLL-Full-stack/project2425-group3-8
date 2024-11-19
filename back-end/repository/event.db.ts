@@ -1,4 +1,3 @@
-import { set } from "date-fns"
 import { Event } from "../model/Event"
 import { Sport } from "../model/Sport"
 import { Location } from "../model/Location"
@@ -7,7 +6,7 @@ import database from "./database"
 const getAllEvents = async (): Promise<Event[]> => {
     try {
         const eventPrisma = await database.event.findMany({
-            include: { sport: true, location: true }
+            include: { sport: true, location: true, matches: true }
     });
         return eventPrisma.map((eventPrisma): Event => Event.from(eventPrisma));
     } catch (error) {
@@ -22,7 +21,7 @@ const getEventByName = async (name: string): Promise<Event | null> => {
             where: {
                 name: name
             },
-            include: { sport: true, location: true }
+            include: { sport: true, location: true, matches: true }
         });
         if (eventPrisma === null) {
             return null;

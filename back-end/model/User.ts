@@ -3,12 +3,14 @@ export class User{
     private fullName: string;
     private phoneNumber: string;
     private email: string;
+    public password: string;
 
-    constructor(user: {id?: number,  fullName: string, phoneNumber: string, email: string}){
+    constructor(user: {id?: number,  fullName: string, phoneNumber: string, email: string, password: string}){
         this.id = user.id;
         this.fullName = user.fullName;
         this.phoneNumber = user.phoneNumber;
         this.email = user.email;
+        this.password = user.password;
     }
 
     getId(): number | undefined{
@@ -25,5 +27,9 @@ export class User{
 
     getEmail(): string{
         return this.email
+    }
+
+    getPassword(): string{
+        return this.password;
     }
 }
