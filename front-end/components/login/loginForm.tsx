@@ -6,16 +6,20 @@ const LoginForm: React.FC = () => {
     const [email, setMail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>, mail: string, password: string) =>{
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>, mail: string, password: string) => {
         event.preventDefault()
-        if(UserService.getUserByMail(mail, password) != null){
-            sessionStorage.setItem("UserEmail", mail)
-            console.log('welcome ' + email)
+        try {
+            if ( await UserService.getUserByMail(mail, password)!== null) {
+                sessionStorage.setItem("UserEmail", mail)
+                console.log('welcome ' + email)
+            }
+            else (
+                console.log('email or password is incorrect :) L bozo')
+            )
+        } catch (error) {
+            console.log('Server error/could not connect', error)
         }
-        else(
-            console.log('email or password is incorrect :) L bozo')
-        )
-           
+
     }
 
     return (
@@ -25,13 +29,13 @@ const LoginForm: React.FC = () => {
                     <div>
                         <label className="text-xl font-medium ">
                             Email:
-                            <input className="border-2 border-black rounded-md focus:outline-none focus:ring-1 focus:ring-black p-2 w-full " type='text' name='email' value={email} onChange={(event) => setMail(event.target.value)}/>
+                            <input className="border-2 border-black rounded-md focus:outline-none focus:ring-1 focus:ring-black p-2 w-full " type='text' name='email' value={email} onChange={(event) => setMail(event.target.value)} />
                         </label>
                     </div>
                     <div>
                         <label className="text-xl font-medium">
                             Password:
-                            <input className=" border-2 border-black rounded-md focus:outline-none focus:ring-1 focus:ring-black p-2 w-full" type='password' name='password' value={password} onChange={(event) => setPassword(event.target.value)}/>
+                            <input className=" border-2 border-black rounded-md focus:outline-none focus:ring-1 focus:ring-black p-2 w-full" type='password' name='password' value={password} onChange={(event) => setPassword(event.target.value)} />
                         </label>
                     </div>
                     <div className="text-xl font-medium flex justify-center">
@@ -40,7 +44,7 @@ const LoginForm: React.FC = () => {
                         </button>
                     </div>
                 </form>
-                </div>
+            </div>
 
         </>
     )

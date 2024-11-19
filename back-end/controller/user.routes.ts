@@ -4,7 +4,7 @@ import { UserInput } from "../types";
 
 const userRouter = express.Router()
 
-userRouter.get('/', async (req: Request, res: Response) => {
+userRouter.post('/', async (req: Request, res: Response) => {
     try{
         const userInput: UserInput = req.body;
         const result = await userService.getUserByEmail(userInput);
