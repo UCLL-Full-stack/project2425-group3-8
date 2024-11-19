@@ -10,23 +10,22 @@ userRouter.post('/', async (req: Request, res: Response) => {
         try{
             const userInput: UserInput = req.body;
             const result = await userService.getUserByEmail(userInput);
-            res.status(200).json(result)
+            const resultAdmin = await adminService.getAdminByEmail(userInput)
+
+            res.status(200).json({result, resultAdmin})
         } catch(error){
             throw error
         }
-        try{
-            const userInput: UserInput = req.body;
-            const result = await adminService.getAdminByEmail(userInput);
-            res.status(200).json(result)
-        } catch(error){
-            throw error
-        }
-
-
     }catch(error){
-        
-       res.status(400).json({ message: error })
+        if (error instanceof Error) {
+            console.log(error.message); // Now TypeScript is happy
+            res.status(400).json({ message: error.message });
+        } else {
+            console.log("An unknown error occurred", error);
+            res.status(400).json({ message: "An unknown error occurred" });
+        }
     }
 })
 
 export { userRouter }
+

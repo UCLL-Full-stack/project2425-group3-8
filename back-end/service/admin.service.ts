@@ -3,14 +3,9 @@ import adminDb from "../repository/admin.db";
 import { UserInput } from "../types";
 import bcrypt from 'bcrypt';
 
-const getAdminByEmail = async (userInput: UserInput): Promise<Admin> => {
+const getAdminByEmail = async (userInput: UserInput): Promise<boolean> => {
     try {
-        const tempUser = await adminDb.getAdminByEmail(userInput.email);
-
-        if (tempUser && await bcrypt.compare(userInput.password, tempUser.password)) {
-            return tempUser;
-        }
-        throw new Error("Invalid email or password");
+        return await adminDb.getAdminByEmail(userInput.email);
     } catch (error) {
         throw error
     }

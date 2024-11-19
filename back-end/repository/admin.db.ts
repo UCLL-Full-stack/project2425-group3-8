@@ -3,7 +3,7 @@ import { Admin } from "../model/Admin"
 import { Location } from "../model/Location"
 import { User } from "../model/User"
 
-const getAdminByEmail = async (email: string): Promise<Admin> => {
+const getAdminByEmail = async (email: string): Promise<boolean> => {
     try {
 
         const UserPrisma = await database.user.findFirst({
@@ -23,10 +23,10 @@ const getAdminByEmail = async (email: string): Promise<Admin> => {
         })
 
         if (AdminPrisma === null) {
-            throw new Error('Admin not found')
+            return false
         }
 
-        return Admin.fromAdmin(AdminPrisma)
+        return true
     } catch (error) {
         throw error
     }

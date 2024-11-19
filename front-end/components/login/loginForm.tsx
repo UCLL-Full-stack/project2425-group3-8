@@ -1,10 +1,13 @@
 import UserService from "@services/userService"
+import router from "next/router";
 import { useState } from "react";
 
 const LoginForm: React.FC = () => {
 
     const [email, setMail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const[statusText, setStatusText] = useState('');
 
     const handleSubmit = async (
         event: React.FormEvent<HTMLFormElement>, 
@@ -17,10 +20,18 @@ const LoginForm: React.FC = () => {
             const user = await UserService.getUserByMail(mail, password);
             if (user) {
                 sessionStorage.setItem("UserEmail", mail);
-                console.log("hello " + mail);
+                sessionStorage.setItem("Admin", user.resultAdmin);
+                setStatusText('logged in')
+                setTimeout(() => {
+                    router.push("/");
+                  }, 2000);
             }
         } catch (error) {
-            console.error("Error during login:", error);
+            if (error instanceof Error) {
+                setError(error.message);
+            } else {
+                setError("An unexpected error occurred");
+            }
         }
     };
     
@@ -47,6 +58,8 @@ const LoginForm: React.FC = () => {
                             Log in
                         </button>
                     </div>
+                    <p className="text-red-500">{error}</p>
+                    <p className="text-green-500">{statusText}</p>
                 </form>
             </div>
 

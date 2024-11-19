@@ -230,6 +230,15 @@ const main = async () => {
         }
     });
 
+    const user2 = await prisma.user.create({
+        data: {
+            fullName: 'Jane Doe',
+            phoneNumber: '0487654321',
+            email: 'janedoe@gmail.com',
+            password: await bcrypt.hash('jane', 10),
+        }
+    });
+
 
     const admin = await prisma.admin.create({
         data: {
