@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
 const Header: React.FC = () => {
-
   const [loggedInUser, setLoggedInUser] = useState<string | null>(null);
 
   useEffect(() => {
@@ -12,11 +11,11 @@ const Header: React.FC = () => {
     }
   }, []);
 
-
   const handleLogout = () => {
     sessionStorage.removeItem("Admin");
     sessionStorage.removeItem("UserEmail");
     setLoggedInUser(null);
+    window.location.reload(); // Refresh the page to reflect the logged-out state
   };
 
   return (
@@ -31,19 +30,18 @@ const Header: React.FC = () => {
 
         {loggedInUser ? (
           <>
-          <div className="d-flex align-items-center justify-content-center">
-            <a
-              onClick={handleLogout}
-              className="nav-link px-4 fs-5 text-white cursor-pointer"
-            >
-              Logout
-            </a>
-            <div className="text-white ms-3">
-              Welcome, {sessionStorage.getItem("Admin") === "true" ? "Admin: " : ""}{loggedInUser}!
+            <div className="d-flex align-items-center justify-content-center">
+              <a
+                onClick={handleLogout}
+                className="nav-link px-4 fs-5 text-white cursor-pointer"
+              >
+                Logout
+              </a>
+              <div className="text-white ms-3">
+                Welcome, {sessionStorage.getItem("Admin") === "true" ? "Admin: " : ""}{loggedInUser}!
+              </div>
             </div>
-          </div>
-        </>
-
+          </>
         ) : (
           <Link
             href="/login"
@@ -53,7 +51,7 @@ const Header: React.FC = () => {
           </Link>
         )}
       </nav>
-    </header >
+    </header>
   );
 };
 

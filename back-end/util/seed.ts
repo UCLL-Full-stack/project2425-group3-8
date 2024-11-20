@@ -221,7 +221,7 @@ const main = async () => {
             }
         }
     });
-    const user = await prisma.user.create({
+    const user1 = await prisma.user.create({
         data: {
             fullName: 'John Doe',
             phoneNumber: '0487654321',
@@ -242,8 +242,8 @@ const main = async () => {
 
     const admin = await prisma.admin.create({
         data: {
-            user: { connect: { id: user.id } },
-            address: { connect: { id: location1.id } },
+            user: { connect: { id: user1.id } },
+            address: { connect: { id: location6.id } },
         },
     });
 
