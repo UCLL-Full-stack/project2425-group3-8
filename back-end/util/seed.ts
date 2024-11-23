@@ -105,7 +105,7 @@ const main = async () => {
 
     const event1 = await prisma.event.create({
         data: {
-            name: 'Bal Bal Rollende Bal',
+            name: 'KickOff Mania',
             startDate: new Date(),
             endDate: new Date(),
             sport: {
@@ -124,7 +124,7 @@ const main = async () => {
 
     const event2 = await prisma.event.create({
         data: {
-            name: 'Boem Boem Doet De Bal',
+            name: 'Dunk Dynasty',
             startDate: new Date(),
             endDate: new Date(),
             sport: {
@@ -143,7 +143,7 @@ const main = async () => {
 
     const event3 = await prisma.event.create({
         data: {
-            name: 'Boing Boing de Bal',
+            name: 'Serve & Smash Cup',
             startDate: new Date(),
             endDate: new Date(),
             sport: {
@@ -161,7 +161,7 @@ const main = async () => {
 
     const event4 = await prisma.event.create({
         data: {
-            name: 'Tik Tak de Bal',
+            name: 'The Racket Rumble',
             startDate: new Date(),
             endDate: new Date(),
             sport: {
@@ -179,7 +179,7 @@ const main = async () => {
 
     const event5 = await prisma.event.create({
         data: {
-            name: 'Ping pong de Bal',
+            name: 'King of the Table',
             startDate: new Date(),
             endDate: new Date(),
             sport: {
@@ -246,8 +246,6 @@ const main = async () => {
             address: { connect: { id: location6.id } },
         },
     });
-
-
 
 
 

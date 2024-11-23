@@ -21,6 +21,8 @@ const getUserByEmail = async (email: string): Promise<User> => {
     }
 }
 
+
 export default {
     getUserByEmail
+    
 }

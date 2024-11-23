@@ -15,7 +15,7 @@ const Header: React.FC = () => {
     sessionStorage.removeItem("Admin");
     sessionStorage.removeItem("UserEmail");
     setLoggedInUser(null);
-    window.location.reload(); // Refresh the page to reflect the logged-out state
+    window.location.reload(); 
   };
 
   return (

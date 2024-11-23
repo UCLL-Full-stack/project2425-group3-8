@@ -1,35 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import EventService from "../../services/EventService";
 import { CustomEvent } from "@types"; 
-
-interface EditEventProps {
-    event: CustomEvent;
-    onEventEdited: () => void; 
+interface AddEventProps {
+    onEventAdded: () => void;
 }
 
-const EditEvent: React.FC<EditEventProps> = ({ event, onEventEdited }) => {
+const AddEvent: React.FC<AddEventProps> = ({ onEventAdded }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [eventName, setEventName] = useState(event.name);
-    const [eventStartDate, setEventStartDate] = useState(event.startDate);
-    const [eventEndDate, setEventEndDate] = useState(event.endDate);
-    const [eventAddressCity, setEventAddressCity] = useState(event.location.city);
-    const [eventAddressCityCode, setEventAddressCityCode] = useState(event.location.cityCode);
-    const [eventAddressStreet, setEventAddressStreet] = useState(event.location.street);
-    const [eventAddressNumber, setEventAddressNumber] = useState(event.location.number);
-    const [eventSportName, setEventSportName] = useState(event.sport.name);
-    const [eventSportPlayerCount, setEventSportPlayerCount] = useState(event.sport.playerCount);
-
-    useEffect(() => {
-        setEventName(event.name);
-        setEventStartDate(event.startDate);
-        setEventEndDate(event.endDate);
-        setEventAddressCity(event.location.city);
-        setEventAddressCityCode(event.location.cityCode);
-        setEventAddressStreet(event.location.street);
-        setEventAddressNumber(event.location.number);
-        setEventSportName(event.sport.name);
-        setEventSportPlayerCount(event.sport.playerCount);
-    }, [event]);
+    const [eventName, setEventName] = useState("");
+    const [eventStartDate, setEventStartDate] = useState(new Date().toISOString());
+    const [eventEndDate, setEventEndDate] = useState(new Date().toISOString());
+    const [eventAddressCity, setEventAddressCity] = useState("");
+    const [eventAddressCityCode, setEventAddressCityCode] = useState("");
+    const [eventAddressStreet, setEventAddressStreet] = useState("");
+    const [eventAddressNumber, setEventAddressNumber] = useState<number | undefined>(); 
+    const [eventSportName, setEventSportName] = useState("");
+    const [eventSportPlayerCount, setEventSportPlayerCount] = useState<number | undefined>();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -37,7 +23,7 @@ const EditEvent: React.FC<EditEventProps> = ({ event, onEventEdited }) => {
         const formattedStartDate = new Date(eventStartDate).toISOString();
         const formattedEndDate = new Date(eventEndDate).toISOString();
 
-        const updatedEvent: CustomEvent = {
+        const event1: CustomEvent = {
             name: eventName,
             startDate: formattedStartDate,
             endDate: formattedEndDate,
@@ -54,14 +40,9 @@ const EditEvent: React.FC<EditEventProps> = ({ event, onEventEdited }) => {
         };
 
         try {
-            if (event.id !== undefined) {
-                await EventService.EditEvent(event.id, updatedEvent);
-              } else {
-                console.error("Event ID is undefined");
-              }
-              
+            await EventService.AddEvent(event1);
             setIsModalOpen(false);
-            onEventEdited(); 
+            onEventAdded(); 
 
             setEventName("");
             setEventStartDate(new Date().toISOString());
@@ -73,24 +54,35 @@ const EditEvent: React.FC<EditEventProps> = ({ event, onEventEdited }) => {
             setEventSportName("");
             setEventSportPlayerCount(undefined);
         } catch (error) {
-            console.error("Failed to edit event.");
+            console.error("Failed to add event.");
         }
     };
 
     return (
         <div>
-            
-            <button
-        onClick={() => setIsModalOpen(true)}
-        style={{
-          cursor: "pointer",
-        }}
-      >
-        <svg className="w-6 h-6 text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-          <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
-        </svg>
-      </button>
-            
+            <div className="flex justify-end">
+                <button
+                    onClick={() => setIsModalOpen(true)}
+                    className="flex items-center bg-blue-400 px-4 py-2 rounded-full text-white hover:bg-blue-500"
+                >
+                    <svg
+                        className="w-6 h-6 text-white mr-2"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                        />
+                    </svg>
+                    Add Event
+                </button>
+            </div>
 
             {isModalOpen && (
                 <div
@@ -101,7 +93,7 @@ const EditEvent: React.FC<EditEventProps> = ({ event, onEventEdited }) => {
                         className="bg-gray-100 p-6 rounded-md shadow-md w-11/12 max-w-4xl"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <h2 className="text-center text-xl font-semibold mb-6">Edit Event</h2>
+                        <h2 className="text-center text-xl font-semibold mb-6">Add Event</h2>
                         <form onSubmit={handleSubmit} className="grid grid-cols-3 gap-6">
                             <div>
                                 <h3 className="text-lg font-semibold mb-4">Event</h3>
@@ -213,27 +205,22 @@ const EditEvent: React.FC<EditEventProps> = ({ event, onEventEdited }) => {
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1"
-                                        type="number"
+                                        type="text"
                                         id="playerCount"
                                         value={eventSportPlayerCount || ""}
-                                        onChange={(e) => setEventSportPlayerCount(Number(e.target.value) || undefined)}
+                                        onChange={(e) =>
+                                            setEventSportPlayerCount(Number(e.target.value) || undefined)
+                                        }
                                     />
                                 </div>
                             </div>
 
-                            <div className="col-span-3 flex justify-between mt-4">
+                            <div className="col-span-3 text-center mt-6">
                                 <button
-                                    className="bg-red-500 text-white px-4 py-2 rounded-full"
-                                    type="button"
-                                    onClick={() => setIsModalOpen(false)}
-                                >
-                                    Cancel
-                                </button>
-                                <button
-                                    className="bg-blue-500 text-white px-4 py-2 rounded-full"
                                     type="submit"
+                                    className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-full"
                                 >
-                                    Save Changes
+                                    Add Event
                                 </button>
                             </div>
                         </form>
@@ -244,4 +231,4 @@ const EditEvent: React.FC<EditEventProps> = ({ event, onEventEdited }) => {
     );
 };
 
-export default EditEvent;
+export default AddEvent;

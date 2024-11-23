@@ -1,8 +1,8 @@
-export type Event = {
+export type CustomEvent = {
     id?: number;
     name: string;
-    startDate: Date;
-    endDate: Date;
+    startDate: string;
+    endDate: string;
     sport: Sport;
     location: Location;
 }
@@ -12,7 +12,7 @@ export type Location = {
     city: string;
     cityCode: string;
     street: string;
-    number: number;
+    number: number | undefined;
 }
 
 export type Matches = {
@@ -32,7 +32,7 @@ export type Player = {
 
 export type Sport = {
     id?: number;
-    playerCount: number;
+    playerCount: number | undefined;
     name: string;
 }
 

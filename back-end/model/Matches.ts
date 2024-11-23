@@ -1,13 +1,14 @@
 import { Matches as MatchesPrisma } from '@prisma/client';
-export class Matches{
+
+export class Matches {
     private id?: number;
     private winner: string;
     private result: string;
     private date: Date;
     private hour: string;
-    private eventId?: number;
+    private eventId?: number | null; // eventId can be null
 
-    constructor(matches: {id?: number, winner: string, result: string, date: Date, hour: string; eventId?: number}){
+    constructor(matches: { id?: number, winner: string, result: string, date: Date, hour: string, eventId?: number | null }) {
         this.id = matches.id;
         this.winner = matches.winner;
         this.result = matches.result;
@@ -23,7 +24,7 @@ export class Matches{
         date,
         hour,
         eventId
-    }: MatchesPrisma & {eventId: number}){
+    }: MatchesPrisma): Matches {
         return new Matches({
             id,
             winner,
@@ -34,27 +35,27 @@ export class Matches{
         });
     }
 
-    getId(): number | undefined{
+    getId(): number | undefined {
         return this.id;
     }
 
-    getWinner(): string{
+    getWinner(): string {
         return this.winner;
     }
 
-    getResult(): string{
+    getResult(): string {
         return this.result;
     }
 
-    getDate(): Date{
+    getDate(): Date {
         return this.date;
     }
 
-    getHour(): string{
+    getHour(): string {
         return this.hour;
     }
 
-    getEventId(): number | undefined{
+    getEventId(): number | null | undefined {
         return this.eventId;
     }
 }

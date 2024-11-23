@@ -13,7 +13,7 @@ const Home: React.FC = () => {
       </Head>
       <Header />
       <main>
-        <div className='d-flex justify-content-center'>
+        <div >
             <EventOverview/>
         </div>
       </main>

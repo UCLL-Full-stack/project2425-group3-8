@@ -12,9 +12,9 @@ model Event{
     name        String
     startDate   DateTime
     endDate     DateTime
-    sportid     Int @unique
+    sportid     Int 
     sport       Sport @relation(fields: [sportid], references: [id])
-    locationid  Int @unique
+    locationid  Int 
     location    Location @relation(fields: [locationid], references: [id])
     matches     Matches[]
 }
@@ -22,14 +22,14 @@ model Event{
 model Sport{
     id         Int   @id @default(autoincrement())
     playerCount Int
-    name       String
+    name       String @unique
 
     Event Event[]
 }
 
 model Location{
     id         Int   @id @default(autoincrement())
-    city      String
+    city      String @unique
     cityCode  String
     street    String
     number    String
@@ -89,8 +89,8 @@ model Matches {
     result      String
     date        DateTime
     hour        String
-    eventId     Int
-    event       Event @relation(fields: [eventId], references: [id])
+    eventId     Int?
+    event       Event? @relation(fields: [eventId], references: [id])
 }
 
 

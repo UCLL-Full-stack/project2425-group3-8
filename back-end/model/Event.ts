@@ -10,7 +10,7 @@ export class Event {
   private endDate: Date;
   private sport?: Sport;
   private location?: Location;
-  private matches?: Matches[];  // Add this to hold related matches
+  private matches?: Matches[]; 
 
   constructor(event: {
     id?: number;
