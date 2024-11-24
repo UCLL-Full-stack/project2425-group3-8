@@ -51,14 +51,16 @@ model User{
     password String
 
     Admin Admin[]
+
+    Visitor Visitor[]
+
+    Player Player[]
 }
 
 model Player {
-    id          Int      @id @default(autoincrement())
-    fullName    String
-    phoneNumber String
-    email       String
-    playerId    Int      @unique  
+    playerId          Int      @id @default(autoincrement())
+    userId      Int      @unique
+    user        User     @relation(fields: [userId], references: [id])
     addressid   Int       @unique       
     address     Location @relation(fields: [addressid], references: [id])
     age         Int
@@ -74,11 +76,9 @@ model Admin {
 }
 
 model Visitor {
-    id          Int      @id @default(autoincrement())
-    fullName    String
-    phoneNumber String
-    email       String
-    visitorId   Int      @unique
+    visitorId   Int      @id @default(autoincrement())
+    userId      Int      @unique
+    user        User     @relation(fields: [userId], references: [id])
     addressid   Int       @unique
     address     Location @relation(fields: [addressid], references: [id])
 }

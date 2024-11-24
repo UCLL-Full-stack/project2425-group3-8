@@ -1,6 +1,8 @@
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import { set } from 'date-fns';
+import { id } from 'date-fns/locale';
+import { connect } from 'http2';
 
 const prisma = new PrismaClient();
 
@@ -9,6 +11,8 @@ const main = async () => {
         await prisma.matches.deleteMany();
         await prisma.event.deleteMany();
         await prisma.admin.deleteMany();
+        await prisma.player.deleteMany();
+        await prisma.visitor.deleteMany();
         await prisma.user.deleteMany();
         await prisma.location.deleteMany();
         await prisma.sport.deleteMany();
@@ -254,6 +258,15 @@ const main = async () => {
         }
     });
 
+    const user3 = await prisma.user.create({
+        data: {
+            fullName: 'mikel jordan',
+            phoneNumber: '0487654321',
+            email: 'mikeljordan@gmail.com',
+            password: await bcrypt.hash('baseball', 10),
+        }
+    });
+
 
     const admin = await prisma.admin.create({
         data: {
@@ -261,6 +274,22 @@ const main = async () => {
             address: { connect: { id: location6.id } },
         },
     });
+
+    const visitor = await prisma.visitor.create({
+        data: {
+            user:{connect: {id: user2.id}},
+            address: { connect: { id: location6.id } },
+        }
+    })
+
+    const player = await prisma.player.create({
+        data: {
+            user:{connect: {id: user3.id}},
+            address: { connect: { id: location6.id } },
+            age: 21,
+            experience: 5
+        }
+    })
 
 
 

@@ -1,6 +1,6 @@
 import { User } from "./User";
 import { Location } from "./Location";
-import { Player as PlayerPrisma, Location as LocationPrisma} from '@prisma/client'
+import { Player as PlayerPrisma, Location as LocationPrisma, User as UserPrisma} from '@prisma/client'
 
 export class Player extends User {
     private playerId?: number;
@@ -8,46 +8,25 @@ export class Player extends User {
     private age: number;
     private experience: number;
 
-    constructor(player: {
-        id?: number;
-        fullName: string;
-        phoneNumber: string;
-        email: string;
-        playerId?: number; 
-        address?: Location;
-        age: number;
-        experience: number;
-    }) {
-        super({
-            id: player.id,
-            fullName: player.fullName,
-            phoneNumber: player.phoneNumber,
-            email: player.email
-        });
+    constructor(player: {user: User; playerId?: number; age: number; experience:number; address?: Location}) {
+        super({id: player.user.getId(), fullName: player.user.getFullName(), phoneNumber: player.user.getPhoneNumber(), email: player.user.getEmail(), password: player.user.getPassword()});
 
         this.playerId = player.playerId;
-        this.address = player.address;
         this.age = player.age;
         this.experience = player.experience;
     }
 
-static from({
-    id,
-    fullName,
-    phoneNumber,
-    email,
-    playerId,
+static fromPlayer({
+    user,
     address,
     age,
     experience
-}: PlayerPrisma & { address: LocationPrisma}){
+}: PlayerPrisma & { address: LocationPrisma; user: UserPrisma}): Player{
+    const userObj = User.from(user)
+    const locationObj = address ? Location.from(address) : undefined;
     return new Player({
-        id,
-        fullName,
-        phoneNumber,
-        email,
-        playerId,
-        address: Location.from(address),
+        user: userObj,
+        address: locationObj,
         age,
         experience
     })
