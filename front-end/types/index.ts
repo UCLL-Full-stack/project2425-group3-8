@@ -5,6 +5,7 @@ export type CustomEvent = {
     endDate: string;
     sport: Sport;
     location: Location;
+    matches: Matches[];
 }
 
 export type Location = {

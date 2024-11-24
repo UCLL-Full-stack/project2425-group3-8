@@ -221,6 +221,21 @@ const main = async () => {
             }
         }
     });
+
+    const matches3 = await prisma.matches.create({
+        data: {
+            winner: 'Team C',
+            result: '2-0',
+            date: new Date(),
+            hour: '16:00',
+            event: {
+                connect: {
+                    id: event1.id
+                }
+            }
+        }
+    });
+
     const user1 = await prisma.user.create({
         data: {
             fullName: 'John Doe',
