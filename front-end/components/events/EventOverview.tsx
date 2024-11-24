@@ -106,7 +106,7 @@ const EventOverview: React.FC = () => {
         </div>
       </div>
 
-      {/* pop up voor de events */}
+      {/* pop up voor de events DEATH TO TAILWIND!!!!*/}
       {selectedEvent && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
           <div className="bg-white p-6 rounded shadow-lg w-2/5 h-2/5 flex flex-col justify-evenly items-center">
