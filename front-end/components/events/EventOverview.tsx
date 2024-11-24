@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react";
+import { BlockquoteHTMLAttributes, useEffect, useState } from "react";
 import EventService from "@services/EventService";
 import { CustomEvent as Event } from "@types";
 import EditEvent from "./EditEvent";
 import DeleteEvent from "./DeleteEvent";
 import AddEvent from "./AddEvent";
+import MatchesOverview from "./matchesOverwiev";
+
 
 const EventOverview: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
-  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [showPopUp, setShowPopUp] = useState<boolean>(false);
+  const [selectedEvent, setSelectedEvent] = useState<Event>();
 
   const fetchEvents = async () => {
     try {
@@ -53,17 +56,12 @@ const EventOverview: React.FC = () => {
     fetchEvents();
   }
 
-
-  const handleEventClick = (event: Event) => {
-    setSelectedEvent(event);
-  };
-
-  const handleClosePopup = () => {
-    setSelectedEvent(null);
-  };
+  const handlePopup = (show: boolean, selectedEvent: Event) =>{
+    setShowPopUp(show)
+    setSelectedEvent(selectedEvent)
+  }
 
   const sortedEvents = events.sort((a, b) => (a.id ?? 0) - (b.id ?? 0));
-
 
   return (
     <div>
@@ -77,7 +75,7 @@ const EventOverview: React.FC = () => {
               <div
                 key={event.id}
                 className="bg-[#9ebdf7] rounded shadow-lg pl-8 pr-8 pt-4 pb-3 cursor-pointer"
-                onClick={() => handleEventClick(event)}
+                onClick={() => handlePopup(true, event)}
               >
                 <h2 className="text-black text-2xl">{event.name}</h2>
                 <p className="text-black">
@@ -105,46 +103,7 @@ const EventOverview: React.FC = () => {
           )}
         </div>
       </div>
-
-      {/* pop up voor de events DEATH TO TAILWIND!!!!*/}
-      {selectedEvent && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded shadow-lg w-2/5 h-2/5 flex flex-col justify-evenly items-center">
-            <h2 className="text-2xl mb-4 text-center">Event Details</h2>
-            {selectedEvent.matches.length > 0 ? (
-              <table className="table-auto border-collapse border border-gray-300 w-full text-center">
-                <thead>
-                  <tr>
-                    <th className="border border-gray-300 px-4 py-2 bg-gray-100">Date</th>
-                    <th className="border border-gray-300 px-4 py-2 bg-gray-100">Result</th>
-                    <th className="border border-gray-300 px-4 py-2 bg-gray-100">Winner</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {selectedEvent.matches.map((match, index) => (
-                    <tr key={index}>
-                      <td className="border border-gray-300 px-4 py-2">
-                        {new Date(match.date).toLocaleDateString()} {match.hour}
-                      </td>
-                      <td className="border border-gray-300 px-4 py-2">{match.result}</td>
-                      <td className="border border-gray-300 px-4 py-2">{match.winner}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            ) : (
-              <p className="text-red-500 text-center">No matches for this event</p>
-            )}
-            <button
-              className="bg-blue-500 text-white px-4 py-2 mt-4 rounded"
-              onClick={handleClosePopup}
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
-
+      {showPopUp && selectedEvent && (<MatchesOverview selectedEvent={selectedEvent} closePopUp={setShowPopUp}/>)}
     </div>
   );
 };

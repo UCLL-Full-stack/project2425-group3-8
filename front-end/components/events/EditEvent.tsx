@@ -45,12 +45,13 @@ const EditEvent: React.FC<EditEventProps> = ({ event, onEventEdited }) => {
                 city: eventAddressCity,
                 cityCode: eventAddressCityCode,
                 street: eventAddressStreet,
-                number: eventAddressNumber || undefined  
+                number: eventAddressNumber || undefined
             },
             sport: {
                 name: eventSportName,
-                playerCount: eventSportPlayerCount || undefined  
-            }
+                playerCount: eventSportPlayerCount || undefined
+            },
+            matches: []
         };
 
         try {
