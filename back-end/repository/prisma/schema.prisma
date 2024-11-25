@@ -65,6 +65,8 @@ model Player {
     address     Location @relation(fields: [addressid], references: [id])
     age         Int
     experience  Int
+    matches     PlayerMatches[]
+    team       String
 }
 
 model Admin {
@@ -85,13 +87,25 @@ model Visitor {
 
 model Matches {
     id          Int      @id @default(autoincrement())
-    winner      String
-    result      String
+    winner      String?
+    result      String?
     date        DateTime
     hour        String
+    team1       String
+    team2       String
     eventId     Int?
     event       Event? @relation(fields: [eventId], references: [id])
+    players     PlayerMatches[]
 }
 
+model PlayerMatches {
+    id Int @id @default(autoincrement())
+    playerId Int
+    matchesId Int
+    match Matches @relation(fields: [matchesId], references: [id])
+    player Player @relation(fields: [playerId], references: [playerId])
+
+    @@unique([playerId, matchesId])
+}
 
 

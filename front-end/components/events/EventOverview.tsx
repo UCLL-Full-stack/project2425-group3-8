@@ -4,7 +4,7 @@ import { CustomEvent as Event } from "@types";
 import EditEvent from "./EditEvent";
 import DeleteEvent from "./DeleteEvent";
 import AddEvent from "./AddEvent";
-import MatchesOverview from "./matchesOverwiev";
+import MatchesOverview from "../matches/MatchesOverview";
 
 
 const EventOverview: React.FC = () => {

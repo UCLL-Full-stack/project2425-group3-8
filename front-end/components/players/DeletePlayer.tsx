@@ -1,39 +1,37 @@
-import React, { useState } from "react";
-import EventService from "@services/EventService";
+import { deleteMatches } from "@services/MatchesService";
+import { useState } from "react";
+import {removedPlayerFromMatch} from "../../services/PlayerService";
+import { match } from "assert";
 
-interface DeleteEventProps {
-    eventId: number;
+interface DeletePlayerProps {
+    playerId: number;
+    matchId: number;
     onDelete: (id: number) => void;
 }
 
-const DeleteEvent: React.FC<DeleteEventProps> = ({ eventId, onDelete }) => {
+const DeletePlayer: React.FC<DeletePlayerProps> = ({ playerId, onDelete, matchId }) => {
     const [showPopup, setShowPopup] = useState(false);
 
-    const handleDeleteClick = (e: React.FormEvent) => {
-        e.stopPropagation()
+    const handleDeleteClick = () => {
         setShowPopup(true);
     };
 
-    const confirmDelete = async (e: React.FormEvent) => {
-        e.stopPropagation()
+    const confirmDelete = async () => {
         try {
-            const response = await EventService.DeleteEventById(eventId);
+            const response = await removedPlayerFromMatch(playerId, matchId);
             if (response.ok) {
-                e.preventDefault();
-                onDelete(eventId);
-                
+                onDelete(playerId);
             } else {
-                alert("Failed to delete event");
+                alert("Failed to delete player");
             }
         } catch (error) {
             console.error("Error deleting event:", error);
-            alert("An error occurred while deleting the event");
+            alert("An error occurred while deleting the player");
         }
         setShowPopup(false);
-    };
+    }
 
-    const cancelDelete = (e: React.FormEvent) => {
-        e.stopPropagation()
+    const cancelDelete = () => {
         setShowPopup(false);
     };
 
@@ -80,7 +78,7 @@ const DeleteEvent: React.FC<DeleteEventProps> = ({ eventId, onDelete }) => {
                     textAlign: 'center',
                     borderRadius: '5px',
                 }}>
-                    <p className="text-xl">Are you sure you want to delete this event? "</p>
+                    <p className="text-xl">Are you sure you want to delete this player from this match? "</p>
                     <p className="text-xl flex justify-start">There is no way back buddy..</p>
                     <button style={buttonStyle} onClick={confirmDelete}>Yes</button>
                     <button style={buttonStyle} onClick={cancelDelete}>No</button>
@@ -88,6 +86,6 @@ const DeleteEvent: React.FC<DeleteEventProps> = ({ eventId, onDelete }) => {
             )}
         </div>
     );
-};
+}
 
-export default DeleteEvent;
+export default DeletePlayer;

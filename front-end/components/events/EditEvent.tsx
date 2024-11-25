@@ -82,7 +82,7 @@ const EditEvent: React.FC<EditEventProps> = ({ event, onEventEdited }) => {
         <div>
             
             <button
-        onClick={() => setIsModalOpen(true)}
+        onClick={(e) => {e.stopPropagation(), setIsModalOpen(true)}}
         style={{
           cursor: "pointer",
         }}
@@ -224,14 +224,14 @@ const EditEvent: React.FC<EditEventProps> = ({ event, onEventEdited }) => {
 
                             <div className="col-span-3 flex justify-between mt-4">
                                 <button
-                                    className="bg-red-500 text-white px-4 py-2 rounded-full"
+                                    className="bg-red-600 text-white px-4 py-2 rounded-full"
                                     type="button"
                                     onClick={() => setIsModalOpen(false)}
                                 >
                                     Cancel
                                 </button>
                                 <button
-                                    className="bg-blue-500 text-white px-4 py-2 rounded-full"
+                                    className="bg-blue-600 text-white px-4 py-2 rounded-full"
                                     type="submit"
                                 >
                                     Save Changes

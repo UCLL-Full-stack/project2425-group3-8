@@ -1,27 +1,23 @@
-import React, { useState } from "react";
-import EventService from "@services/EventService";
+import { deleteMatches } from "@services/MatchesService";
+import { useState } from "react";
 
 interface DeleteEventProps {
     eventId: number;
     onDelete: (id: number) => void;
 }
 
-const DeleteEvent: React.FC<DeleteEventProps> = ({ eventId, onDelete }) => {
+const DeleteMatches: React.FC<DeleteEventProps> = ({ eventId, onDelete }) => {
     const [showPopup, setShowPopup] = useState(false);
 
-    const handleDeleteClick = (e: React.FormEvent) => {
-        e.stopPropagation()
+    const handleDeleteClick = () => {
         setShowPopup(true);
     };
 
-    const confirmDelete = async (e: React.FormEvent) => {
-        e.stopPropagation()
+    const confirmDelete = async () => {
         try {
-            const response = await EventService.DeleteEventById(eventId);
+            const response = await deleteMatches(eventId);
             if (response.ok) {
-                e.preventDefault();
                 onDelete(eventId);
-                
             } else {
                 alert("Failed to delete event");
             }
@@ -30,10 +26,9 @@ const DeleteEvent: React.FC<DeleteEventProps> = ({ eventId, onDelete }) => {
             alert("An error occurred while deleting the event");
         }
         setShowPopup(false);
-    };
+    }
 
-    const cancelDelete = (e: React.FormEvent) => {
-        e.stopPropagation()
+    const cancelDelete = () => {
         setShowPopup(false);
     };
 
@@ -80,7 +75,7 @@ const DeleteEvent: React.FC<DeleteEventProps> = ({ eventId, onDelete }) => {
                     textAlign: 'center',
                     borderRadius: '5px',
                 }}>
-                    <p className="text-xl">Are you sure you want to delete this event? "</p>
+                    <p className="text-xl">Are you sure you want to delete this match from this event? </p>
                     <p className="text-xl flex justify-start">There is no way back buddy..</p>
                     <button style={buttonStyle} onClick={confirmDelete}>Yes</button>
                     <button style={buttonStyle} onClick={cancelDelete}>No</button>
@@ -88,6 +83,6 @@ const DeleteEvent: React.FC<DeleteEventProps> = ({ eventId, onDelete }) => {
             )}
         </div>
     );
-};
+}
 
-export default DeleteEvent;
+export default DeleteMatches;

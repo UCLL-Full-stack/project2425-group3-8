@@ -36,7 +36,8 @@ const AddEvent: React.FC<AddEventProps> = ({ onEventAdded }) => {
             sport: {
                 name: eventSportName,
                 playerCount: eventSportPlayerCount || undefined  
-            }
+            },
+            matches: []
         };
 
         try {
@@ -63,7 +64,7 @@ const AddEvent: React.FC<AddEventProps> = ({ onEventAdded }) => {
             <div className="flex justify-end">
                 <button
                     onClick={() => setIsModalOpen(true)}
-                    className="flex items-center bg-blue-400 px-4 py-2 rounded-full text-white hover:bg-blue-500"
+                    className="flex items-center bg-blue-600 px-4 py-2 rounded-full text-white hover:bg-blue-800"
                 >
                     <svg
                         className="w-6 h-6 text-white mr-2"
@@ -218,7 +219,7 @@ const AddEvent: React.FC<AddEventProps> = ({ onEventAdded }) => {
                             <div className="col-span-3 text-center mt-6">
                                 <button
                                     type="submit"
-                                    className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-full"
+                                    className="bg-blue-600 hover:bg-blue-600 text-white px-6 py-2 rounded-full"
                                 >
                                     Add Event
                                 </button>

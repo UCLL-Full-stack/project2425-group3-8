@@ -6,6 +6,8 @@ import swaggerUi from 'swagger-ui-express';
 import { eventRouter } from './controller/event.routes';
 import { userRouter } from './controller/user.routes';
 import express, { Request, Response, NextFunction } from 'express';
+import matchesRouter from './controller/matches.routes';
+import playerRouter from './controller/player.routes';
 
 const app = express();
 dotenv.config();
@@ -16,6 +18,8 @@ app.use(bodyParser.json());
 
 app.use('/event', eventRouter)
 app.use('/user', userRouter)
+app.use('/matches', matchesRouter)
+app.use('/player', playerRouter)
 
 app.get('/status', (req, res) => {
     res.json({ message: 'Back-end is running...' });

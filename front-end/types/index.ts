@@ -18,17 +18,21 @@ export type Location = {
 
 export type Matches = {
     id?: number;
-    winner: string;
-    result: string;
-    date: Date;
+    winner?: string;
+    result?: string;
+    date: string;
     hour: string;
+    team1: string;
+    team2: string;
 }
 
 export type Player = {
     id?: number;
     address: string;
+    name: string;
     age: number;
     experience: number;
+    team: string;
 }
 
 export type Sport = {

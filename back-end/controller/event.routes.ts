@@ -85,7 +85,7 @@ eventRouter.get('/:name', async (req: Request, res: Response) => {
             res.status(404).json({ message: 'Event not found' });
         }
     } catch (error) {
-        res.status(500).json({ message: 'Error retrieving event' });
+        res.status(400).json({ message: 'Error retrieving event' });
     }
 });
 
