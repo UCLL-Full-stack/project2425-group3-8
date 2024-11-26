@@ -15,8 +15,12 @@ const PlayerOverview: React.FC<PlayerOverviewProps> = ({ matchId, teamName1, tea
     const [playersTeam2, setPlayersTeam2] = useState<Player[]>([]);
     const [showDetails, setShowDetails] = useState(false);
     const [selectedPlayers, setSelectedPlayers] = useState<Player[]>([]);
+    const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
     useEffect(() => {
+        const adminStatus = sessionStorage.getItem("Admin") === "true";
+        setIsAdmin(adminStatus);
+
         const fetchPlayers = async (teamName: string, setPlayers: React.Dispatch<React.SetStateAction<Player[]>>) => {
             try {
                 const response = await getPlayersByTeamAndMatch(matchId, teamName);
@@ -51,7 +55,6 @@ const PlayerOverview: React.FC<PlayerOverviewProps> = ({ matchId, teamName1, tea
     const addPlayerToMatch = (player: Player) => {
         setSelectedPlayers((prevPlayers) => [...prevPlayers, player]);
 
-        // Re-fetch players for both teams after adding a player
         getPlayersByTeamAndMatch(matchId, teamName1).then(response => {
             if (response.ok) {
                 response.json().then(data => {
@@ -103,78 +106,90 @@ const PlayerOverview: React.FC<PlayerOverviewProps> = ({ matchId, teamName1, tea
         <div className="bg-white p-6 rounded shadow-lg w-3/5  flex flex-col">
             <h3 className="text-xl mb-2 text-center">Players in this Match</h3>
 
-            <div className="flex flex-grow space-x-8">
-                <div className="w-1/2">
-                    <div>
-                        <h4 className="text-lg mb-2 text-center">{teamName1} Players</h4>
-                        <table className="table-auto border-collapse border border-gray-300 w-full text-center">
-                            <thead>
-                                <tr>
-                                    <th className="border border-gray-300 px-4 py-2 bg-gray-100">Player Name</th>
-                                    <th className="border border-gray-300 px-4 py-2 bg-gray-100"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {playersTeam1.length > 0 ? (
-                                    playersTeam1.map((player) => (
-                                        <tr key={player.id}>
-                                            <td className="border border-gray-300 px-4 py-2">{player.name}</td>
-                                            <td className="border border-gray-300">
-                                                        <DeletePlayer
-                                                            playerId={player.id ?? 0}
-                                                            matchId={matchId}
-                                                            onDelete={() => handleDeletePlayer('team1', player.id ?? 0)}
-                                                        />
-                                                    </td>
-                                        </tr>
-                                    ))
-                                ) : (
-                                    <tr>
-                                        <td colSpan={2} className="border border-gray-300 px-4 py-2">No players found</td>
-                                    </tr>
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
+            <div className={`flex ${isAdmin ? 'space-x-8' : 'justify-center space-x-8'} flex-grow`}>
+    <div className="w-1/2">
+        <h4 className="text-lg mb-2 text-center">{teamName1} Players</h4>
+        <table className="table-auto border-collapse border border-gray-300 w-full text-center">
+            <thead>
+                <tr>
+                    <th className="border border-gray-300 px-4 py-2 bg-gray-100">Player Name</th>
+                    {isAdmin && (
+                        <th className="border border-gray-300 px-4 py-2 bg-gray-100"></th>
+                    )}
+                </tr>
+            </thead>
+            <tbody>
+                {playersTeam1.length > 0 ? (
+                    playersTeam1.map((player) => (
+                        <tr key={player.id}>
+                            <td className="border border-gray-300 px-4 py-2">{player.name}</td>
+                            {isAdmin && (
+                                <td className="border border-gray-300">
+                                    <DeletePlayer
+                                        playerId={player.id ?? 0}
+                                        matchId={matchId}
+                                        onDelete={() => handleDeletePlayer('team1', player.id ?? 0)}
+                                    />
+                                </td>
+                            )}
+                        </tr>
+                    ))
+                ) : (
+                    <tr>
+                        <td colSpan={isAdmin ? 2 : 1} className="border border-gray-300 px-4 py-2">
+                            No players found
+                        </td>
+                    </tr>
+                )}
+            </tbody>
+        </table>
+    </div>
 
-                    <div>
-                        <h4 className="text-lg mb-2 text-center">{teamName2} Players</h4>
-                        <table className="table-auto border-collapse border border-gray-300 w-full text-center">
-                            <thead>
-                                <tr>
-                                    <th className="border border-gray-300 px-4 py-2 bg-gray-100">Player Name</th>
-                                    <th className="border border-gray-300 px-4 py-2 bg-gray-100"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {playersTeam2.length > 0 ? (
-                                    playersTeam2.map((player) => (
-                                        <tr key={player.id}>
-                                            <td className="border border-gray-300 px-4 py-2">{player.name}</td>
-                                            <td className="border border-gray-300">
-                                                        <DeletePlayer
-                                                            playerId={player.id ?? 0}
-                                                            matchId={matchId}
-                                                            onDelete={() => handleDeletePlayer('team1', player.id ?? 0)}
-                                                        />
-                                                    </td>
-                                        </tr>
-                                    ))
-                                ) : (
-                                    <tr>
-                                        <td colSpan={2} className="border border-gray-300 px-4 py-2">No players found</td>
-                                    </tr>
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+    <div className="w-1/2">
+        <h4 className="text-lg mb-2 text-center">{teamName2} Players</h4>
+        <table className="table-auto border-collapse border border-gray-300 w-full text-center">
+            <thead>
+                <tr>
+                    <th className="border border-gray-300 px-4 py-2 bg-gray-100">Player Name</th>
+                    {isAdmin && (
+                        <th className="border border-gray-300 px-4 py-2 bg-gray-100"></th>
+                    )}
+                </tr>
+            </thead>
+            <tbody>
+                {playersTeam2.length > 0 ? (
+                    playersTeam2.map((player) => (
+                        <tr key={player.id}>
+                            <td className="border border-gray-300 px-4 py-2">{player.name}</td>
+                            {isAdmin && (
+                                <td className="border border-gray-300">
+                                    <DeletePlayer
+                                        playerId={player.id ?? 0}
+                                        matchId={matchId}
+                                        onDelete={() => handleDeletePlayer('team2', player.id ?? 0)}
+                                    />
+                                </td>
+                            )}
+                        </tr>
+                    ))
+                ) : (
+                    <tr>
+                        <td colSpan={isAdmin ? 2 : 1} className="border border-gray-300 px-4 py-2">
+                            No players found
+                        </td>
+                    </tr>
+                )}
+            </tbody>
+        </table>
+    </div>
 
-                <div className="w-1/2 flex flex-col justify-start items-center">
-                    <AddPlayer matchId={matchId} onAddPlayer={addPlayerToMatch} teamName={teamName1} />
-                    <AddPlayer matchId={matchId} onAddPlayer={addPlayerToMatch} teamName={teamName2} />
-                </div>
-            </div>
+    {isAdmin && (
+        <div className="w-1/2 flex flex-col justify-start items-center">
+            <AddPlayer matchId={matchId} onAddPlayer={addPlayerToMatch} teamName={teamName1} />
+            <AddPlayer matchId={matchId} onAddPlayer={addPlayerToMatch} teamName={teamName2} />
+        </div>
+    )}
+</div>
 
             <div className="flex justify-center mt-auto pt-8">
                 <button
