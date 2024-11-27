@@ -42,7 +42,7 @@ const EventOverview: React.FC = () => {
       }
     };
 
-    const adminStatus = sessionStorage.getItem("Admin") === "true";
+    const adminStatus = sessionStorage.getItem("role") === "admin";
     setIsAdmin(adminStatus);
 
     fetchEvents();

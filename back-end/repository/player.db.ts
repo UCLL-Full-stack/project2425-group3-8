@@ -84,9 +84,39 @@ const getAllPlayers = async () => {
     }
 }
 
+const getPlayerByEmail = async (email: string): Promise<boolean> => {
+    try {
+
+        const UserPrisma = await database.user.findFirst({
+            where:{
+                email: email
+            }
+        })  
+
+        const playerPrisma = await database.player.findFirst({
+            where:{
+                userId: UserPrisma?.id
+            },
+            include: {
+                user: true,
+                address: true
+            }
+        })
+
+        if (playerPrisma === null) {
+            return false
+        }
+
+        return true
+    } catch (error) {
+        throw error
+    }
+}
+
 
 export default {
     addPlayerToMatch,
     removePlayerFromMatch,
-    getAllPlayers
+    getAllPlayers,
+    getPlayerByEmail
 }

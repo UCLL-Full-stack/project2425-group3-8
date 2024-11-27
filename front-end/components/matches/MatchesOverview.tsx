@@ -24,11 +24,15 @@ const MatchesOverview: React.FC<{ selectedEvent: Event; closePopUp: (showPopUp: 
     setMatches((prevMatches) => [...prevMatches, match]);
   };
 
-  const handleEditMatch = (match: Matches) => { 
+  const handleEditMatch = (match: Matches, currentMatchId: number | undefined) => { 
+    if(currentMatchId){
+      handleDeleteMatch(currentMatchId)
+    }
     setMatches((prevMatches) => [...prevMatches, match]);
   }
 
   const handleDeleteMatch = (id: number) => {
+    console.log(id)
     setMatches((prevMatches) => prevMatches.filter((match) => match.id !== id));
   };
   const sortedMatches = matches.sort((a, b) => (a.id ?? 0) - (b.id ?? 0));

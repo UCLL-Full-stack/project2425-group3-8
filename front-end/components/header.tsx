@@ -12,7 +12,7 @@ const Header: React.FC = () => {
   }, []);
 
   const handleLogout = () => {
-    sessionStorage.removeItem("Admin");
+    sessionStorage.removeItem("role");
     sessionStorage.removeItem("UserEmail");
     setLoggedInUser(null);
     window.location.reload(); 
@@ -38,7 +38,7 @@ const Header: React.FC = () => {
                 Logout
               </a>
               <div className="text-white ms-3">
-                Welcome, {sessionStorage.getItem("Admin") === "true" ? "Admin: " : ""}{loggedInUser}!
+                Welcome {sessionStorage.getItem("role")}: {loggedInUser}!
               </div>
             </div>
           </>

@@ -5,7 +5,7 @@ import { editMatches } from "@services/MatchesService"; // Assuming you have an 
 interface EditMatchProps {
     currentMatch: Matches;
     selectedEvent: number;
-    onEditMatch: (match: Matches) => void;
+    onEditMatch: (match: Matches, currentMatchId: number | undefined) => void;
 }
 
 const EditMatches: React.FC<EditMatchProps> = ({ currentMatch, selectedEvent, onEditMatch }) => {
@@ -41,7 +41,7 @@ const EditMatches: React.FC<EditMatchProps> = ({ currentMatch, selectedEvent, on
             setHour('');
             setWinner('');
             setResult('');
-            onEditMatch(updatedMatch);
+            onEditMatch(updatedMatch, currentMatch.id);
         } catch (error) {
             console.error(error);
         }

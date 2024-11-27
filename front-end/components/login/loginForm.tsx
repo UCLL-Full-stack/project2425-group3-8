@@ -1,4 +1,4 @@
-import UserService from "@services/UserService"
+import UserService from "@services/userService";
 import router from "next/router";
 import { useState } from "react";
 
@@ -20,7 +20,7 @@ const LoginForm: React.FC = () => {
             const user = await UserService.getUserByMail(mail, password);
             if (user) {
                 sessionStorage.setItem("UserEmail", mail);
-                sessionStorage.setItem("Admin", user.resultAdmin);
+                sessionStorage.setItem("role", user.role);
                 setStatusText('logged in')
                 setTimeout(() => {
                     router.push("/");
