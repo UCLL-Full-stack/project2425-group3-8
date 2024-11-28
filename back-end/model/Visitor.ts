@@ -5,19 +5,22 @@ import {Visitor as VisitorPrisma, User as UserPrisma, Location as LocationPrisma
 export class Visitor extends User {
     private visitorId?: number;
     private address?: Location;
+    private event?: Event[];
 
-    constructor(visitor: { user: User; visitorId?: number; address?: Location }) {
+    constructor(visitor: { user: User; visitorId?: number; address?: Location, event?: Event[] }) {
         super({
             id: visitor.user.getId(), fullName: visitor.user.getFullName(), phoneNumber: visitor.user.getPhoneNumber(), email: visitor.user.getEmail(),
             password: visitor.user.getPassword()
         });
 
         this.visitorId = visitor.visitorId;
+        this.address = visitor.address;
+        this.event = visitor.event;
     }
 
     static fromVisitor({
         user,
-        address
+        address,
     }: VisitorPrisma & {address: LocationPrisma; user: UserPrisma;}): Visitor {
         const userObj = User.from(user);
         const locationObj = address ? Location.from(address) : undefined;
@@ -29,5 +32,13 @@ export class Visitor extends User {
 
     getVisitorId(): number | undefined {
         return this.visitorId;
+    }
+
+    getAddress(): Location | undefined {
+        return this.address;
+    }
+
+    getEvent(): Event[] | undefined {
+        return this.event;
     }
 }

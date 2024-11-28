@@ -113,10 +113,34 @@ const getPlayerByEmail = async (email: string): Promise<boolean> => {
     }
 }
 
+const getPlayerMatches = async (playerId: number) => {
+    try {
+        const playerMatches = await database.playerMatches.findMany({
+            where: {
+                playerId: playerId,
+            },
+        });
+
+        const matches = await database.matches.findMany({
+            where: {
+                id: {
+                    in: playerMatches.map((playerMatch) => playerMatch.matchesId),
+                },
+            },
+        });
+
+
+        return matches;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Error getting player matches');
+    }
+}
 
 export default {
     addPlayerToMatch,
     removePlayerFromMatch,
     getAllPlayers,
-    getPlayerByEmail
+    getPlayerByEmail,
+    getPlayerMatches,
 }

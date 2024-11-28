@@ -17,6 +17,7 @@ model Event{
     locationid  Int 
     location    Location @relation(fields: [locationid], references: [id])
     matches     Matches[]
+    visitors    VisitorEvent[]
 }
 
 model Sport{
@@ -83,6 +84,7 @@ model Visitor {
     user        User     @relation(fields: [userId], references: [id])
     addressid   Int       @unique
     address     Location @relation(fields: [addressid], references: [id])
+    events      VisitorEvent[]
 }
 
 model Matches {
@@ -106,6 +108,16 @@ model PlayerMatches {
     player Player @relation(fields: [playerId], references: [playerId])
 
     @@unique([playerId, matchesId])
+}
+
+model VisitorEvent{
+    id Int @id @default(autoincrement())
+    visitorId Int
+    eventId Int
+    event Event @relation(fields: [eventId], references: [id])
+    visitor Visitor @relation(fields: [visitorId], references: [visitorId])
+
+    @@unique([visitorId, eventId])
 }
 
 

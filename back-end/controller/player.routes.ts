@@ -131,4 +131,56 @@ playerRouter.get("/", async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /player/{playerId}:
+ *   get:
+ *     summary: Get player matches
+ *     description: Get all matches of a player
+ *     parameters:
+ *       - name: playerId
+ *         in: path
+ *         description: ID of the player
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Player matches
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                   winner:
+ *                     type: string
+ *                   result:
+ *                     type: string
+ *                   date:
+ *                     type: string
+ *                   hour:
+ *                     type: string
+ *                   team1:
+ *                     type: string
+ *                   team2:
+ *                     type: string
+ *       400:
+ *         description: Error getting player matches
+ */
+playerRouter.get("/:playerId", async (req, res) => {
+    const { playerId } = req.params;
+    try {
+        const playerMatches = await playerService.getPlayerMatches(parseInt(playerId));
+        res.status(200).json(playerMatches);
+    } catch (error) {
+        console.error(error);
+        res.status(400).json("Error getting player matches");
+    }
+});
+
+
 export default playerRouter;

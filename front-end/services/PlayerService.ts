@@ -20,9 +20,17 @@ const getAllPlayers = async () => {
     })
 }
 
+const getPlayerMatches = async (playerId: number) => {
+    return await fetch(`${process.env.NEXT_PUBLIC_API_URL}/player/${playerId}`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+    })
+}
+
 
 export {
     removedPlayerFromMatch,
     addPlayerToMatch,
-    getAllPlayers
+    getAllPlayers,
+    getPlayerMatches
 }

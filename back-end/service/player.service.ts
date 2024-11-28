@@ -30,8 +30,19 @@ const getAllPlayers = async () => {
     }
 }
 
+const getPlayerMatches = async (playerId: number) => {
+    try {
+        const playerMatches = await playerDb.getPlayerMatches(playerId);
+        return playerMatches;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Error getting player matches');
+    }
+}
+
 export default {
     addPlayerToMatch,
     removedPlayerFromMatch,
-    getAllPlayers
+    getAllPlayers,
+    getPlayerMatches
 }

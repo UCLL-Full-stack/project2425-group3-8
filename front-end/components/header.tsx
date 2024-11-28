@@ -28,6 +28,11 @@ const Header: React.FC = () => {
           Home
         </Link>
 
+        <Link href="/player" className="nav-link px-4 fs-5 text-white">
+          My Matches
+        </Link>
+        
+
         {loggedInUser ? (
           <>
             <div className="d-flex align-items-center justify-content-center">

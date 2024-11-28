@@ -285,6 +285,22 @@ const main = async () => {
         }
     })
 
+    const vistorEvent1 = await prisma.visitorEvent.create({
+        data: {
+            visitor: { connect: {visitorId : visitor.visitorId} },
+            event: { connect: { id: event1.id } }
+        }
+    });
+
+    const vistorEvent2 = await prisma.visitorEvent.create({
+        data: {
+            visitor: { connect: {visitorId : visitor.visitorId} },
+            event: { connect: { id: event2.id } }
+        }
+    });
+
+
+
     const user4 = await prisma.user.create({
         data: {
             fullName: 'Michael Jordan',

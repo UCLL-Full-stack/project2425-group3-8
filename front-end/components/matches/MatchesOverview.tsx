@@ -16,7 +16,7 @@ const MatchesOverview: React.FC<{ selectedEvent: Event; closePopUp: (showPopUp: 
     
     const sortedMatches = [...selectedEvent.matches].sort((a, b) => (a.id ?? 0) - (b.id ?? 0)); 
     setMatches(sortedMatches);
-    const adminStatus = sessionStorage.getItem("Admin") === "true";
+    const adminStatus = sessionStorage.getItem("role") === "admin";
     setIsAdmin(adminStatus);
   }, [selectedEvent]);
 

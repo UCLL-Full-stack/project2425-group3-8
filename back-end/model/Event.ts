@@ -1,7 +1,8 @@
-import { Event as EventPrisma, Sport as SportPrisma, Location as LocationPrisma, Matches as MatchesPrisma } from '@prisma/client';
+import { Event as EventPrisma, Sport as SportPrisma, Location as LocationPrisma, Matches as MatchesPrisma, Visitor as VisitorPrisma } from '@prisma/client';
 import { Sport } from './Sport';
 import { Location } from './Location';
 import { Matches } from './Matches';
+import { Visitor } from './Visitor';
 
 export class Event {
   private id?: number;
@@ -11,6 +12,7 @@ export class Event {
   private sport?: Sport;
   private location?: Location;
   private matches?: Matches[]; 
+  private visitors?: Visitor[];
 
   constructor(event: {
     id?: number;
@@ -20,6 +22,7 @@ export class Event {
     sport?: Sport;
     location?: Location;
     matches?: Matches[];
+    visitors?: Visitor[];
   }) {
     this.validate(event);
 
@@ -30,6 +33,7 @@ export class Event {
     this.sport = event.sport;
     this.location = event.location;
     this.matches = event.matches;
+    this.visitors = event.visitors;
   }
 
   static from({
@@ -40,17 +44,22 @@ export class Event {
     sport,
     location,
     matches,
-  }: EventPrisma & { sport: SportPrisma; location: LocationPrisma; matches: MatchesPrisma[] }) {
+}: EventPrisma & {
+    sport?: SportPrisma;
+    location?: LocationPrisma;
+    matches?: MatchesPrisma[];
+}): Event {
     return new Event({
-      id,
-      name,
-      startDate,
-      endDate,
-      sport: Sport.from(sport),
-      location: Location.from(location),
-      matches: matches.map((match) => Matches.from(match)), 
+        id,
+        name,
+        startDate,
+        endDate,
+        sport: sport ? Sport.from(sport) : undefined,
+        location: location ? Location.from(location) : undefined,
+        matches: matches ? matches.map((match) => Matches.from(match)) : undefined,
     });
-  }
+}
+
 
   getId(): number | undefined {
     return this.id;
@@ -78,6 +87,10 @@ export class Event {
 
   getMatches(): Matches[] | undefined {
     return this.matches;
+  }
+
+  getVisitors(): Visitor[] | undefined {
+    return this.visitors;
   }
 
   validate(event: { name: string; startDate: Date; endDate: Date }) {
