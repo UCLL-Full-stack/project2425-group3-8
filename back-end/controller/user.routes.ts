@@ -9,10 +9,10 @@ userRouter.post('/', async (req: Request, res: Response) => {
     try{
         try{
             const userInput: UserInput = req.body;
-            const result = await userService.getUserByEmail(userInput);
+            const result1 = await userService.getUserByEmail(userInput);
             const role = await userService.getRole(userInput)
-
-            res.status(200).json({result, role})
+            
+            res.status(200).json({result1, role, id: result1.getId()})
         } catch(error){
             throw error
         }

@@ -113,13 +113,24 @@ const getPlayerByEmail = async (email: string): Promise<boolean> => {
     }
 }
 
-const getPlayerMatches = async (playerId: number) => {
+const getPlayerMatches = async (userId: number) => {
     try {
+        const player = await database.player.findUnique({
+            where: { userId: userId },
+        });
+
+        if (!player) {
+            throw new Error('Player not found');
+        }
+
         const playerMatches = await database.playerMatches.findMany({
             where: {
-                playerId: playerId,
+                playerId: player.playerId,
             },
         });
+
+      
+
 
         const matches = await database.matches.findMany({
             where: {

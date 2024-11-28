@@ -29,7 +29,7 @@ const getRole = async (userInput: UserInput): Promise<String> =>{
 
         const isPlayer = await playerDb.getPlayerByEmail(userInput.email)
         if(isPlayer){
-            return "player"
+            return `player`
         }
 
         const isVisitor = await visitorDb.getVisitorByEmail(userInput.email)
