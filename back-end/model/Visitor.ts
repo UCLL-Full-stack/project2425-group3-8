@@ -41,4 +41,8 @@ export class Visitor extends User {
     getEvent(): Event[] | undefined {
         return this.event;
     }
+
+    setEvent(event: Event[]): void {
+        this.event = event;
+    }
 }

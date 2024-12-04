@@ -1,9 +1,12 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 const Header: React.FC = () => {
   const [loggedInUser, setLoggedInUser] = useState<string | null>(null);
   const [isPlayer, setIsPlayer] = useState<boolean>(false);
+  const [isVisitor, setIsVisitor] = useState<boolean>(false);
+  const router = useRouter();
 
   useEffect(() => {
     const user = sessionStorage.getItem("UserEmail");
@@ -12,13 +15,15 @@ const Header: React.FC = () => {
     }
     const playerStatus = sessionStorage.getItem("role") === "player";
     setIsPlayer(playerStatus);
+    const visitorStatus = sessionStorage.getItem("role") === "visitor";
+    setIsVisitor(visitorStatus);
   }, []);
 
   const handleLogout = () => {
     sessionStorage.removeItem("role");
     sessionStorage.removeItem("UserEmail");
     setLoggedInUser(null);
-    window.location.reload(); 
+    router.push("/"); // Redirect to the homepage
   };
 
   return (
@@ -36,7 +41,12 @@ const Header: React.FC = () => {
             My Matches
           </Link>
         )}
-        
+
+        {isVisitor && (
+          <Link href="/visitor" className="nav-link px-4 fs-5 text-white">
+            My Registered Matches
+          </Link>
+        )}
 
         {loggedInUser ? (
           <>
@@ -53,10 +63,7 @@ const Header: React.FC = () => {
             </div>
           </>
         ) : (
-          <Link
-            href="/login"
-            className="nav-link px-4 fs-5 text-white"
-          >
+          <Link href="/login" className="nav-link px-4 fs-5 text-white">
             Login
           </Link>
         )}
