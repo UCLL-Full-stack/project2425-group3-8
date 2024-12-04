@@ -29,6 +29,7 @@ const AddMatches: React.FC<AddMatchProps> = ({ eventId, onAddMatch }) => {
             hour: hour,
             winner: winner || undefined,
             result: result || undefined,
+            eventId: undefined,
         };
 
         try {

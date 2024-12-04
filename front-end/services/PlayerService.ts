@@ -20,8 +20,8 @@ const getAllPlayers = async () => {
     })
 }
 
-const getPlayerMatches = async (playerId: number) => {
-    return await fetch(`${process.env.NEXT_PUBLIC_API_URL}/player/${playerId}`, {
+const getPlayerMatches = async (playerEmail: string) => {
+    return await fetch(`${process.env.NEXT_PUBLIC_API_URL}/player/${playerEmail}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
     })

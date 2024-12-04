@@ -24,6 +24,7 @@ export type Matches = {
     hour: string;
     team1: string;
     team2: string;
+    eventId: CustomEvent['id'];
 }
 
 export type Player = {

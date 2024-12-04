@@ -58,7 +58,7 @@ matchesRouter.get("/:matchesid/:teamname", async (req: Request, res: Response) =
         }
     }catch(error){
         console.error(error);
-        res.status(400).json("error getting players");
+        res.status(400).json("error getting players sssss");
     }
 });
 
@@ -244,6 +244,44 @@ matchesRouter.delete("/:MatchesId", async (req: Request, res: Response) => {
     } catch (error) {
         console.error(error);
         res.status(400).json("Error deleting matches");
+    }
+}
+);
+
+/**
+ * @swagger
+ * /matches/{matchId}:
+ *   get:
+ *     summary: Get event name by match ID
+ *     description: Retrieve the name of the event for a specific match
+ *     parameters:
+ *       - name: matchId
+ *         in: path
+ *         description: ID of the match
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Name of the event
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 name:
+ *                   type: string
+ *       400:
+ *         description: Error getting event name
+ */
+matchesRouter.get("/:matchId", async (req: Request, res: Response) => {
+    const matchId = parseInt(req.params.matchId);
+    try {
+        const event = await matchesService.getEventNameByMatch(matchId);
+        res.status(200).json(event);
+    } catch (error) {
+        console.error(error);
+        res.status(400).json("Error getting event name");
     }
 }
 );

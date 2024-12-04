@@ -30,9 +30,9 @@ const getAllPlayers = async () => {
     }
 }
 
-const getPlayerMatches = async (playerId: number) => {
+const getPlayerMatches = async (playerEmail: string) => {
     try {
-        const playerMatches = await playerDb.getPlayerMatches(playerId);
+        const playerMatches = await playerDb.getPlayerMatches(playerEmail);
         return playerMatches;
     } catch (error) {
         console.error(error);

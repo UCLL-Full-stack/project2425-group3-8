@@ -37,11 +37,19 @@ const getMatchesForEvent = async (eventId: number) => {
     })
 }
 
+const getEventNameByMatch = async (matchId: number) => {
+    return await fetch(`${process.env.NEXT_PUBLIC_API_URL}/matches/${matchId}`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+    })
+}
+
 export { 
     getPlayersByTeamAndMatch,
     addMatches,
     editMatches,
     deleteMatches,
-    getMatchesForEvent
+    getMatchesForEvent,
+    getEventNameByMatch
  }
 

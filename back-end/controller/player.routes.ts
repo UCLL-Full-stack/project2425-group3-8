@@ -133,17 +133,17 @@ playerRouter.get("/", async (req, res) => {
 
 /**
  * @swagger
- * /player/{playerId}:
+ * /player/{playerEmail}:
  *   get:
  *     summary: Get player matches
- *     description: Get all matches of a player
+ *     description: Get all matches for a player
  *     parameters:
- *       - name: playerId
+ *       - name: playerEmail
  *         in: path
- *         description: ID of the player
+ *         description: Email of the player
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *     responses:
  *       200:
  *         description: Player matches
@@ -156,10 +156,6 @@ playerRouter.get("/", async (req, res) => {
  *                 properties:
  *                   id:
  *                     type: integer
- *                   winner:
- *                     type: string
- *                   result:
- *                     type: string
  *                   date:
  *                     type: string
  *                   hour:
@@ -171,10 +167,10 @@ playerRouter.get("/", async (req, res) => {
  *       400:
  *         description: Error getting player matches
  */
-playerRouter.get("/:playerId", async (req, res) => {
-    const { playerId } = req.params;
+playerRouter.get("/:playerEmail", async (req, res) => {
+    const { playerEmail } = req.params;
     try {
-        const playerMatches = await playerService.getPlayerMatches(parseInt(playerId));
+        const playerMatches = await playerService.getPlayerMatches(playerEmail);
         res.status(200).json(playerMatches);
     } catch (error) {
         console.error(error);

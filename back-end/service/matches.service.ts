@@ -40,10 +40,16 @@ const deleteMatches = async (matchesId: number) => {
     }
 }
 
+const getEventNameByMatch = async (matchId: number) => {
+    const event = await matchesDb.getEventNameByMatch(matchId);
+    return event;
+}
+
 
 export default {   
     getPlayersByTeamAndMatch,
     addMatches,
     editMatches,
-    deleteMatches
+    deleteMatches,
+    getEventNameByMatch,
 }

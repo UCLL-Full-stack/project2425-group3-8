@@ -3,12 +3,15 @@ import { useState, useEffect } from 'react';
 
 const Header: React.FC = () => {
   const [loggedInUser, setLoggedInUser] = useState<string | null>(null);
+  const [isPlayer, setIsPlayer] = useState<boolean>(false);
 
   useEffect(() => {
     const user = sessionStorage.getItem("UserEmail");
     if (user) {
       setLoggedInUser(user);
     }
+    const playerStatus = sessionStorage.getItem("role") === "player";
+    setIsPlayer(playerStatus);
   }, []);
 
   const handleLogout = () => {
@@ -28,9 +31,11 @@ const Header: React.FC = () => {
           Home
         </Link>
 
-        <Link href="/player" className="nav-link px-4 fs-5 text-white">
-          My Matches
-        </Link>
+        {isPlayer && (
+          <Link href="/player" className="nav-link px-4 fs-5 text-white">
+            My Matches
+          </Link>
+        )}
         
 
         {loggedInUser ? (

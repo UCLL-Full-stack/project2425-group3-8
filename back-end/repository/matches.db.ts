@@ -95,9 +95,38 @@ const deleteMatches = async (matchesId: number) => {
     }
 };
 
+const getEventNameByMatch = async (matchId: number) => {
+    const match = await database.matches.findUnique({
+        where: {
+            id: matchId,
+        },
+        select: {
+            eventId: true,
+        },
+    });
+    
+    if (!match) {
+        throw new Error('Match not found');
+    }
+
+    const event = await database.event.findUnique({
+        where: {
+            id: match.eventId || 0, 
+        },
+        select: {
+            name: true,
+        },
+    });
+       
+   
+
+    return event;
+}
+
 export default {
     getPlayersByTeamAndMatch,
     addMatches,
     editMatches,
     deleteMatches,
+    getEventNameByMatch,
 }

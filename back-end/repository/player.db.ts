@@ -113,10 +113,10 @@ const getPlayerByEmail = async (email: string): Promise<boolean> => {
     }
 }
 
-const getPlayerMatches = async (userId: number) => {
+const getPlayerMatches = async (userEmail: string) => {
     try {
-        const player = await database.player.findUnique({
-            where: { userId: userId },
+        const player = await database.player.findFirst({
+            where: { user: { email: userEmail } },
         });
 
         if (!player) {
