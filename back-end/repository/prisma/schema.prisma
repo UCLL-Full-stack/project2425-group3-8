@@ -33,7 +33,7 @@ model Location{
     city      String @unique
     cityCode  String
     street    String
-    number    String
+    number    Int
 
     Event Event[]
 

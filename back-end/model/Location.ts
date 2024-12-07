@@ -26,7 +26,7 @@ static from({
         city,
         cityCode,
         street,
-        number: Number(number)
+        number,
     });
 }
 

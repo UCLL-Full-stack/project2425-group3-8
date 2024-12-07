@@ -1,3 +1,5 @@
+type Role = 'admin' | 'visitor' | 'player';
+
 export type CustomEvent = {
     id?: number;
     name: string;
@@ -30,6 +32,7 @@ export type Matches = {
 export type Player = {
     id?: number;
     address: string;
+    userId: User['id'];
     name: string;
     age: number;
     experience: number;
@@ -47,5 +50,7 @@ export type User = {
     fullName: string;
     phoneNumber: string;
     email: string;
+    password: string;
+    role: Role;
 }
 

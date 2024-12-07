@@ -60,7 +60,7 @@ const main = async () => {
             city: 'Vilvoorde',
             cityCode: '1800',
             street: 'Vlaanderenstraat',
-            number: '42'
+            number: 42
         }
     });
 
@@ -69,7 +69,7 @@ const main = async () => {
             city: 'Brussel',
             cityCode: '1000',
             street: 'Rue de la Loi',
-            number: '16'
+            number: 16
         }
     });
 
@@ -78,7 +78,7 @@ const main = async () => {
             city: 'Antwerpen',
             cityCode: '2000',
             street: 'Meir',
-            number: '1'
+            number: 1
         }
     });
 
@@ -87,7 +87,7 @@ const main = async () => {
             city: 'Gent',
             cityCode: '9000',
             street: 'Korenmarkt',
-            number: '1'
+            number: 1
         }
     });
 
@@ -96,7 +96,7 @@ const main = async () => {
             city: 'Leuven',
             cityCode: '3000',
             street: 'Oude Markt',
-            number: '1'
+            number: 1
         }
     });
 
@@ -105,7 +105,7 @@ const main = async () => {
             city: 'Mechelen',
             cityCode: '2800',
             street: 'Grote Markt',
-            number: '1'
+            number: 1
         }
     });
 
@@ -552,7 +552,7 @@ const main = async () => {
             city: 'Hasselt',
             cityCode: '3500',
             street: 'Kempische Steenweg',
-            number: '70'
+            number: 70
         }
     });
     
@@ -561,7 +561,7 @@ const main = async () => {
             city: 'Brugge',
             cityCode: '8000',
             street: 'Markt',
-            number: '5'
+            number: 5
         }
     });
     
@@ -570,7 +570,7 @@ const main = async () => {
             city: 'Oostende',
             cityCode: '8400',
             street: 'Albert I Promenade',
-            number: '10'
+            number: 10
         }
     });
     
@@ -579,7 +579,7 @@ const main = async () => {
             city: 'Kortrijk',
             cityCode: '8500',
             street: 'Doorniksestraat',
-            number: '2'
+            number: 2
         }
     });
     
@@ -588,7 +588,7 @@ const main = async () => {
             city: 'Sint-Niklaas',
             cityCode: '9100',
             street: 'Stationsstraat',
-            number: '12'
+            number: 12
         }
     });
     
@@ -597,7 +597,7 @@ const main = async () => {
             city: 'Genk',
             cityCode: '3600',
             street: 'Stadsplein',
-            number: '8'
+            number: 8
         }
     });
     
@@ -606,7 +606,7 @@ const main = async () => {
             city: 'Aalst',
             cityCode: '9300',
             street: 'Hopmarkt',
-            number: '15'
+            number: 15
         }
     });
     
@@ -615,7 +615,7 @@ const main = async () => {
             city: 'Roeselare',
             cityCode: '8800',
             street: 'Ooststraat',
-            number: '3'
+            number: 3
         }
     });
     
@@ -624,7 +624,7 @@ const main = async () => {
             city: 'Turnhout',
             cityCode: '2300',
             street: 'Warandestraat',
-            number: '1'
+            number: 1
         }
     });
     
@@ -633,7 +633,7 @@ const main = async () => {
             city: 'Dendermonde',
             cityCode: '9200',
             street: 'Vlasmarkt',
-            number: '20'
+            number: 20
         }
     });
     const location17 = await prisma.location.create({
@@ -641,7 +641,7 @@ const main = async () => {
             city: 'bagala',
             cityCode: '9200',
             street: 'Vlasmarkt',
-            number: '20'
+            number: 20
         }
     });
 

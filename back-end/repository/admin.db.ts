@@ -5,30 +5,28 @@ import { User } from "../model/User"
 
 const getAdminByEmail = async (email: string): Promise<boolean> => {
     try {
+        const userPrisma = await database.user.findFirst({
+            where: { email: email }
+        });
 
-        const UserPrisma = await database.user.findFirst({
-            where:{
-                email: email
-            }
-        })  
-
-        const AdminPrisma = await database.admin.findFirst({
-            where:{
-                userId: UserPrisma?.id
-            },
-            include: {
-                user: true,
-                address: true
-            }
-        })
-
-        if (AdminPrisma === null) {
-            return false
+        if (!userPrisma) {
+            return false;
         }
 
-        return true
+        const adminPrisma = await database.admin.findFirst({
+            where: { userId: userPrisma.id },
+            include: { user: true, address: true }
+        });
+
+        if (adminPrisma === null) {
+            return false;
+        }
+
+        const admin = Admin.fromAdmin(adminPrisma);  
+        return true;
     } catch (error) {
-        throw error
+        console.error(error);
+        throw new Error("Error retrieving admin data");
     }
 }
 

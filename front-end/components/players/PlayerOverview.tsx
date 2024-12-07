@@ -22,14 +22,19 @@ const PlayerOverview: React.FC<PlayerOverviewProps> = ({ matchId, teamName1, tea
         setIsAdmin(adminStatus);
 
         const fetchPlayers = async (teamName: string, setPlayers: React.Dispatch<React.SetStateAction<Player[]>>) => {
+           console.log("fetching players for team", teamName);
             try {
                 const response = await getPlayersByTeamAndMatch(matchId, teamName);
+                console.log("response", response);
                 if (response.ok) {
                     const data = await response.json();
-                    const mappedPlayers = data.map((player: any) => ({
-                        id: player.playerId,
-                        name: player.user.fullName,
-                        team: player.team
+                    const mappedPlayers = await Promise.all(data.map(async (player: any) => {
+                        // Fetch the player’s full name using the userId
+                        return {
+                            id: player.playerId,
+                            name: player.user.fullName,
+                            team: player.team
+                        };
                     }));
                     setPlayers(mappedPlayers);
                 } else {

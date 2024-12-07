@@ -70,7 +70,7 @@ const updateEvent = async (id: string, updateData: any): Promise<Event | null> =
                                   city: updateData.location.city,
                                   cityCode: updateData.location.cityCode,
                                   street: updateData.location.street,
-                                  number: String(updateData.location.number),
+                                  number: updateData.location.number,
                               },
                           },
                       }
@@ -150,7 +150,7 @@ const addEvent = async (eventData: {
                 city: eventData.location.city,
                 cityCode: eventData.location.cityCode,
                 street: eventData.location.street,
-                number: String(eventData.location.number),
+                number: eventData.location.number,
               },
             },
           },

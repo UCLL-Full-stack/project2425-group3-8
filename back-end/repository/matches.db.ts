@@ -1,5 +1,6 @@
-
 import database from "./database";
+import { Player } from "../model/Player"; 
+import { Event } from "../model/Event";    
 
 const getPlayersByTeamAndMatch = async ( matchId: number, teamName: string) => {
     const players = await database.player.findMany({
@@ -27,80 +28,102 @@ const getPlayersByTeamAndMatch = async ( matchId: number, teamName: string) => {
 
 const addMatches = async (matches: any, eventId: number) => {
     try {
-    const newMatches = await database.matches.create({
-        data: {
-            date: matches.date,
-            hour: matches.hour,
-            event: {
-                connect: {
-                    id: eventId, 
+        const newMatchesPrisma = await database.matches.create({
+            data: {
+                date: matches.date,
+                hour: matches.hour,
+                event: {
+                    connect: {
+                        id: eventId,
+                    },
                 },
+                team1: matches.team1,
+                team2: matches.team2,
             },
-            team1: matches.team1,
-            team2: matches.team2,
-        },
-    });
-    return newMatches;
-    }catch (error) {
-        console.error(error);
-        throw new Error('Error adding matches');
-    }
-}
+        });
 
-const editMatches = async (matches: any, eventId: number, matchesId: number) => {
-    try {
-    const newMatches = await database.matches.update({
-        where: {
-            id: matchesId,
-        },
-        data: {
-            date: matches.date,
-            hour: matches.hour,
-            event: {
-                connect: {
-                    id: eventId, 
-                },
-            },
-            team1: matches.team1,
-            team2: matches.team2,
-            winner: matches.winner,
-            result: matches.result,
-        },
-    });
-    return newMatches;
-    }catch (error) {
+        const newMatches = {
+            id: newMatchesPrisma.id,
+            date: newMatchesPrisma.date,
+            hour: newMatchesPrisma.hour,
+            team1: newMatchesPrisma.team1,
+            team2: newMatchesPrisma.team2,
+            winner: newMatchesPrisma.winner,
+            result: newMatchesPrisma.result,
+            eventId: newMatchesPrisma.eventId,
+        };
+
+        return newMatches;
+    } catch (error) {
         console.error(error);
-        throw new Error('Error adding matches');
+        throw new Error('Error adding match');
     }
-}
+};
+
+const editMatches = async (matches: any, eventId: number, matchId: number) => {
+    try {
+        const updatedMatchPrisma = await database.matches.update({
+            where: {
+                id: matchId,
+            },
+            data: {
+                date: matches.date,
+                hour: matches.hour,
+                event: {
+                    connect: {
+                        id: eventId,
+                    },
+                },
+                team1: matches.team1,
+                team2: matches.team2,
+                winner: matches.winner,
+                result: matches.result,
+            },
+        });
+
+        const updatedMatch = {
+            id: updatedMatchPrisma.id,
+            date: updatedMatchPrisma.date,
+            hour: updatedMatchPrisma.hour,
+            team1: updatedMatchPrisma.team1,
+            team2: updatedMatchPrisma.team2,
+            winner: updatedMatchPrisma.winner,
+            result: updatedMatchPrisma.result,
+            eventId: updatedMatchPrisma.eventId,
+        };
+
+        return updatedMatch;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Error editing match');
+    }
+};
 
 const deleteMatches = async (matchesId: number) => {
     try {
-        // Check if the match exists before attempting to delete
         const matchExists = await database.matches.findUnique({
-          where: { id: matchesId },
+            where: { id: matchesId },
         });
-  
+
         if (!matchExists) {
-          console.log(`Match with ID ${matchesId} does not exist.`);
-          return { success: false, message: 'Match not found' };
+            console.log(`Match with ID ${matchesId} does not exist.`);
+            return { success: false, message: 'Match not found' };
         }
-        
+
         await database.playerMatches.deleteMany({
             where: { matchesId },
         });
-  
+
         const deletedMatches = await database.matches.delete({
             where: { id: matchesId },
         });
-  
+
         return { success: true, deletedMatches };
     } catch (error) {
         console.error('Error during deletion:', error);
-        throw new Error('Error deleting matches');
+        throw new Error('Error deleting match');
     }
-  };
-  
+};
 
 const getEventNameByMatch = async (matchId: number) => {
     const match = await database.matches.findUnique({
@@ -111,24 +134,33 @@ const getEventNameByMatch = async (matchId: number) => {
             eventId: true,
         },
     });
-    
-    if (!match) {
-        throw new Error('Match not found');
+
+    if (!match || !match.eventId) {
+        throw new Error('Match or Event not found');
     }
 
-    const event = await database.event.findUnique({
+    const eventPrisma = await database.event.findUnique({
         where: {
-            id: match.eventId || 0, 
+            id: match.eventId, 
         },
         select: {
+            id: true,
             name: true,
+            startDate: true,
+            endDate: true,
+            sportid: true,
+            locationid: true,
         },
     });
-       
-   
 
+    if (!eventPrisma) {
+        throw new Error('Event not found');
+    }
+
+    const event = Event.from(eventPrisma); 
     return event;
-}
+};
+
 
 export default {
     getPlayersByTeamAndMatch,
@@ -136,4 +168,4 @@ export default {
     editMatches,
     deleteMatches,
     getEventNameByMatch,
-}
+};

@@ -1,43 +1,48 @@
 type Role = 'admin' | 'visitor' | 'player';
 
-
 type EventInput = {
     id?: number;
     name: string;
     startDate: Date;
     endDate: Date;
-    sport?: SportInput;
-    location?: LocationInput
-}
+    sportId?: number;
+    locationId?: number;
+    matches?: MatchesInput[];
+};
 
 type LocationInput = {
     id?: number;
     city: string;
     cityCode: string;
     street: string;
-    number: number;
-}
+    number: string;
+};
 
 type MatchesInput = {
     id?: number;
-    winner: string;
-    result: string;
+    winner?: string;
+    result?: string;
     date: Date;
     hour: string;
-}
+    team1: string;
+    team2: string;
+    eventId?: number;
+};
 
 type PlayerInput = {
-    id?: number;
-    address: Location;
+    playerId?: number;
+    userId: number;
+    addressId: number;
     age: number;
     experience: number;
-}
+    team: string;
+};
 
 type SportInput = {
     id?: number;
     playerCount: number;
     name: string;
-}
+};
 
 type UserInput = {
     id?: number;
@@ -46,12 +51,12 @@ type UserInput = {
     email: string;
     password: string;
     role: Role;
-}
+};
 
 type AuthenticationResponse = {
     token: string;
     email: string;
-    role: string;
+    role: Role;
 };
 
 export {
