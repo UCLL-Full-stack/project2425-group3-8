@@ -26,6 +26,7 @@ const Header: React.FC = () => {
     setIsPlayer(false);
     setLoggedInUser(null);
     router.push("/"); 
+    window.location.reload();
   };
 
   return (
