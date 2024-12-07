@@ -56,6 +56,7 @@ model User{
     Visitor Visitor[]
 
     Player Player[]
+    role      String
 }
 
 model Player {
@@ -104,7 +105,7 @@ model PlayerMatches {
     id Int @id @default(autoincrement())
     playerId Int
     matchesId Int
-    match Matches @relation(fields: [matchesId], references: [id])
+    match Matches @relation(fields: [matchesId], references: [id], onDelete: Cascade)
     player Player @relation(fields: [playerId], references: [playerId])
 
     @@unique([playerId, matchesId])
@@ -114,7 +115,7 @@ model VisitorEvent{
     id Int @id @default(autoincrement())
     visitorId Int
     eventId Int
-    event Event @relation(fields: [eventId], references: [id])
+    event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
     visitor Visitor @relation(fields: [visitorId], references: [visitorId])
 
     @@unique([visitorId, eventId])

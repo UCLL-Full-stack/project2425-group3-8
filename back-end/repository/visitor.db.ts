@@ -113,9 +113,71 @@ const addEventToVisitor = async (visitorEmail: string, eventId: number) => {
     return visitorEvent
 }
 
+const checkVisitorRegistration = async (visitorEmail: string, eventId: number) => {
+    const visitor = await database.visitor.findFirst({
+        where: {
+            user: {
+                email: visitorEmail
+            }
+        }
+    })
+
+    if (!visitor) {
+        throw new Error("Visitor not found");
+    }
+
+    const visitorEvent = await database.visitorEvent.findFirst({
+        where: {
+            visitorId: visitor.visitorId,
+            eventId: eventId
+        }
+    })
+
+    if (!visitorEvent) {
+        return false
+    }
+
+    return true
+}
+
+const removeEventFromVisitor = async (visitorEmail: string, eventId: number) => {
+    const visitor = await database.visitor.findFirst({
+        where: {
+            user: {
+                email: visitorEmail
+            }
+        }
+    })
+
+    if (!visitor) {
+        throw new Error("Visitor not found");
+    }
+
+    const visitorEvent = await database.visitorEvent.findFirst({
+        where: {
+            visitorId: visitor.visitorId,
+            eventId: eventId
+        }
+    })
+
+    if (!visitorEvent) {
+        throw new Error("Event not found");
+    }
+
+    await database.visitorEvent.delete({
+        where: {
+            id: visitorEvent.id
+        }
+    })
+
+    return true
+}
+
 
 export default {
     getVisitorByEmail,
     getMyRegisteredEvents,
-    addEventToVisitor
+    addEventToVisitor,
+    checkVisitorRegistration,
+    removeEventFromVisitor
 }

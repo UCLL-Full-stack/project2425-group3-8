@@ -22,8 +22,10 @@ const Header: React.FC = () => {
   const handleLogout = () => {
     sessionStorage.removeItem("role");
     sessionStorage.removeItem("UserEmail");
+    setIsVisitor(false);
+    setIsPlayer(false);
     setLoggedInUser(null);
-    router.push("/"); // Redirect to the homepage
+    router.push("/"); 
   };
 
   return (

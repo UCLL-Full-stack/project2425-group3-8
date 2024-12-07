@@ -8,7 +8,7 @@ export class Admin extends User {
     private address?: Location;
 
     constructor(admin: {user: User; adminId?: number;address?: Location }) {
-        super({ id: admin.user.getId(), fullName: admin.user.getFullName(), phoneNumber: admin.user.getPhoneNumber(), email: admin.user.getEmail(), password: admin.user.getPassword() });
+        super({ id: admin.user.getId(), fullName: admin.user.getFullName(), phoneNumber: admin.user.getPhoneNumber(), email: admin.user.getEmail(), password: admin.user.getPassword(), role: admin.user.getRole() });
 
         this.adminId = admin.adminId;
         this.address = admin.address;
@@ -41,4 +41,5 @@ export class Admin extends User {
     setAddress(address: Location): void {
         this.address = address;
     }
+
 }

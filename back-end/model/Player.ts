@@ -12,7 +12,7 @@ export class Player extends User {
     private team: string;
 
     constructor(player: {user: User; playerId?: number; age: number; experience:number; address?: Location, matches?: Matches[], team: string}) {
-        super({id: player.user.getId(), fullName: player.user.getFullName(), phoneNumber: player.user.getPhoneNumber(), email: player.user.getEmail(), password: player.user.getPassword()});
+        super({id: player.user.getId(), fullName: player.user.getFullName(), phoneNumber: player.user.getPhoneNumber(), email: player.user.getEmail(), password: player.user.getPassword(), role: player.user.getRole()});
 
         this.playerId = player.playerId;
         this.age = player.age;
@@ -27,7 +27,7 @@ export class Player extends User {
 
             playerId: player.playerId,
 
-            user: new User({ id: player.userId, fullName: '', phoneNumber: '', email: '', password: '' }),
+            user: new User({ id: player.userId, fullName: '', phoneNumber: '', email: '', password: '' , role: "player"}),
 
             address: new Location({ id: player.addressid, city: '', cityCode: '', street: '', number: 0}),
 

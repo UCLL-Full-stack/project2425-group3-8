@@ -17,9 +17,10 @@ const DeleteEvent: React.FC<DeleteEventProps> = ({ eventId, onDelete }) => {
     const confirmDelete = async (e: React.FormEvent) => {
         e.stopPropagation()
         try {
+            console.log(eventId);
             const response = await EventService.DeleteEventById(eventId);
+            console.log(response);
             if (response.ok) {
-                e.preventDefault();
                 onDelete(eventId);
                 
             } else {

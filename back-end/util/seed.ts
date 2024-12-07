@@ -9,6 +9,7 @@ const prisma = new PrismaClient();
 const main = async () => {
 
         await prisma.playerMatches.deleteMany();
+        await prisma.visitorEvent.deleteMany();
         await prisma.matches.deleteMany();
         await prisma.event.deleteMany();
         await prisma.admin.deleteMany();
@@ -249,6 +250,7 @@ const main = async () => {
             phoneNumber: '0487654321',
             email: 'johndoe@gmail.com',
             password: await bcrypt.hash('john', 10),
+            role: 'admin'
         }
     });
 
@@ -258,6 +260,7 @@ const main = async () => {
             phoneNumber: '0487654321',
             email: 'janedoe@gmail.com',
             password: await bcrypt.hash('jane', 10),
+            role: 'visitor'
         }
     });
 
@@ -267,6 +270,7 @@ const main = async () => {
             phoneNumber: '0487654321',
             email: 'mikeljordan@gmail.com',
             password: await bcrypt.hash('baseball', 10),
+            role: 'player'
         }
     });
 
@@ -307,6 +311,7 @@ const main = async () => {
             phoneNumber: '0487654321',
             email: 'michaeljordon@gmail.com',
             password: await bcrypt.hash('michael', 10),
+            role: 'player'
         }
     });
 
@@ -316,6 +321,7 @@ const main = async () => {
             phoneNumber: '0487654321',
             email: 'kobebryant@gmail.com',
             password: await bcrypt.hash('kobe', 10),
+            role: 'player'
         }
     });
 
@@ -325,6 +331,7 @@ const main = async () => {
             phoneNumber: '0487654321',
             email: 'lebronjames@gmail.com',
             password: await bcrypt.hash('lebron', 10),
+            role: 'player'
         }
     });
 
@@ -397,6 +404,7 @@ const main = async () => {
             phoneNumber: '0487654321',
             email: 'joedoe@gmail.com',
             password: await bcrypt.hash('joe', 10),
+            role: 'player'
         }
     });
     const player5 = await prisma.player.create({
@@ -415,6 +423,7 @@ const main = async () => {
             phoneNumber: '0487654321',
             email: 'jackdoe@gmail.com',
             password: await bcrypt.hash('jack', 10),
+            role: 'player'
         }
     });
 
@@ -435,6 +444,7 @@ const main = async () => {
             phoneNumber: '0498123456',
             email: 'emily.johnson@gmail.com',
             password: await bcrypt.hash('emily123', 10),
+            role: 'player'
         }
     });
     
@@ -444,6 +454,7 @@ const main = async () => {
             phoneNumber: '0487651234',
             email: 'liam.brown@gmail.com',
             password: await bcrypt.hash('liamrocks', 10),
+            role: 'player'
         }
     });
     
@@ -453,6 +464,7 @@ const main = async () => {
             phoneNumber: '0478123456',
             email: 'sophia.davis@gmail.com',
             password: await bcrypt.hash('sophia123', 10),
+            role: 'player'
         }
     });
     
@@ -462,6 +474,7 @@ const main = async () => {
             phoneNumber: '0467123456',
             email: 'ethan.wilson@gmail.com',
             password: await bcrypt.hash('ethanw123', 10),
+            role: 'player'
         }
     });
     
@@ -471,6 +484,7 @@ const main = async () => {
             phoneNumber: '0456123456',
             email: 'mia.garcia@gmail.com',
             password: await bcrypt.hash('miagarcia', 10),
+            role: 'player'
         }
     });
     
@@ -480,6 +494,7 @@ const main = async () => {
             phoneNumber: '0499123456',
             email: 'james.anderson@gmail.com',
             password: await bcrypt.hash('james1234', 10),
+            role: 'player'
         }
     });
     
@@ -489,6 +504,7 @@ const main = async () => {
             phoneNumber: '0491123456',
             email: 'ava.martinez@gmail.com',
             password: await bcrypt.hash('avarocks', 10),
+            role: 'player'
         }
     });
     
@@ -498,6 +514,7 @@ const main = async () => {
             phoneNumber: '0482123456',
             email: 'noah.thomas@gmail.com',
             password: await bcrypt.hash('noah1234', 10),
+            role: 'player'
         }
     });
     
@@ -507,6 +524,7 @@ const main = async () => {
             phoneNumber: '0479123456',
             email: 'isabella.white@gmail.com',
             password: await bcrypt.hash('isabella123', 10),
+            role: 'player'
         }
     });
     
@@ -516,6 +534,7 @@ const main = async () => {
             phoneNumber: '0465123456',
             email: 'oliver.harris@gmail.com',
             password: await bcrypt.hash('oliveriscool', 10),
+            role: 'player'
         }
     });
     const user21 = await prisma.user.create({
@@ -524,6 +543,7 @@ const main = async () => {
             phoneNumber: '0482123456',
             email: 'noaha.thomas@gmail.com',
             password: await bcrypt.hash('noaha1234', 10),
+            role: 'player'
         }
     });
 

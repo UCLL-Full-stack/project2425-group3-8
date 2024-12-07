@@ -1,3 +1,6 @@
+type Role = 'admin' | 'visitor' | 'player';
+
+
 type EventInput = {
     id?: number;
     name: string;
@@ -42,7 +45,14 @@ type UserInput = {
     phoneNumber: string;
     email: string;
     password: string;
+    role: Role;
 }
+
+type AuthenticationResponse = {
+    token: string;
+    email: string;
+    role: string;
+};
 
 export {
     UserInput,
@@ -50,6 +60,6 @@ export {
     PlayerInput,
     MatchesInput,
     LocationInput,
-    EventInput
-}
+    EventInput, AuthenticationResponse, Role
+};
 

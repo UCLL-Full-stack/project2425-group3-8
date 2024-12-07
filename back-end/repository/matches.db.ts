@@ -76,24 +76,31 @@ const editMatches = async (matches: any, eventId: number, matchesId: number) => 
 
 const deleteMatches = async (matchesId: number) => {
     try {
+        // Check if the match exists before attempting to delete
+        const matchExists = await database.matches.findUnique({
+          where: { id: matchesId },
+        });
+  
+        if (!matchExists) {
+          console.log(`Match with ID ${matchesId} does not exist.`);
+          return { success: false, message: 'Match not found' };
+        }
+        
         await database.playerMatches.deleteMany({
-            where: {
-                matchesId: matchesId,
-            },
+            where: { matchesId },
         });
-
+  
         const deletedMatches = await database.matches.delete({
-            where: {
-                id: matchesId,
-            },
+            where: { id: matchesId },
         });
-
-        return deletedMatches;
+  
+        return { success: true, deletedMatches };
     } catch (error) {
-        console.error(error);
+        console.error('Error during deletion:', error);
         throw new Error('Error deleting matches');
     }
-};
+  };
+  
 
 const getEventNameByMatch = async (matchId: number) => {
     const match = await database.matches.findUnique({

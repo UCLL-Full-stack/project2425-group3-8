@@ -21,7 +21,29 @@ const addEventToVisitor = async (visitorEmail: string, eventId: number) => {
     }
 }
 
+const checkVisitorRegistration = async (visitorEmail: string, eventId: number) => {
+    try {
+        const visitorRegistration = await visitorDb.checkVisitorRegistration(visitorEmail, eventId);
+        return visitorRegistration;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Error checking visitor registration');
+    }
+}
+
+const removeEventFromVisitor = async (visitorEmail: string, eventId: number) => {
+    try {
+        const removedEventFromVisitor = await visitorDb.removeEventFromVisitor(visitorEmail, eventId);
+        return removedEventFromVisitor;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Error removing event from visitor');
+    }
+}
+
 export default {
     getMyRegisteredEvents,
-    addEventToVisitor
+    addEventToVisitor,
+    checkVisitorRegistration,
+    removeEventFromVisitor
 }

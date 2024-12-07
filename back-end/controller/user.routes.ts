@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import userService from "../service/user.service";
 import { UserInput } from "../types";
 import adminService from "../service/admin.service";
@@ -24,6 +24,16 @@ userRouter.post('/', async (req: Request, res: Response) => {
             console.log("An unknown error occurred", error);
             res.status(400).json({ message: "An unknown error occurred" });
         }
+    }
+})
+
+userRouter.post('/login', async (req: Request, res: Response, next: NextFunction) => {
+    try{
+        const userInput = <UserInput>req.body;
+        const response = await userService.authenticate(userInput);
+        res.status(200).json({message: 'Authentication succesful', ...response })
+    } catch (error){
+        next(error)
     }
 })
 

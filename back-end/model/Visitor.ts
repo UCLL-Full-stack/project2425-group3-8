@@ -10,7 +10,7 @@ export class Visitor extends User {
     constructor(visitor: { user: User; visitorId?: number; address?: Location, event?: Event[] }) {
         super({
             id: visitor.user.getId(), fullName: visitor.user.getFullName(), phoneNumber: visitor.user.getPhoneNumber(), email: visitor.user.getEmail(),
-            password: visitor.user.getPassword()
+            password: visitor.user.getPassword(), role: visitor.user.getRole()
         });
 
         this.visitorId = visitor.visitorId;

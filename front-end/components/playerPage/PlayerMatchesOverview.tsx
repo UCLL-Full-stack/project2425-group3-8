@@ -43,7 +43,7 @@ const PlayerMatchesOverview: React.FC = () => {
                 style={{
                     width: "70%",
                     borderCollapse: "collapse",
-                    margin: "20px auto", // Centers the table horizontally
+                    margin: "20px auto", 
                 }}
             >
                 <thead>

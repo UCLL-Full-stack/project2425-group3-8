@@ -89,23 +89,37 @@ const updateEvent = async (id: string, updateData: any): Promise<Event | null> =
 
 const deleteEvent = async (id: string): Promise<Event | null> => {
     try {
-        // First, delete the related matches
-        await database.matches.deleteMany({
-            where: { eventId: parseInt(id) }
+        await database.visitorEvent.deleteMany({
+            where: { eventId: parseInt(id) },
         });
 
-        // Then, delete the event
+        const matchIds = await database.matches.findMany({
+            where: { eventId: parseInt(id) },
+            select: { id: true },
+        });
+        const matchIdList = matchIds.map(match => match.id);
+
+        await database.playerMatches.deleteMany({
+            where: { matchesId: { in: matchIdList } },
+        });
+
+        await database.matches.deleteMany({
+            where: { eventId: parseInt(id) },
+        });
+
         const deletedEvent = await database.event.delete({
             where: { id: parseInt(id) },
-            include: { sport: true, location: true, matches: true }
+            include: { sport: true, location: true, matches: true },
         });
 
         return Event.from(deletedEvent);
     } catch (error) {
-        console.error(error); 
-        throw new Error('Error deleting event');
+        console.error(error);
+        throw new Error('Error deleting event from database');
     }
-}
+};
+
+
 
 const addEvent = async (eventData: { 
     name: string; 

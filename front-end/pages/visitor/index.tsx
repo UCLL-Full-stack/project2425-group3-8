@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Header from "@components/header";
+import VisitorMatchesOverview from "@components/visitor/VisitorMatchesOverview";
 
 const Player: React.FC = () => {
     return (
@@ -13,6 +14,9 @@ const Player: React.FC = () => {
             <main>
                 <div style={{ textAlign: "center", marginBottom: "20px" }}>
                     <h1>My registered matches:</h1>
+                </div>
+                <div>
+                    <VisitorMatchesOverview />
                 </div>
             </main>
         </>

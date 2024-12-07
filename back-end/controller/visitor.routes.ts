@@ -117,4 +117,108 @@ VistorRouter.post("/:email/:eventId", async (req, res) => {
         res.status(400).json("Error adding event to visitor");
     }
 });
+
+
+/**
+ * @swagger
+ * /visitor/{email}/{eventId}:
+ *   get:
+ *     summary: Check visitor registration
+ *     description: Check if the visitor is registered for the event.
+ *     parameters:
+ *       - name: email
+ *         in: path
+ *         description: Email of the visitor
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - name: eventId
+ *         in: path
+ *         description: ID of the event
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Visitor registration
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 registered:
+ *                   type: boolean
+ *       400:
+ *         description: Error checking visitor registration
+ */
+VistorRouter.get("/:email/:eventId", async (req, res) => {
+    const { email, eventId } = req.params;
+    try {
+        const visitorRegistration = await visitorService.checkVisitorRegistration(email, parseInt(eventId));
+        res.status(200).json(visitorRegistration);
+    } catch (error) {
+        console.error(error);
+        res.status(400).json("Error checking visitor registration");
+    }
+} );
+
+
+/**
+ * @swagger
+ * /visitor/{email}/{eventId}:
+ *   delete:
+ *     summary: Remove event from visitor
+ *     description: Remove an event from the visitor's list of registered events.
+ *     parameters:
+ *       - name: email
+ *         in: path
+ *         description: Email of the visitor
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - name: eventId
+ *         in: path
+ *         description: ID of the event
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Event removed from visitor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                 name:
+ *                   type: string
+ *                 sport:
+ *                   type: string
+ *                 location:
+ *                   type: string
+ *                 date:
+ *                   type: string
+ *                 time:
+ *                   type: string
+ *                 price:
+ *                   type: number
+ *                 capacity:
+ *                   type: integer
+ *                 registered:
+ *                   type: integer
+ *       400:
+ *         description: Error removing event from visitor
+ */
+VistorRouter.delete("/:email/:eventId", async (req, res) => {
+    const { email, eventId } = req.params;
+    try {
+        const removedEventFromVisitor = await visitorService.removeEventFromVisitor(email, parseInt(eventId));
+        res.status(200).json(removedEventFromVisitor);
+    } catch (error) {
+        console.error(error);
+        res.status(400).json("Error removing event from visitor");
+    }
+} );
 export default VistorRouter;

@@ -18,7 +18,7 @@ const PlayerOverview: React.FC<PlayerOverviewProps> = ({ matchId, teamName1, tea
     const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
     useEffect(() => {
-        const adminStatus = sessionStorage.getItem("Admin") === "true";
+        const adminStatus = sessionStorage.getItem("role") === "admin";
         setIsAdmin(adminStatus);
 
         const fetchPlayers = async (teamName: string, setPlayers: React.Dispatch<React.SetStateAction<Player[]>>) => {

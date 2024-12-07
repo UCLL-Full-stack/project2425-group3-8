@@ -20,7 +20,7 @@ const deleteEvent = async (id: string): Promise<Event | null> => {
         const deletedEvent = await eventDb.deleteEvent(id);
         return deletedEvent;
     } catch (error) {
-        console.error(error); // Log the error
+        console.error(error); 
         throw new Error('Error deleting event');
     }
 };
