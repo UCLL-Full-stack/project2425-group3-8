@@ -9,6 +9,7 @@ export class User{
     private role: Role;
 
     constructor(user: {id?: number,  fullName: string, phoneNumber: string, email: string, password: string, role: Role}){
+        this.validate(user);
         this.id = user.id;
         this.fullName = user.fullName;
         this.phoneNumber = user.phoneNumber;
@@ -57,5 +58,29 @@ static from({
 
     getRole(): Role{
         return this.role
+    }
+
+    validate(user: {id?: number, fullName: string, phoneNumber: string, email: string, password: string, role: Role}){
+        if(!user){
+            throw new Error('User data is required');
+        }
+        if(!user.fullName){
+            throw new Error('Full name is required');
+        }
+        if(!user.phoneNumber){
+            throw new Error('Phone number is required');
+        }
+        if(!user.email){
+            throw new Error('Email is required');
+        }
+        if(user.email.indexOf('@') === -1){
+            throw new Error('Invalid email');
+        }
+        if(!user.password){
+            throw new Error('Password is required');
+        }
+        if(!user.role){
+            throw new Error('Role is required');
+        }
     }
 }

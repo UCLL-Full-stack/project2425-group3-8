@@ -6,6 +6,7 @@ export class Sport{
     private name: string;
 
     constructor(sport: {id?: number,  playerCount: number, name: string}){
+        this.validate(sport);
         this.id = sport.id;
         this.playerCount = sport.playerCount;
         this.name = sport.name;
@@ -33,5 +34,17 @@ static from({
 
     getName(): string{
         return this.name;
+    }
+
+    validate(sport: {id?: number, playerCount: number, name: string}){
+        if(!sport){
+            throw new Error('Sport data is required');
+        }
+        if(!sport.playerCount){
+            throw new Error('Player count is required');
+        }
+        if(!sport.name){
+            throw new Error('Name is required');
+        }
     }
 }

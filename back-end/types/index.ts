@@ -15,7 +15,7 @@ type LocationInput = {
     city: string;
     cityCode: string;
     street: string;
-    number: string;
+    number: number;
 };
 
 type MatchesInput = {

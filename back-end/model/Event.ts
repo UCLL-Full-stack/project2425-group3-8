@@ -93,16 +93,50 @@ export class Event {
     return this.visitors;
   }
 
-  validate(event: { name: string; startDate: Date; endDate: Date }) {
-    if (!event.startDate || !event.endDate) {
-      throw new Error('Start and end date are required');
-    }
+  setSport(sport: Sport): void {
+    this.sport = sport;
+  }
+  
+  setLocation(location: Location): void {
+    this.location = location;
+  }
 
-    if (event.startDate > event.endDate) {
-      throw new Error('Start date cannot be after end date');
+  setMatches(matches: Matches[]): void {
+    this.matches = matches;
+  }
+
+  setVisitors(visitors: Visitor[]): void {
+    this.visitors = visitors;
+  }
+
+  setStartDate(startDate: Date): void {
+    this.startDate = startDate;
+  }
+
+  setEndDate(endDate: Date): void {
+    this.endDate = endDate
+  }
+
+  setName(name: string): void { 
+    this.name = name;
+  }
+  
+
+  validate(event: { name: string; startDate: Date; endDate: Date }): void {
+    if (!event) {
+      throw new Error('Event data is required');
     }
     if (!event.name) {
       throw new Error('Name is required');
+    }
+    if (!event.startDate || event.startDate.toString() === 'Invalid Date') {
+      throw new Error('Start date is required');
+    }
+    if (!event.endDate || event.endDate.toString() === 'Invalid Date') {
+      throw new Error('End date is required');
+    }
+    if (event.startDate > event.endDate) {
+      throw new Error('Start date must be before end date');
     }
   }
 }

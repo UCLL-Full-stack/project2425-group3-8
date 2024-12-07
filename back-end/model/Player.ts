@@ -14,6 +14,7 @@ export class Player extends User {
     constructor(player: {user: User; playerId?: number; age: number; experience:number; address?: Location, matches?: Matches[], team: string}) {
         super({id: player.user.getId(), fullName: player.user.getFullName(), phoneNumber: player.user.getPhoneNumber(), email: player.user.getEmail(), password: player.user.getPassword(), role: player.user.getRole()});
 
+        this.validatePlayer(player);
         this.playerId = player.playerId;
         this.age = player.age;
         this.experience = player.experience;
@@ -65,5 +66,26 @@ export class Player extends User {
 
     getTeam(): string {
         return this.team;
+    }
+
+    validatePlayer(player: {user: User, playerId?: number, age: number, experience:number, address?: Location, matches?: Matches[], team: string}){
+        if(!player){
+            throw new Error('Player data is required');
+        }
+        if(!player.user){
+            throw new Error('User is required');
+        }
+        if(player.age <0 || player.age > 200){
+            throw new Error('Age must be between 0 and 200');
+        }
+        if(!player.age){
+            throw new Error('Age is required');
+        }
+        if(!player.experience){
+            throw new Error('Experience is required');
+        }
+        if(!player.team){
+            throw new Error('Team is required');
+        }
     }
 }

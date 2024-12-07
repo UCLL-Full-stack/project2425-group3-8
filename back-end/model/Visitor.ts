@@ -1,6 +1,7 @@
 import { User } from "./User";
 import { Location } from "./Location";
 import {Visitor as VisitorPrisma, User as UserPrisma, Location as LocationPrisma } from '@prisma/client';
+import { th } from "date-fns/locale";
 
 export class Visitor extends User {
     private visitorId?: number;
@@ -12,7 +13,7 @@ export class Visitor extends User {
             id: visitor.user.getId(), fullName: visitor.user.getFullName(), phoneNumber: visitor.user.getPhoneNumber(), email: visitor.user.getEmail(),
             password: visitor.user.getPassword(), role: visitor.user.getRole()
         });
-
+        this.validateVisitor(visitor);
         this.visitorId = visitor.visitorId;
         this.address = visitor.address;
         this.event = visitor.event;
@@ -44,5 +45,11 @@ export class Visitor extends User {
 
     setEvent(event: Event[]): void {
         this.event = event;
+    }
+
+    validateVisitor(visitor: { visitorId?: number; address?: Location }): void {
+        if (!visitor) {
+            throw new Error('Visitor data is required');
+        }
     }
 }

@@ -1,6 +1,13 @@
 import playerDb from "../repository/player.db"
 
 const addPlayerToMatch = async (playerId: number, matchesId: number ) => {
+    if (!playerId) {
+        throw new Error('Player Id is required');
+    }
+    if (!matchesId) {
+        throw new Error('Match Id is required');
+    }
+    
     try {
         const addedPlayerToMatch = await playerDb.addPlayerToMatch(playerId, matchesId);
         return addedPlayerToMatch;
@@ -11,6 +18,13 @@ const addPlayerToMatch = async (playerId: number, matchesId: number ) => {
 }
 
 const removedPlayerFromMatch = async (playerId: number, matchId: number) => {
+    if (!playerId) {
+        throw new Error('Player Id is required');
+    }
+    if (!matchId) {
+        throw new Error('Match Id is required');
+    }
+
     try {
         const removedPlayerFromMatch = await playerDb.removePlayerFromMatch(playerId, matchId);
         return removedPlayerFromMatch;
@@ -31,6 +45,10 @@ const getAllPlayers = async () => {
 }
 
 const getPlayerMatches = async (playerEmail: string) => {
+    if (!playerEmail) {
+        throw new Error('Player email is required');
+    }
+    
     try {
         const playerMatches = await playerDb.getPlayerMatches(playerEmail);
         return playerMatches;

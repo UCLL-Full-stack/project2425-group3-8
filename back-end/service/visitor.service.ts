@@ -2,6 +2,10 @@ import visitorDb from "../repository/visitor.db"
 
 
 const getMyRegisteredEvents = async (visitorEmail: string) => {
+    if (!visitorEmail) {
+        throw new Error('Visitor email is required');
+    }
+
     try {
         const myEvents = await visitorDb.getMyRegisteredEvents(visitorEmail);
         return myEvents;
@@ -12,6 +16,13 @@ const getMyRegisteredEvents = async (visitorEmail: string) => {
 }
 
 const addEventToVisitor = async (visitorEmail: string, eventId: number) => {
+    if (!visitorEmail) {
+        throw new Error('Visitor email is required');
+    }
+    if (!eventId) {
+        throw new Error('Event id is required');
+    }
+
     try {
         const addedEventToVisitor = await visitorDb.addEventToVisitor(visitorEmail, eventId);
         return addedEventToVisitor;
@@ -22,6 +33,13 @@ const addEventToVisitor = async (visitorEmail: string, eventId: number) => {
 }
 
 const checkVisitorRegistration = async (visitorEmail: string, eventId: number) => {
+    if (!visitorEmail) {
+        throw new Error('Visitor email is required');
+    }
+    if (!eventId) {
+        throw new Error('Event id is required');
+    }
+
     try {
         const visitorRegistration = await visitorDb.checkVisitorRegistration(visitorEmail, eventId);
         return visitorRegistration;
@@ -32,6 +50,13 @@ const checkVisitorRegistration = async (visitorEmail: string, eventId: number) =
 }
 
 const removeEventFromVisitor = async (visitorEmail: string, eventId: number) => {
+    if (!visitorEmail) {
+        throw new Error('Visitor email is required');
+    }
+    if (!eventId) {
+        throw new Error('Event id is required');
+    }
+    
     try {
         const removedEventFromVisitor = await visitorDb.removeEventFromVisitor(visitorEmail, eventId);
         return removedEventFromVisitor;

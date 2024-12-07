@@ -10,6 +10,7 @@ export class Admin extends User {
     constructor(admin: {user: User; adminId?: number;address?: Location }) {
         super({ id: admin.user.getId(), fullName: admin.user.getFullName(), phoneNumber: admin.user.getPhoneNumber(), email: admin.user.getEmail(), password: admin.user.getPassword(), role: admin.user.getRole() });
 
+        this.validateAdmin(admin);
         this.adminId = admin.adminId;
         this.address = admin.address;
     }
@@ -40,6 +41,15 @@ export class Admin extends User {
 
     setAddress(address: Location): void {
         this.address = address;
+    }
+
+    validateAdmin(admin: { adminId?: number; address?: Location }): void {
+        if (!admin) {
+            throw new Error('Admin data is required');
+        }
+        if (!admin.address) {
+            throw new Error('Address is required');
+        }
     }
 
 }
