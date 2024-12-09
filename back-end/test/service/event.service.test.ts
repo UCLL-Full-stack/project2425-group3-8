@@ -3,7 +3,7 @@ import { Sport } from "../../model/Sport";
 import { Location } from "../../model/Location"; 
 import { EventInput, LocationInput, MatchesInput, SportInput } from "../../types";
 import { Matches } from "../../model/Matches";
-
+import eventService from "../../service/event.service";
 
 const start = new Date('2021-01-01');
 const end = new Date('2021-01-02');
@@ -98,11 +98,11 @@ afterEach(() => {
 });
 
 test('given: list of events, when: get all events is called, then: return list of events', async () => {
-    mockGetAllEvents.mockResolvedValue([event1]);
+    mockGetAllEvents.mockResolvedValue([event1, event2]);
 
-    expect(await mockGetAllEvents()).toEqual([event1]);
+    expect(await mockGetAllEvents()).toEqual([event1, event2]);
 
-    expect(mockGetAllEvents).toHaveBeenCalledTimes(1);
+    expect(mockGetAllEvents).toHaveBeenCalledTimes(1);  
 });
 
 test('given: event name, when: get event by name is called, then: return event', async () => {
@@ -115,13 +115,9 @@ test('given: event name, when: get event by name is called, then: return event',
 });
 
 test('given: wrong event name, when: get event by name is called, then: throw error', async () => {
-    
-    mockGetEventByName.mockRejectedValue(new Error('Name needs to be correct'));
 
-    await expect(mockGetEventByName('Wrong Name')).rejects.toThrow('Name needs to be correct');
+    await expect(eventService.getEventByName('Wrong Event')).rejects.toThrow('Event not found with this name');
 
-    expect(mockGetEventByName).toHaveBeenCalledTimes(1);
-    expect(mockGetEventByName).toHaveBeenCalledWith('Wrong Name');
 });
 
 test('given: event id and update data, when: update event is called, then: return updated event', async () => {
@@ -134,12 +130,13 @@ test('given: event id and update data, when: update event is called, then: retur
 });
 
 test('given: event id and update data, when: update event is called with wrong id, then: throw error', async () => {
-    mockUpdateEvent.mockRejectedValue(new Error('Id needs to be correct'));
+   
+    await expect(eventService.updateEvent(3, eventInput2)).rejects.toThrow('Event not found');
+});
 
-    await expect(mockUpdateEvent('3', eventInput2)).rejects.toThrow('Id needs to be correct');
+test('given: event id and eventData, when: update event is called with wrong dates, then: throw error', async () => {
 
-    expect(mockUpdateEvent).toHaveBeenCalledTimes(1);
-    expect(mockUpdateEvent).toHaveBeenCalledWith('3', eventInput2);
+    await expect(eventService.updateEvent(1, {startDate: end, endDate: start})).rejects.toThrow('Start date must be before end date');
 });
 
 test('given: event id, when: delete event is called, then: return deleted event', async () => {
@@ -152,12 +149,8 @@ test('given: event id, when: delete event is called, then: return deleted event'
 });
 
 test('given: event id, when: delete event is called with wrong id, then: throw error', async () => {
-    mockDeleteEvent.mockRejectedValue(new Error('Id needs to be correct'));
-
-    await expect(mockDeleteEvent('3')).rejects.toThrow('Id needs to be correct');
-
-    expect(mockDeleteEvent).toHaveBeenCalledTimes(1);
-    expect(mockDeleteEvent).toHaveBeenCalledWith('3');
+    
+    await expect(eventService.deleteEvent(9999999)).rejects.toThrow('Event not found with this id');
 });
 
 test('given: event data, when: add event is called, then: return new event', async () => {
@@ -169,139 +162,9 @@ test('given: event data, when: add event is called, then: return new event', asy
     expect(mockAddEvent).toHaveBeenCalledWith(eventInput1);
 });
 
-test('given: event data, when: add event is called with missing data, then: throw error', async () => {
-    mockAddEvent.mockRejectedValue(new Error('Error adding event'));
-
-    await expect(mockAddEvent({})).rejects.toThrow('Error adding event');
-
-    expect(mockAddEvent).toHaveBeenCalledTimes(1);
-    expect(mockAddEvent).toHaveBeenCalledWith({});
-});
-
-test('given: event data, when: add event is called with missing sport, then: throw error', async () => {
-    mockAddEvent.mockRejectedValue(new Error('Error adding event'));
-
-    await expect(mockAddEvent({
-        name: 'Test Event',
-        startDate: start,
-        endDate: end,
-        locationId: 1,
-        matches: [],
-    })).rejects.toThrow('Error adding event');
-
-    expect(mockAddEvent).toHaveBeenCalledTimes(1);
-    expect(mockAddEvent).toHaveBeenCalledWith({
-        name: 'Test Event',
-        startDate: start,
-        endDate: end,
-        locationId: 1,
-        matches: [],
-    });
-});
-
-test('given: event data, when: add event is called with missing location, then: throw error', async () => {
-    mockAddEvent.mockRejectedValue(new Error('Error adding event'));
-
-    await expect(mockAddEvent({
-        name: 'Test Event',
-        startDate: start,
-        endDate: end,
-        sportId: 1,
-        matches: [],
-    })).rejects.toThrow('Error adding event');
-
-    expect(mockAddEvent).toHaveBeenCalledTimes(1);
-    expect(mockAddEvent).toHaveBeenCalledWith({
-        name: 'Test Event',
-        startDate: start,
-        endDate: end,
-        sportId: 1,
-        matches: [],
-    });
-}); 
-
-test('given: event data, when: add event is called with missing matches, then: throw error', async () => {
-    mockAddEvent.mockRejectedValue(new Error('Error adding event'));
-
-    await expect(mockAddEvent({
-        name: 'Test Event',
-        startDate: start,
-        endDate: end,
-        sportId: 1,
-        locationId: 1,
-    })).rejects.toThrow('Error adding event');
-
-    expect(mockAddEvent).toHaveBeenCalledTimes(1);
-    expect(mockAddEvent).toHaveBeenCalledWith({
-        name: 'Test Event',
-        startDate: start,
-        endDate: end,
-        sportId: 1,
-        locationId: 1,
-    });
-});
-
-test('given: event data, when: add event is called with missing name, then: throw error', async () => {
-    mockAddEvent.mockRejectedValue(new Error('Error adding event'));
-
-    await expect(mockAddEvent({
-        startDate: start,
-        endDate: end,
-        sportId: 1,
-        locationId: 1,
-        matches: [],
-    })).rejects.toThrow('Error adding event');
-
-    expect(mockAddEvent).toHaveBeenCalledTimes(1);
-    expect(mockAddEvent).toHaveBeenCalledWith({
-        startDate: start,
-        endDate: end,
-        sportId: 1,
-        locationId: 1,
-        matches: [],
-    });
-});
-
-test('given: event data, when: add event is called with missing start date, then: throw error', async () => {
-    mockAddEvent.mockRejectedValue(new Error('Error adding event'));
-
-    await expect(mockAddEvent({
-        name: 'Test Event',
-        endDate: end,
-        sportId: 1,
-        locationId: 1,
-        matches: [],
-    })).rejects.toThrow('Error adding event');
-
-    expect(mockAddEvent).toHaveBeenCalledTimes(1);
-    expect(mockAddEvent).toHaveBeenCalledWith({
-        name: 'Test Event',
-        endDate: end,
-        sportId: 1,
-        locationId: 1,
-        matches: [],
-    });
-});
-
-test('given: event data, when: add event is called with missing end date, then: throw error', async () => {
-    mockAddEvent.mockRejectedValue(new Error('Error adding event'));
-
-    await expect(mockAddEvent({
-        name: 'Test Event',
-        startDate: start,
-        sportId: 1,
-        locationId: 1,
-        matches: [],
-    })).rejects.toThrow('Error adding event');
-
-    expect(mockAddEvent).toHaveBeenCalledTimes(1);
-    expect(mockAddEvent).toHaveBeenCalledWith({
-        name: 'Test Event',
-        startDate: start,
-        sportId: 1,
-        locationId: 1,
-        matches: [],
-    });
+test('given: event data, when: add event is called with endate before startdate, then: throw error', async () => {
+    
+    await expect(eventService.addEvent({name: 'Test Event', startDate: end, endDate: start, sport: sportInput, location: locationInput})).rejects.toThrow('Start date must be before end date');
 });
 
 

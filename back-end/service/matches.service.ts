@@ -1,11 +1,19 @@
+import eventDb from "../repository/event.db";
 import matchesDb from "../repository/matches.db"
+import playerDb from "../repository/player.db";
 
 const getPlayersByTeamAndMatch = async ( matchId: number, teamName: string) => {
-    if (!matchId) {
-        throw new Error('Match Id is required');
+    const playerTeams = await playerDb.getTeams();
+    const team = playerTeams.find((team: any) => team.teamName === teamName);
+
+    if (!team) {
+        throw new Error('Team not found');
     }
-    if (!teamName) {
-        throw new Error('Team Name is required');
+
+    const IdMatches = await matchesDb.getMatchesById(matchId);
+
+    if (!IdMatches) {
+        throw new Error('Match not found');
     }
 
     try {
@@ -18,11 +26,11 @@ const getPlayersByTeamAndMatch = async ( matchId: number, teamName: string) => {
 }
 
 const addMatches = async (matches: any, eventId: number) => {
-    if (!matches) {
-        throw new Error('Matches are required');
-    }
-    if (!eventId) {
-        throw new Error('Event Id is required');
+
+    const IdEvent = await eventDb.getEventById(eventId);
+
+    if (!IdEvent) {
+        throw new Error('Event not found with id');
     }
     try {
     const newMatches = await matchesDb.addMatches(matches, eventId);
@@ -34,14 +42,14 @@ const addMatches = async (matches: any, eventId: number) => {
 }
 
 const editMatches = async (matches: any, eventId: number, matchesId: number) => {
-    if (!matches) {
-        throw new Error('Matches are required');
+
+    const IdMatches = await matchesDb.getMatchesById(matchesId);
+    if (!IdMatches) {
+        throw new Error('Matches not found with id');
     }
-    if (!eventId) {
-        throw new Error('Event Id is required');
-    }
-    if (!matchesId) {
-        throw new Error('Matches Id is required');
+    const IdEvent = await eventDb.getEventById(eventId);
+    if (!IdEvent) {
+        throw new Error('Event not found with id');
     }
     try {
     const newMatches = await matchesDb.editMatches(matches, eventId, matchesId);
@@ -53,8 +61,9 @@ const editMatches = async (matches: any, eventId: number, matchesId: number) => 
 }
 
 const deleteMatches = async (matchesId: number) => {
-    if (!matchesId) {
-        throw new Error('Matches Id is required');
+    const IdMatches = await matchesDb.getMatchesById(matchesId);
+    if (!IdMatches) {
+        throw new Error('Matches not found with id');
     }
     try {
         const deletedMatches = await matchesDb.deleteMatches(matchesId);
@@ -66,6 +75,10 @@ const deleteMatches = async (matchesId: number) => {
 }
 
 const getEventNameByMatch = async (matchId: number) => {
+    const IdMatches = await matchesDb.getMatchesById(matchId);
+    if (!IdMatches) {
+        throw new Error('Matches not found with id');
+    }
     if (!matchId) {
         throw new Error('Match Id is required');
     }

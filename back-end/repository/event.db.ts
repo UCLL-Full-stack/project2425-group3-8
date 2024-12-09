@@ -34,10 +34,28 @@ const getEventByName = async (name: string): Promise<Event | null> => {
     
 } 
 
-const updateEvent = async (id: string, updateData: any): Promise<Event | null> => {
+const getEventById = async (id: number): Promise<Event | null> => {
+    try {
+        const eventPrisma = await database.event.findUnique({
+            where: {
+                id: id
+            },
+            include: { sport: true, location: true, matches: true }
+        });
+        if (eventPrisma === null) {
+            return null;
+        }
+        return Event.from(eventPrisma);
+    } catch (error) {
+        console.error(error);
+        throw new Error('Database error for events. See server log for details.')
+    }
+}
+
+const updateEvent = async (id: number, updateData: any): Promise<Event | null> => {
     try {
         const existingEvent = await database.event.findUnique({
-            where: { id: parseInt(id) },
+            where: { id: id },
             include: { sport: true, location: true, matches: true },
         });
 
@@ -46,7 +64,7 @@ const updateEvent = async (id: string, updateData: any): Promise<Event | null> =
         }
 
         const updatedEvent = await database.event.update({
-            where: { id: parseInt(id) },
+            where: { id: id },
             data: {
                 name: updateData.name || existingEvent.name,
                 startDate: updateData.startDate || existingEvent.startDate,
@@ -87,14 +105,14 @@ const updateEvent = async (id: string, updateData: any): Promise<Event | null> =
 };
 
 
-const deleteEvent = async (id: string): Promise<Event | null> => {
+const deleteEvent = async (id: number): Promise<Event | null> => {
     try {
         await database.visitorEvent.deleteMany({
-            where: { eventId: parseInt(id) },
+            where: { eventId: id },
         });
 
         const matchIds = await database.matches.findMany({
-            where: { eventId: parseInt(id) },
+            where: { eventId: id },
             select: { id: true },
         });
         const matchIdList = matchIds.map(match => match.id);
@@ -104,11 +122,11 @@ const deleteEvent = async (id: string): Promise<Event | null> => {
         });
 
         await database.matches.deleteMany({
-            where: { eventId: parseInt(id) },
+            where: { eventId: id },
         });
 
         const deletedEvent = await database.event.delete({
-            where: { id: parseInt(id) },
+            where: { id: id },
             include: { sport: true, location: true, matches: true },
         });
 
@@ -170,5 +188,6 @@ export default {
     getEventByName,
     updateEvent,
     deleteEvent,
-    addEvent
+    addEvent,
+    getEventById
 }

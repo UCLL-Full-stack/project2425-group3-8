@@ -195,7 +195,7 @@ eventRouter.get('/:name', async (req: Request, res: Response) => {
  *                     description: The number of players in the sport
  */
 eventRouter.put('/:id', async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const id = parseInt(req.params.id);
     const updateData = req.body;
 
     try {
@@ -283,7 +283,7 @@ eventRouter.put('/:id', async (req: Request, res: Response) => {
  *                   type: string
  */
 eventRouter.delete('/delete/:id', async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const id = parseInt(req.params.id);
     try {
         const deletedEvent = await eventService.deleteEvent(id);
         if (!deletedEvent) {

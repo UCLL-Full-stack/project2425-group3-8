@@ -1,13 +1,15 @@
+import matchesDb from "../repository/matches.db";
 import playerDb from "../repository/player.db"
 
 const addPlayerToMatch = async (playerId: number, matchesId: number ) => {
-    if (!playerId) {
-        throw new Error('Player Id is required');
+    const IdPlayer = await playerDb.getPlayerById(playerId);
+    if (!IdPlayer) {
+        throw new Error('Player not found with id');
     }
-    if (!matchesId) {
-        throw new Error('Match Id is required');
+    const IdMatches = await matchesDb.getMatchesById(matchesId);
+    if (!IdMatches) {
+        throw new Error('Matches not found with id');
     }
-    
     try {
         const addedPlayerToMatch = await playerDb.addPlayerToMatch(playerId, matchesId);
         return addedPlayerToMatch;
@@ -18,11 +20,14 @@ const addPlayerToMatch = async (playerId: number, matchesId: number ) => {
 }
 
 const removedPlayerFromMatch = async (playerId: number, matchId: number) => {
-    if (!playerId) {
-        throw new Error('Player Id is required');
+    const IdPlayer = await playerDb.getPlayerById(playerId);
+    if (!IdPlayer) {
+        throw new Error('Player not found with id');
     }
-    if (!matchId) {
-        throw new Error('Match Id is required');
+
+    const IdMatches = await matchesDb.getMatchesById(matchId);
+    if (!IdMatches) {
+        throw new Error('Match not found with id');
     }
 
     try {
@@ -45,8 +50,9 @@ const getAllPlayers = async () => {
 }
 
 const getPlayerMatches = async (playerEmail: string) => {
-    if (!playerEmail) {
-        throw new Error('Player email is required');
+    const IdPlayer = await playerDb.getPlayerByEmail(playerEmail);
+    if (!IdPlayer) {
+        throw new Error('Player not found with email');
     }
     
     try {

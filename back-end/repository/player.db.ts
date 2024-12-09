@@ -148,10 +148,40 @@ const getPlayerMatches = async (userEmail: string) => {
     }
 }
 
+const getTeams = async () => {
+    try {
+        const teams = await database.player.findMany({
+            select: {
+                team: true,
+            },
+        });
+
+        return teams;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Error getting teams');
+    }
+}
+
+const getPlayerById = async (playerId: number) => {
+    try {
+        const player = await database.player.findUnique({
+            where: { playerId: playerId },
+        });
+
+        return player;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Error getting player');
+    }
+}
+
 export default {
     addPlayerToMatch,
     removePlayerFromMatch,
     getAllPlayers,
     getPlayerByEmail,
     getPlayerMatches,
+    getTeams,
+    getPlayerById
 }

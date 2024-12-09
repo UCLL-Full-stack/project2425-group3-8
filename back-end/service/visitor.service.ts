@@ -1,9 +1,11 @@
+import eventDb from "../repository/event.db";
 import visitorDb from "../repository/visitor.db"
 
 
 const getMyRegisteredEvents = async (visitorEmail: string) => {
-    if (!visitorEmail) {
-        throw new Error('Visitor email is required');
+    const visitor = await visitorDb.getVisitorByEmail(visitorEmail);
+    if (!visitor) {
+        throw new Error('Visitor not found with email');
     }
 
     try {
@@ -16,11 +18,14 @@ const getMyRegisteredEvents = async (visitorEmail: string) => {
 }
 
 const addEventToVisitor = async (visitorEmail: string, eventId: number) => {
-    if (!visitorEmail) {
-        throw new Error('Visitor email is required');
+    const visitor = await visitorDb.getVisitorByEmail(visitorEmail);
+    if (!visitor) {
+        throw new Error('Visitor not found with email');
     }
-    if (!eventId) {
-        throw new Error('Event id is required');
+
+    const event = await eventDb.getEventById(eventId);
+    if (!event) {
+        throw new Error('Event not found with id');
     }
 
     try {
@@ -33,11 +38,14 @@ const addEventToVisitor = async (visitorEmail: string, eventId: number) => {
 }
 
 const checkVisitorRegistration = async (visitorEmail: string, eventId: number) => {
-    if (!visitorEmail) {
-        throw new Error('Visitor email is required');
+    const visitor = await visitorDb.getVisitorByEmail(visitorEmail);
+    if (!visitor) {
+        throw new Error('Visitor not found with email');
     }
-    if (!eventId) {
-        throw new Error('Event id is required');
+
+    const event = await eventDb.getEventById(eventId);
+    if (!event) {
+        throw new Error('Event not found with id');
     }
 
     try {
@@ -50,11 +58,14 @@ const checkVisitorRegistration = async (visitorEmail: string, eventId: number) =
 }
 
 const removeEventFromVisitor = async (visitorEmail: string, eventId: number) => {
-    if (!visitorEmail) {
-        throw new Error('Visitor email is required');
+    const visitor = await visitorDb.getVisitorByEmail(visitorEmail);
+    if (!visitor) {
+        throw new Error('Visitor not found with email');
     }
-    if (!eventId) {
-        throw new Error('Event id is required');
+
+    const event = await eventDb.getEventById(eventId);
+    if (!event) {
+        throw new Error('Event not found with id');
     }
     
     try {

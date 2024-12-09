@@ -10,13 +10,7 @@ import { generateJwtToken } from "../util/jwt";
 
 
 const authenticate = async ({email, password }: UserInput): Promise<AuthenticationResponse> => {
-    if(!email){
-        throw new Error('Email is required');
-    }
-    if(!password){
-        throw new Error('Password is required');
-    }
-    
+
     const user = await userDb.getUserByEmail(email)
     const role = user.getRole()
     if(!user){
@@ -37,12 +31,6 @@ const authenticate = async ({email, password }: UserInput): Promise<Authenticati
 
 
 const getUserByEmail = async (userInput: UserInput): Promise<User> => {
-    if (!userInput.email) {
-        throw new Error('Email is required');
-    }
-    if (!userInput.password) {
-        throw new Error('Password is required');
-    }
 
     try {
         const tempUser = await userDb.getUserByEmail(userInput.email);
@@ -57,13 +45,6 @@ const getUserByEmail = async (userInput: UserInput): Promise<User> => {
 };
 
 const getRole = async (userInput: UserInput): Promise<String> =>{
-    if (!userInput.email) {
-        throw new Error('Email is required');
-    }
-    if (!userInput.password) {
-        throw new Error('Password is required');
-    }
-
     try{
         const user = await userDb.getUserByEmail(userInput.email)
         return user.getRole()

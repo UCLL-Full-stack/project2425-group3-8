@@ -161,6 +161,16 @@ const getEventNameByMatch = async (matchId: number) => {
     return event;
 };
 
+const getMatchesById = async (matchId: number) => {
+    const match = await database.matches.findUnique({
+        where: {
+            id: matchId,
+        },
+    });
+
+    return match;
+}
+
 
 export default {
     getPlayersByTeamAndMatch,
@@ -168,4 +178,5 @@ export default {
     editMatches,
     deleteMatches,
     getEventNameByMatch,
+    getMatchesById,
 };
