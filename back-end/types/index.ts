@@ -59,12 +59,18 @@ type AuthenticationResponse = {
     role: Role;
 };
 
+type VisitorInput = {
+    address: LocationInput;
+    event?: EventInput[];
+
+};
+
 export {
     UserInput,
     SportInput,
     PlayerInput,
     MatchesInput,
     LocationInput,
-    EventInput, AuthenticationResponse, Role
+    EventInput, AuthenticationResponse, Role, VisitorInput
 };
 
