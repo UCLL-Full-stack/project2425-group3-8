@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 const PlayerMatchesOverview: React.FC = () => {
     const [matches, setMatches] = useState<Matches[]>([]);
-    const [isPlayerEmail, setIsPlayerEmail] = useState<string | null>(null);
+    const [isPlayerEmail, setIsPlayerEmail] = useState<string>("");
     const [isEventName, setIsEventName] = useState<string | null>(null);
 
     useEffect(() => {
@@ -18,7 +18,7 @@ const PlayerMatchesOverview: React.FC = () => {
 
     const fetchPlayerMatches = async () => {
         try {
-            const response = await getPlayerMatches(isPlayerEmail ?? "");
+            const response = await getPlayerMatches(isPlayerEmail);
             const data = await response.json();
             setMatches(data);
             fetchEventName(data[0].id);

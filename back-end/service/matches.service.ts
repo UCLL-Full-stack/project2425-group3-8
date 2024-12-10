@@ -3,13 +3,7 @@ import matchesDb from "../repository/matches.db"
 import playerDb from "../repository/player.db";
 
 const getPlayersByTeamAndMatch = async ( matchId: number, teamName: string) => {
-    const playerTeams = await playerDb.getTeams();
-    const team = playerTeams.find((team: any) => team.teamName === teamName);
-
-    if (!team) {
-        throw new Error('Team not found');
-    }
-
+ 
     const IdMatches = await matchesDb.getMatchesById(matchId);
 
     if (!IdMatches) {

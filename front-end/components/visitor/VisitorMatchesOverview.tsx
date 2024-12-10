@@ -17,7 +17,6 @@ const VisitorMatchesOverview: React.FC = () => {
 
     const fetchVisitorMatches = async () => {
         try {
-            console.log(isVisitorEmail);
             const response = await getVisitorMatches(isVisitorEmail);
             const data = await response.json();
             setEvents(data);

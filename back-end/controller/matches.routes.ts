@@ -56,10 +56,15 @@ matchesRouter.get("/:matchesid/:teamname", async (req: Request, res: Response) =
         }else{
             res.status(404).json("Players not found");
         }
-    }catch(error){
-        console.error(error);
-        res.status(400).json("error getting players sssss");
+    }catch(error) {
+        console.error("Error fetching players:", error);
+        if (error instanceof Error) {
+            res.status(400).json({ message: "Error getting players", error: error.message });
+        } else {
+            res.status(400).json({ message: "Error getting players", error: String(error) });
+        }
     }
+    
 });
 
 /**
