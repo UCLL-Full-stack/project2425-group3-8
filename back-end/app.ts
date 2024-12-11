@@ -9,6 +9,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import matchesRouter from './controller/matches.routes';
 import playerRouter from './controller/player.routes';
 import VistorRouter from './controller/visitor.routes';
+import { expressjwt } from 'express-jwt';
 
 const app = express();
 dotenv.config();
@@ -16,7 +17,24 @@ const port = process.env.APP_PORT || 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
-
+app.use(
+    expressjwt({
+      secret: process.env.JWT_SECRET || 'default_secret',
+      algorithms: ['HS256'],
+    }).unless({
+      path: [
+        '/api-docs/',
+        '/user/login',
+        '/event',
+        '/player',
+        /^\/matches\/\d+\/[A-Z]+$/,
+        '/matches',
+        '/status',
+        /\/swagger-ui.*/,
+        /\/swagger.*\.json$/,
+      ],
+    })
+  );
 app.use('/event', eventRouter)
 app.use('/user', userRouter)
 app.use('/matches', matchesRouter)
@@ -26,13 +44,6 @@ app.use('/visitor', VistorRouter)
 app.get('/status', (req, res) => {
     res.json({ message: 'Back-end is running...' });
 });
-
-
-
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-    console.log(`Swagger docs are available at http://localhost:${port}/api-docs`);
-  });
 
   const swaggerOpts = {
     definition: {
@@ -56,3 +67,8 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
         res.status(400).json({ status: 'application error', message: err.message });
     }
 });
+
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+    console.log(`Swagger docs are available at http://localhost:${port}/api-docs`);
+  });

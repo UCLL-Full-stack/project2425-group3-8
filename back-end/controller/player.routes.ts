@@ -1,3 +1,12 @@
+/**
+ * @swagger
+ *   components:
+ *    securitySchemes:
+ *     bearerAuth:
+ *      type: http
+ *      scheme: bearer
+ *      bearerFormat: JWT
+ */
 import { Router } from "express";
 import playerService from "../service/player.service";
 
@@ -8,6 +17,8 @@ const playerRouter = Router();
  * @swagger
  * /player/{matchId}/{playerId}:
  *   post:
+ *     security:
+ *      - bearerAuth: []
  *     summary: Add player to match
  *     description: Add a player to a match
  *     parameters:
@@ -53,6 +64,8 @@ playerRouter.post("/:matchId/:playerId", async (req, res) => {
  * @swagger
  * /player/{matchId}/{playerId}:
  *   delete:
+ *     security:
+ *      - bearerAuth: []
  *     summary: Remove player from match
  *     description: Remove a player from a match
  *     parameters:

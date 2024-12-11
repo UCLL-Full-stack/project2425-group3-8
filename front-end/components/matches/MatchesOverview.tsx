@@ -13,19 +13,22 @@ const MatchesOverview: React.FC<{ selectedEvent: Event; closePopUp: (showPopUp: 
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
   useEffect(() => {
-    
-    const sortedMatches = [...selectedEvent.matches].sort((a, b) => (a.id ?? 0) - (b.id ?? 0)); 
+
+    const sortedMatches = [...selectedEvent.matches].sort((a, b) => (a.id ?? 0) - (b.id ?? 0));
     setMatches(sortedMatches);
-    const adminStatus = sessionStorage.getItem("role") === "admin";
-    setIsAdmin(adminStatus);
+    const user = sessionStorage.getItem('loggedInUser')
+    if (user) {
+      const adminStatus = JSON.parse(user).role == 'admin';
+      setIsAdmin(adminStatus);
+    }
   }, [selectedEvent]);
 
   const addMatchToList = (match: Matches) => {
     setMatches((prevMatches) => [...prevMatches, match]);
   };
 
-  const handleEditMatch = (match: Matches, currentMatchId: number | undefined) => { 
-    if(currentMatchId){
+  const handleEditMatch = (match: Matches, currentMatchId: number | undefined) => {
+    if (currentMatchId) {
       handleDeleteMatch(currentMatchId)
     }
     setMatches((prevMatches) => [...prevMatches, match]);
@@ -41,12 +44,12 @@ const MatchesOverview: React.FC<{ selectedEvent: Event; closePopUp: (showPopUp: 
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
       <div className="bg-white p-6 rounded shadow-lg flex flex-col justify-evenly items-center">
         {isAdmin && (
-        <div className='flex justify-end mb-2 w-full'>
-      <AddMatches eventId={selectedEvent.id ?? 0} onAddMatch={addMatchToList} />
-      </div>
-      )}
+          <div className='flex justify-end mb-2 w-full'>
+            <AddMatches eventId={selectedEvent.id ?? 0} onAddMatch={addMatchToList} />
+          </div>
+        )}
         <div className="flex items-center w-full mb-2">
-        
+
           <h2 className="text-2xl flex-grow text-center">Event Details</h2>
 
         </div>
@@ -61,8 +64,8 @@ const MatchesOverview: React.FC<{ selectedEvent: Event; closePopUp: (showPopUp: 
                 <th className="border border-gray-300 px-4 py-2 bg-gray-100">Winner</th>
                 <th className="border border-gray-300 px-4 py-2 bg-gray-100">Players</th>
                 {isAdmin &&
-                <th className="border border-gray-300 px-4 py-2 bg-gray-100">Actions</th>
-              }
+                  <th className="border border-gray-300 px-4 py-2 bg-gray-100">Actions</th>
+                }
               </tr>
             </thead>
             <tbody>
@@ -84,10 +87,10 @@ const MatchesOverview: React.FC<{ selectedEvent: Event; closePopUp: (showPopUp: 
                     <PlayerOverview matchId={match.id ?? 0} teamName1={match.team1} teamName2={match.team2} />
                   </td>
                   {isAdmin && (
-                  <td className="border border-gray-300 px-4 py-3 flex gap-1">
-                    <EditMatches currentMatch={match} selectedEvent={selectedEvent.id ?? 0} onEditMatch={handleEditMatch}/>
-                    <DeleteMatches eventId={match.id ?? 0} onDelete={handleDeleteMatch}  />
-                  </td>
+                    <td className="border border-gray-300 px-4 py-3 flex gap-1">
+                      <EditMatches currentMatch={match} selectedEvent={selectedEvent.id ?? 0} onEditMatch={handleEditMatch} />
+                      <DeleteMatches eventId={match.id ?? 0} onDelete={handleDeleteMatch} />
+                    </td>
                   )}
                 </tr>
               ))}

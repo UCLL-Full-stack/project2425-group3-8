@@ -9,9 +9,10 @@ const PlayerMatchesOverview: React.FC = () => {
     const [isEventName, setIsEventName] = useState<string | null>(null);
 
     useEffect(() => {
-        const playerEmail = sessionStorage.getItem("UserEmail");
-        if (playerEmail) {
-            setIsPlayerEmail(playerEmail);
+        const user = sessionStorage.getItem('loggedInUser')
+        if (user) {
+            const playerMail = JSON.parse(user).email
+            setIsPlayerEmail(playerMail.toString());
         }
         fetchPlayerMatches();
     }, [isPlayerEmail]);

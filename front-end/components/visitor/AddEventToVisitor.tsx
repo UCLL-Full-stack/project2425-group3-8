@@ -11,8 +11,9 @@ const AddEventToVisitor: React.FC<AddEventToVisitorProps> = ({ onEventAdded, eve
     const [isRegistered, setIsRegistered] = useState<boolean>(false);
 
     useEffect(() => {
-        const email = sessionStorage.getItem("UserEmail");
-        if (email) {
+        const user = sessionStorage.getItem('loggedInUser')
+        if (user) {
+            const email = JSON.parse(user).email;
             setVisitorEmail(email);
             checkRegistrationStatus(email, eventId);
         }

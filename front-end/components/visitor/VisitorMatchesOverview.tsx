@@ -8,8 +8,9 @@ const VisitorMatchesOverview: React.FC = () => {
     const [isVisitorEmail, setIsVisitorEmail] = useState<string>("");
 
     useEffect(() => {
-        const visitorEmail = sessionStorage.getItem("UserEmail");
-        if (visitorEmail) {
+        const user = sessionStorage.getItem('loggedInUser')
+        if (user) {
+            const visitorEmail = JSON.parse(user).email
             setIsVisitorEmail(visitorEmail);
         }
         fetchVisitorMatches();

@@ -1,5 +1,18 @@
-import express, { Request, Response } from "express";
+/**
+ * @swagger
+ *   components:
+ *    securitySchemes:
+ *     bearerAuth:
+ *      type: http
+ *      scheme: bearer
+ *      bearerFormat: JWT
+ */
+
+import express, { NextFunction, Request, response, Response } from 'express';
 import matchesService from "../service/matches.service";
+import { UserInput } from "../types";
+
+
 
 const matchesRouter = express.Router();
 
@@ -71,6 +84,8 @@ matchesRouter.get("/:matchesid/:teamname", async (req: Request, res: Response) =
  * @swagger
  * /matches/{id}:
  *   post:
+ *     security:
+ *      - bearerAuth: []
  *     summary: Add matches
  *     description: Add matches to an event
  *     parameters:
@@ -115,7 +130,9 @@ matchesRouter.get("/:matchesid/:teamname", async (req: Request, res: Response) =
  *       400:
  *         description: Error adding matches
  */
-matchesRouter.post("/:id", async (req: Request, res: Response) => {
+matchesRouter.post(
+    "/:id",  
+    async (req: Request, res: Response, next: NextFunction) => {
     const eventId = parseInt(req.params.id);
     const matches = req.body;
     try {
@@ -131,6 +148,8 @@ matchesRouter.post("/:id", async (req: Request, res: Response) => {
  * @swagger
  * /matches/{EventId}/{MatchesId}:
  *   put:
+ *     security:
+ *      - bearerAuth: []
  *     summary: Edit matches
  *     description: Edit matches from an event, including winner and result.
  *     parameters:
@@ -208,6 +227,8 @@ matchesRouter.put("/:EventId/:MatchesId", async (req: Request, res: Response) =>
  * @swagger
  * /matches/{MatchesId}:
  *   delete:
+ *     security:
+ *      - bearerAuth: []
  *     summary: Delete matches
  *     description: Delete matches from an event
  *     parameters:

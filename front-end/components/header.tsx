@@ -1,29 +1,21 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { User } from '@types';
 
 const Header: React.FC = () => {
-  const [loggedInUser, setLoggedInUser] = useState<string | null>(null);
-  const [isPlayer, setIsPlayer] = useState<boolean>(false);
-  const [isVisitor, setIsVisitor] = useState<boolean>(false);
+  const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
   const router = useRouter();
 
   useEffect(() => {
-    const user = sessionStorage.getItem("UserEmail");
+    const user = sessionStorage.getItem("loggedInUser");
     if (user) {
-      setLoggedInUser(user);
+      setLoggedInUser(JSON.parse(user));
     }
-    const playerStatus = sessionStorage.getItem("role") === "player";
-    setIsPlayer(playerStatus);
-    const visitorStatus = sessionStorage.getItem("role") === "visitor";
-    setIsVisitor(visitorStatus);
   }, []);
 
   const handleLogout = () => {
-    sessionStorage.removeItem("role");
-    sessionStorage.removeItem("UserEmail");
-    setIsVisitor(false);
-    setIsPlayer(false);
+    sessionStorage.removeItem("loggedInUser");
     setLoggedInUser(null);
     router.push("/"); 
     window.location.reload();
@@ -39,13 +31,13 @@ const Header: React.FC = () => {
           Home
         </Link>
 
-        {isPlayer && (
+        {loggedInUser?.role === 'player' && (
           <Link href="/player" className="nav-link px-4 fs-5 text-white">
             My Matches
           </Link>
         )}
 
-        {isVisitor && (
+        {loggedInUser?.role === 'visitor' && (
           <Link href="/visitor" className="nav-link px-4 fs-5 text-white">
             My Registered Matches
           </Link>
@@ -61,7 +53,7 @@ const Header: React.FC = () => {
                 Logout
               </a>
               <div className="text-white ms-3">
-                Welcome {sessionStorage.getItem("role")}: {loggedInUser}!
+                Welcome {loggedInUser.role}: {loggedInUser.email}!
               </div>
             </div>
           </>

@@ -29,8 +29,11 @@ const EventOverview: React.FC = () => {
   };
 
   useEffect(() => {
-    const visitorStatus = sessionStorage.getItem("role") === "visitor";
-    setIsVisitor(visitorStatus);
+    const user = sessionStorage.getItem('loggedInUser')
+    if (user) {
+      const visitorStatus = JSON.parse(user).role == 'visitor';
+      setIsVisitor(visitorStatus);
+    }
     const fetchEvents = async () => {
       try {
         const response = await EventService.getAllEvents();
@@ -45,8 +48,10 @@ const EventOverview: React.FC = () => {
       }
     };
 
-    const adminStatus = sessionStorage.getItem("role") === "admin";
-    setIsAdmin(adminStatus);
+    if (user) {
+      const adminStatus = JSON.parse(user).role == 'admin';
+      setIsAdmin(adminStatus);
+    }
 
     fetchEvents();
   }, []);

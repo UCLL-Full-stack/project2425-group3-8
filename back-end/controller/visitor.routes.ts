@@ -1,3 +1,12 @@
+/**
+ * @swagger
+ *   components:
+ *    securitySchemes:
+ *     bearerAuth:
+ *      type: http
+ *      scheme: bearer
+ *      bearerFormat: JWT
+ */
 import { Router } from "express";
 import visitorService from "../service/visitor.service";
 
@@ -63,6 +72,8 @@ VistorRouter.get("/:email", async (req, res) => {
  * @swagger
  * /visitor/{email}/{eventId}:
  *   post:
+ *     security:
+ *      - bearerAuth: []
  *     summary: Add event to visitor
  *     description: Add an event to the visitor's list of registered events.
  *     parameters:
@@ -108,6 +119,7 @@ VistorRouter.get("/:email", async (req, res) => {
  *         description: Error adding event to visitor
  */
 VistorRouter.post("/:email/:eventId", async (req, res) => {
+    console.log(req)
     const { email, eventId } = req.params;
     try {
         const addedEventToVisitor = await visitorService.addEventToVisitor(email, parseInt(eventId));
@@ -123,6 +135,8 @@ VistorRouter.post("/:email/:eventId", async (req, res) => {
  * @swagger
  * /visitor/{email}/{eventId}:
  *   get:
+ *     security:
+ *      - bearerAuth: []
  *     summary: Check visitor registration
  *     description: Check if the visitor is registered for the event.
  *     parameters:
@@ -167,6 +181,8 @@ VistorRouter.get("/:email/:eventId", async (req, res) => {
  * @swagger
  * /visitor/{email}/{eventId}:
  *   delete:
+ *     security:
+ *      - bearerAuth: []
  *     summary: Remove event from visitor
  *     description: Remove an event from the visitor's list of registered events.
  *     parameters:

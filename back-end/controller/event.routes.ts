@@ -1,3 +1,14 @@
+/**
+ * @swagger
+ *   components:
+ *    securitySchemes:
+ *     bearerAuth:
+ *      type: http
+ *      scheme: bearer
+ *      bearerFormat: JWT
+ */
+
+
 import express, { Request, Response } from "express";
 import eventService from "../service/event.service";
 
@@ -93,6 +104,8 @@ eventRouter.get('/:name', async (req: Request, res: Response) => {
  * @swagger
  * /event/{id}:
  *   put:
+ *     security:
+ *      - bearerAuth: [] 
  *     summary: Update an event
  *     parameters:
  *       - name: id
@@ -214,6 +227,8 @@ eventRouter.put('/:id', async (req: Request, res: Response) => {
  * @swagger
  * /event/delete/{id}:
  *   delete:
+ *     security:
+ *      - bearerAuth: []
  *     summary: Delete an event
  *     description: Deletes an event by its ID
  *     parameters:
@@ -305,6 +320,8 @@ eventRouter.delete('/delete/:id', async (req: Request, res: Response) => {
  * @swagger
  * /event/add:
  *   post:
+ *     security:
+ *      - bearerAuth: []
  *     summary: Add a new event
  *     requestBody:
  *       required: true

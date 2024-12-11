@@ -17,10 +17,9 @@ const LoginForm: React.FC = () => {
         event.preventDefault();
     
         try {
-            const user = await UserService.getUserByMail(mail, password);
+            const user = await UserService.loginUser(mail, password);
             if (user) {
-                sessionStorage.setItem("UserEmail", mail);
-                sessionStorage.setItem("role", user.role);
+                sessionStorage.setItem("loggedInUser", JSON.stringify(user));
                 setStatusText('logged in')
                 setTimeout(() => {
                     router.push("/");
