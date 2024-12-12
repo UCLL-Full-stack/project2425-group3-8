@@ -1,6 +1,7 @@
 import database from "./database";
 import { Player } from "../model/Player"; 
 import { Event } from "../model/Event";    
+import { MatchesInput } from "../types";
 
 const getPlayersByTeamAndMatch = async ( matchId: number, teamName: string) => {
     const players = await database.player.findMany({
@@ -26,7 +27,7 @@ const getPlayersByTeamAndMatch = async ( matchId: number, teamName: string) => {
     return players;
 }
 
-const addMatches = async (matches: any, eventId: number) => {
+const addMatches = async (matches: MatchesInput, eventId: number) => {
     try {
         const newMatchesPrisma = await database.matches.create({
             data: {
@@ -60,7 +61,7 @@ const addMatches = async (matches: any, eventId: number) => {
     }
 };
 
-const editMatches = async (matches: any, eventId: number, matchId: number) => {
+const editMatches = async (matches: MatchesInput, eventId: number, matchId: number) => {
     try {
         const updatedMatchPrisma = await database.matches.update({
             where: {

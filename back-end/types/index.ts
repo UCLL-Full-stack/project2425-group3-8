@@ -5,8 +5,8 @@ type EventInput = {
     name: string;
     startDate: Date;
     endDate: Date;
-    sportId?: number;
-    locationId?: number;
+    sportId?: SportInput;
+    locationId?: LocationInput;
     matches?: MatchesInput[];
 };
 
@@ -65,12 +65,28 @@ type VisitorInput = {
 
 };
 
+type EventInputPost = {
+    name: string;
+    startDate: Date; 
+    endDate: Date;  
+    location: {
+        city: string;
+        cityCode: string;
+        street: string;
+        number: number;
+    };
+    sport: {
+        name: string;
+        playerCount: number;
+    };
+}
+
 export {
     UserInput,
     SportInput,
     PlayerInput,
     MatchesInput,
     LocationInput,
-    EventInput, AuthenticationResponse, Role, VisitorInput
+    EventInput, AuthenticationResponse, Role, VisitorInput, EventInputPost
 };
 

@@ -41,8 +41,8 @@ const eventInput: EventInput = {
     name: 'Test Event',
     startDate: new Date('2021-01-01'),
     endDate: new Date('2021-01-02'),
-    sportId: 1,
-    locationId: 1,
+    sportId: sportInput,
+    locationId: locationInput,
     matches: [],
 };
 

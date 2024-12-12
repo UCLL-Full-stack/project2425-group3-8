@@ -1,16 +1,120 @@
 /**
  * @swagger
- *   components:
- *    securitySchemes:
+ * components:
+ *   securitySchemes:
  *     bearerAuth:
- *      type: http
- *      scheme: bearer
- *      bearerFormat: JWT
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ *   schemas:
+ *     Event:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: number
+ *         name:
+ *           type: string
+ *         startDate:
+ *           type: string
+ *           format: date-time
+ *         endDate:
+ *           type: string
+ *           format: date-time
+ *         locationId:
+ *           type: number
+ *         sportId:
+ *           type: number
+ *         location:
+ *           $ref: '#/components/schemas/Location'
+ *         sport:
+ *           $ref: '#/components/schemas/Sport'
+ *     Location:
+ *       type: object
+ *       properties:
+ *         city:
+ *           type: string
+ *         cityCode:
+ *           type: string
+ *         street:
+ *           type: string
+ *         number:
+ *           type: number
+ *     Sport:
+ *       type: object
+ *       properties:
+ *         name:
+ *           type: string
+ *         playerCount:
+ *           type: number
+ *     Matches:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: number
+ *         winner:
+ *           type: string
+ *         result:
+ *           type: string
+ *         date:
+ *           type: Date
+ *         hour:
+ *           type: string
+ *         team1:
+ *           type: string
+ *         team2:
+ *           type: string
+ *         eventId:
+ *           type: number
+ *     Visitor:
+ *       type: object
+ *       properties:
+ *         visitorId:
+ *           type: number
+ *         address:
+ *           type: object
+ *           properties:
+ *             city:
+ *               type: string
+ *             cityCode:
+ *               type: string
+ *             street:
+ *               type: string
+ *             number:
+ *               type: number
+ *         event:
+ *           type: object
+ *           properties:
+ *             name:
+ *               type: string
+ *             startDate:
+ *               type: string
+ *               format: date-time
+ *             endDate:
+ *               type: string
+ *               format: date-time
+ *             location:
+ *               type: object
+ *               properties:
+ *                 city:
+ *                   type: string
+ *                 cityCode:
+ *                   type: string
+ *                 street:
+ *                   type: string
+ *                 number:
+ *                   type: number
+ *             sport:
+ *               type: object
+ *               properties:
+ *                 name:
+ *                   type: string
+ *                 playerCount:
+ *                   type: number
  */
-
 
 import express, { Request, Response } from "express";
 import eventService from "../service/event.service";
+import { EventInput, EventInputPost } from "../types";
 
 const eventRouter = express.Router();
 
@@ -27,20 +131,7 @@ const eventRouter = express.Router();
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: number
- *                   name:
- *                     type: string
- *                   startDate:
- *                     type: string
- *                   endDate:
- *                     type: string
- *                   locationId:
- *                     type: number
- *                   sportId:
- *                     type: number
+ *                 $ref: '#/components/schemas/Event'
  */
 eventRouter.get('/', async (req: Request, res: Response) => {
     try {
@@ -55,6 +146,8 @@ eventRouter.get('/', async (req: Request, res: Response) => {
  * @swagger
  * /event/{name}:
  *   get:
+ *     security:
+ *      - bearerAuth: [] 
  *     summary: Get event by name
  *     parameters:
  *       - name: name
@@ -69,20 +162,7 @@ eventRouter.get('/', async (req: Request, res: Response) => {
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: number
- *                 name:
- *                   type: string
- *                 startDate:
- *                   type: string
- *                 endDate:
- *                   type: string
- *                 locationId:
- *                   type: number
- *                 sportId:
- *                   type: number
+ *               $ref: '#/components/schemas/Event'
  *       404:
  *         description: Event not found
  */
@@ -123,93 +203,43 @@ eventRouter.get('/:name', async (req: Request, res: Response) => {
  *             properties:
  *               name:
  *                 type: string
- *                 description: The name of the event
  *               startDate:
  *                 type: string
  *                 format: date-time
- *                 description: The start date of the event (ISO 8601 format)
  *               endDate:
  *                 type: string
  *                 format: date-time
- *                 description: The end date of the event (ISO 8601 format)
  *               location:
  *                 type: object
- *                 description: The location of the event
  *                 properties:
  *                   city:
  *                     type: string
- *                     description: The city where the event is held
  *                   cityCode:
  *                     type: string
- *                     description: The city code (e.g., postal code)
  *                   street:
  *                     type: string
- *                     description: The street address of the event location
  *                   number:
  *                     type: number
- *                     description: The street number
  *               sport:
  *                 type: object
- *                 description: The sport related to the event
  *                 properties:
  *                   name:
  *                     type: string
- *                     description: The name of the sport
  *                   playerCount:
  *                     type: number
- *                     description: The number of players in the sport
  *     responses:
- *       400:
+ *       200:
  *         description: Event successfully updated
  *         content:
  *           application/json:
- *           schema:
- *             type: object
- *             properties:
- *               id:
- *                 type: number
- *                 description: The unique identifier of the event
- *               name:
- *                 type: string
- *                 description: The updated name of the event
- *               startDate:
- *                 type: string
- *                 format: date-time
- *                 description: The updated start date of the event (ISO 8601 format)
- *               endDate:
- *                 type: string
- *                 format: date-time
- *                 description: The updated end date of the event (ISO 8601 format)
- *               location:
- *                 type: object
- *                 description: The updated location of the event
- *                 properties:
- *                   city:
- *                     type: string
- *                     description: The city where the event is held
- *                   cityCode:
- *                     type: string
- *                     description: The city code (e.g., postal code)
- *                   street:
- *                     type: string
- *                     description: The street address of the event location
- *                   number:
- *                     type: number
- *                     description: The street number
- *               sport:
- *                 type: object
- *                 description: The updated sport related to the event
- *                 properties:
- *                   name:
- *                     type: string
- *                     description: The name of the sport
- *                   playerCount:
- *                     type: number
- *                     description: The number of players in the sport
+ *             schema:
+ *               $ref: '#/components/schemas/Event'
+ *       404:
+ *         description: Event not found
  */
 eventRouter.put('/:id', async (req: Request, res: Response) => {
     const id = parseInt(req.params.id);
-    const updateData = req.body;
+    const updateData: EventInput = req.body;
 
     try {
         const updatedEvent = await eventService.updateEvent(id, updateData);
@@ -244,58 +274,11 @@ eventRouter.put('/:id', async (req: Request, res: Response) => {
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: string
- *                 name:
- *                   type: string
- *                 startDate:
- *                   type: string
- *                   format: date-time
- *                 endDate:
- *                   type: string
- *                   format: date-time
- *                 location:
- *                   type: object
- *                   properties:
- *                     city:
- *                       type: string
- *                     cityCode:
- *                       type: string
- *                     street:
- *                       type: string
- *                     number:
- *                       type: integer
- *                 sport:
- *                   type: object
- *                   properties:
- *                     name:
- *                       type: string
- *                     playerCount:
- *                       type: integer
+ *               $ref: '#/components/schemas/Event'
  *       404:
  *         description: Event not found
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                 error:
- *                   type: string
  *       500:
  *         description: Internal Server Error
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                 error:
- *                   type: string
  */
 eventRouter.delete('/delete/:id', async (req: Request, res: Response) => {
     const id = parseInt(req.params.id);
@@ -306,15 +289,14 @@ eventRouter.delete('/delete/:id', async (req: Request, res: Response) => {
         }
         res.status(200).json(deletedEvent);
     } catch (error) {
-        console.error(error); 
+        console.error(error);
         if (error instanceof Error) {
             res.status(400).json({ message: 'Failed to delete event', error: error.message });
         } else {
             res.status(400).json({ message: 'Internal Server Error', error: String(error) });
         }
     }
-}
-);
+});
 
 /**
  * @swagger
@@ -362,52 +344,21 @@ eventRouter.delete('/delete/:id', async (req: Request, res: Response) => {
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: number
- *                 name:
- *                   type: string
- *                 startDate:
- *                   type: string
- *                   format: date
- *                 endDate:
- *                   type: string
- *                   format: date
- *                 location:
- *                   type: object
- *                   properties:
- *                     city:
- *                       type: string
- *                     cityCode:
- *                       type: string
- *                     street:
- *                       type: string
- *                     number:
- *                       type: number
- *                 sport:
- *                   type: object
- *                   properties:
- *                     name:
- *                       type: string
- *                     playerCount:
- *                       type: number
+ *               $ref: '#/components/schemas/Event'
  */
 eventRouter.post('/add', async (req: Request, res: Response) => {
-    const event = req.body;
+    const event: EventInputPost = req.body;
     try {
         const newEvent = await eventService.addEvent(event);
         res.status(200).json(newEvent);
     } catch (error) {
-        console.error(error); 
+        console.error(error);
         if (error instanceof Error) {
             res.status(400).json({ message: 'Failed to add event', error: error.message });
         } else {
             res.status(400).json({ message: 'Internal Server Error', error: String(error) });
         }
     }
-}
-);
-
+});
 
 export { eventRouter };

@@ -1,11 +1,50 @@
 /**
  * @swagger
- *   components:
- *    securitySchemes:
+ * components:
+ *   securitySchemes:
  *     bearerAuth:
- *      type: http
- *      scheme: bearer
- *      bearerFormat: JWT
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ *   schemas:
+ *     Player:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *         address:
+ *           $ref: '#/components/schemas/Location'
+ *         age:
+ *           type: integer
+ *         experience:
+ *           type: integer
+ *         matches:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/Match'
+ *         team:
+ *           type: string
+ *     Match:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *         date:
+ *           type: string
+ *           format: date
+ *         hour:
+ *           type: string
+ *         team1:
+ *           type: string
+ *         team2:
+ *           type: string
+ *     PlayerMatch:
+ *       type: object
+ *       properties:
+ *         playerId:
+ *           type: integer
+ *         matchesId:
+ *           type: integer
  */
 import { Router } from "express";
 import playerService from "../service/player.service";
@@ -148,6 +187,8 @@ playerRouter.get("/", async (req, res) => {
  * @swagger
  * /player/{playerEmail}:
  *   get:
+ *     security:
+ *      - bearerAuth: [] 
  *     summary: Get player matches
  *     description: Get all matches for a player
  *     parameters:

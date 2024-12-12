@@ -2,6 +2,7 @@ import { Event } from "../model/Event"
 import { Sport } from "../model/Sport"
 import { Location } from "../model/Location"
 import database from "./database"
+import { EventInput, EventInputPost } from "../types"
 
 const getAllEvents = async (): Promise<Event[]> => {
     try {
@@ -52,7 +53,7 @@ const getEventById = async (id: number): Promise<Event | null> => {
     }
 }
 
-const updateEvent = async (id: number, updateData: any): Promise<Event | null> => {
+const updateEvent = async (id: number, updateData: EventInput)=> {
     try {
         const existingEvent = await database.event.findUnique({
             where: { id: id },
@@ -69,26 +70,26 @@ const updateEvent = async (id: number, updateData: any): Promise<Event | null> =
                 name: updateData.name || existingEvent.name,
                 startDate: updateData.startDate || existingEvent.startDate,
                 endDate: updateData.endDate || existingEvent.endDate,
-                sport: updateData.sport
+                sport: updateData.sportId
                     ? {
                           connectOrCreate: {
-                              where: { name: updateData.sport.name },
+                              where: { name: updateData.sportId?.name || existingEvent.sport.name },
                               create: {
-                                  name: updateData.sport.name,
-                                  playerCount: updateData.sport.playerCount,
+                                  name: updateData.sportId.name,
+                                  playerCount: updateData.sportId.playerCount,
                               },
                           },
                       }
                     : undefined,
-                location: updateData.location
+                location: updateData.locationId
                     ? {
                           connectOrCreate: {
-                              where: { city: updateData.location.city },
+                              where: { city: updateData.locationId.city },
                               create: {
-                                  city: updateData.location.city,
-                                  cityCode: updateData.location.cityCode,
-                                  street: updateData.location.street,
-                                  number: updateData.location.number,
+                                  city: updateData.locationId.city,
+                                  cityCode: updateData.locationId.cityCode,
+                                  street: updateData.locationId.street,
+                                  number: updateData.locationId.number,
                               },
                           },
                       }
@@ -139,13 +140,7 @@ const deleteEvent = async (id: number): Promise<Event | null> => {
 
 
 
-const addEvent = async (eventData: { 
-    name: string; 
-    startDate: Date; 
-    endDate: Date; 
-    sport: { name: string; playerCount: number }; 
-    location: { city: string; cityCode: string; street: string; number: number };
-  }): Promise<Event> => {
+const addEvent = async (eventData: EventInputPost): Promise<Event> => {
     try {
       const newEvent = await database.event.create({
         data: {

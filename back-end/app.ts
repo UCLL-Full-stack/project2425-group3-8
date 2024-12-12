@@ -27,7 +27,7 @@ app.use(
         '/user/login',
         '/event',
         '/player',
-        /^\/matches\/\d+\/[A-Z]+$/,
+        /^\/matches\/\d+\/[A-Za-z]+$/,
         '/matches',
         '/status',
         /\/swagger-ui.*/,
@@ -70,5 +70,5 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
-    console.log(`Swagger docs are available at http://localhost:${port}/api-docs`);
+    console.log(`Swagger docs are available at http://localhost:${port}/api-docs/#/default`);
   });

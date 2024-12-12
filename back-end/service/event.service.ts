@@ -1,5 +1,6 @@
 import { Event } from "../model/Event"
 import eventDb from "../repository/event.db"
+import { EventInput, EventInputPost } from "../types";
 
 const getAllEvents = async (): Promise<Event[]> => {
     try {
@@ -20,7 +21,7 @@ const getEventByName = async (name: string): Promise<Event | null> => {
 }
 
 
-const updateEvent = async (id: number, updateData: any): Promise<Event | null> => {
+const updateEvent = async (id: number, updateData: EventInput) => {
     if(updateData.startDate && updateData.endDate && updateData.startDate > updateData.endDate) {
         throw new Error('Start date must be before end date');
     }
@@ -49,13 +50,7 @@ const deleteEvent = async (id: number): Promise<Event | null> => {
 };
 
 
-const addEvent = async (eventData: {
-    name: string;
-    startDate: Date;
-    endDate: Date;
-    sport: { name: string; playerCount: number };
-    location: { city: string; cityCode: string; street: string; number: number };
-}): Promise<Event> => {
+const addEvent = async (eventData: EventInputPost): Promise<Event> => {
     if(eventData.startDate > eventData.endDate) {
         throw new Error('Start date must be before end date');
     }

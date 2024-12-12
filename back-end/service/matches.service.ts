@@ -1,6 +1,7 @@
 import eventDb from "../repository/event.db";
 import matchesDb from "../repository/matches.db"
 import playerDb from "../repository/player.db";
+import { MatchesInput } from "../types";
 
 const getPlayersByTeamAndMatch = async ( matchId: number, teamName: string) => {
  
@@ -19,7 +20,7 @@ const getPlayersByTeamAndMatch = async ( matchId: number, teamName: string) => {
     }
 }
 
-const addMatches = async (matches: any, eventId: number) => {
+const addMatches = async (matches: MatchesInput, eventId: number) => {
 
     const IdEvent = await eventDb.getEventById(eventId);
 
@@ -35,7 +36,7 @@ const addMatches = async (matches: any, eventId: number) => {
     }
 }
 
-const editMatches = async (matches: any, eventId: number, matchesId: number) => {
+const editMatches = async (matches: MatchesInput, eventId: number, matchesId: number) => {
 
     const IdMatches = await matchesDb.getMatchesById(matchesId);
     if (!IdMatches) {

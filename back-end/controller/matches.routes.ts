@@ -1,16 +1,80 @@
 /**
  * @swagger
- *   components:
- *    securitySchemes:
+ * components:
+ *   securitySchemes:
  *     bearerAuth:
- *      type: http
- *      scheme: bearer
- *      bearerFormat: JWT
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ *   schemas:
+ *     Match:
+ *       type: object
+ *       properties:
+ *         date:
+ *           type: string
+ *           format: date
+ *         time:
+ *           type: string
+ *         team1:
+ *           type: string
+ *         team2:
+ *           type: string
+ *         winner:
+ *           type: string
+ *         result:
+ *           type: string
+ *     Player:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *         name:
+ *           type: string
+ *         team:
+ *           type: string
+ *         age:
+ *           type: integer
+ *         experience:
+ *           type: integer
+ *     Event:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *         name:
+ *           type: string
+ *         startDate:
+ *           type: string
+ *           format: date-time
+ *         endDate:
+ *           type: string
+ *           format: date-time
+ *         locationId:
+ *           type: integer
+ *         sportId:
+ *           type: integer
+ *         location:
+ *           type: object
+ *           properties:
+ *             city:
+ *               type: string
+ *             cityCode:
+ *               type: string
+ *             street:
+ *               type: string
+ *             number:
+ *               type: integer
+ *         sport:
+ *           type: object
+ *           properties:
+ *             name:
+ *               type: string
+ *             playerCount:
+ *               type: integer
  */
-
 import express, { NextFunction, Request, response, Response } from 'express';
 import matchesService from "../service/matches.service";
-import { UserInput } from "../types";
+import { MatchesInput, UserInput } from "../types";
 
 
 
@@ -20,6 +84,8 @@ const matchesRouter = express.Router();
  * @swagger
  * /matches/{matchesid}/{teamname}:
  *   get:
+ *     security:
+ *      - bearerAuth: [] 
  *     summary: Get players by match ID and team name
  *     description: Retrieve all players from a specific team playing in a specific match.
  *     parameters:
@@ -134,7 +200,7 @@ matchesRouter.post(
     "/:id",  
     async (req: Request, res: Response, next: NextFunction) => {
     const eventId = parseInt(req.params.id);
-    const matches = req.body;
+    const matches: MatchesInput = req.body;
     try {
         const newMatches = await matchesService.addMatches(matches, eventId);
         res.status(200).json(newMatches);
@@ -213,7 +279,7 @@ matchesRouter.post(
 matchesRouter.put("/:EventId/:MatchesId", async (req: Request, res: Response) => {
     const eventId = parseInt(req.params.EventId);
     const matchesId = parseInt(req.params.MatchesId);
-    const matches = req.body;
+    const matches: MatchesInput = req.body;
     try {
         const newMatches = await matchesService.editMatches(matches, eventId, matchesId);
         res.status(200).json(newMatches);
@@ -278,6 +344,8 @@ matchesRouter.delete("/:MatchesId", async (req: Request, res: Response) => {
  * @swagger
  * /matches/{matchId}:
  *   get:
+ *     security:
+ *      - bearerAuth: [] 
  *     summary: Get event name by match ID
  *     description: Retrieve the name of the event for a specific match
  *     parameters:

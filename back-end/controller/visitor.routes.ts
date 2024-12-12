@@ -1,12 +1,37 @@
 /**
  * @swagger
- *   components:
- *    securitySchemes:
+ * components:
+ *   securitySchemes:
  *     bearerAuth:
- *      type: http
- *      scheme: bearer
- *      bearerFormat: JWT
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ *   schemas:
+ *     Event:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *         name:
+ *           type: string
+ *         startDate:
+ *           type: string
+ *         endDate:
+ *           type: string
+ *         sport:
+ *           $ref: '#/components/schemas/Sport'
+ *         location:
+ *           $ref: '#/components/schemas/Location'
+ *         matches:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/Matches'
+ *         visitors:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/Visitor'
  */
+
 import { Router } from "express";
 import visitorService from "../service/visitor.service";
 
@@ -16,6 +41,8 @@ const VistorRouter = Router();
  * @swagger
  * /visitor/{email}:
  *   get:
+ *     security:
+ *      - bearerAuth: [] 
  *     summary: Get visitor by email
  *     description: Retrieve all events that the visitor has registered for.
  *     parameters:
@@ -174,7 +201,7 @@ VistorRouter.get("/:email/:eventId", async (req, res) => {
         console.error(error);
         res.status(400).json("Error checking visitor registration");
     }
-} );
+});
 
 
 /**
@@ -236,5 +263,5 @@ VistorRouter.delete("/:email/:eventId", async (req, res) => {
         console.error(error);
         res.status(400).json("Error removing event from visitor");
     }
-} );
+});
 export default VistorRouter;
