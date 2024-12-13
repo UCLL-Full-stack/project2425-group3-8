@@ -7,15 +7,15 @@ const LoginForm: React.FC = () => {
     const [email, setMail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const[statusText, setStatusText] = useState('');
+    const [statusText, setStatusText] = useState('');
 
     const handleSubmit = async (
-        event: React.FormEvent<HTMLFormElement>, 
-        mail: string, 
+        event: React.FormEvent<HTMLFormElement>,
+        mail: string,
         password: string
     ) => {
         event.preventDefault();
-    
+
         try {
             const user = await UserService.loginUser(mail, password);
             if (user) {
@@ -23,7 +23,7 @@ const LoginForm: React.FC = () => {
                 setStatusText('logged in')
                 setTimeout(() => {
                     router.push("/");
-                  }, 2000);
+                }, 2000);
             }
         } catch (error) {
             if (error instanceof Error) {
@@ -33,8 +33,8 @@ const LoginForm: React.FC = () => {
             }
         }
     };
-    
-    
+
+
 
     return (
         <>
@@ -59,6 +59,8 @@ const LoginForm: React.FC = () => {
                     </div>
                     <p className="text-red-500">{error}</p>
                     <p className="text-green-500">{statusText}</p>
+
+                    <a href="/register">Register</a>
                 </form>
             </div>
 

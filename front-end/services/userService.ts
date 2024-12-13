@@ -1,3 +1,5 @@
+import { User } from "@types";
+
 const getUserByMail = async (email: string, password: string) => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user`, {
         method: 'POST',
@@ -29,9 +31,25 @@ const loginUser = async (email: string, password: string) => {
     return await response.json();
 };
 
+const registerUser = async (user: User) =>{
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/register`, {
+        method:'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({user})
+    })
+
+    if(!response.ok){
+        const error = await response.json()
+        throw new Error(error.message || 'An unexpected error occurred')
+    }
+
+    return await response.json()
+}
+
 const UserService = {
     getUserByMail,
-    loginUser
+    loginUser,
+    registerUser
 };
 
 export default UserService;
