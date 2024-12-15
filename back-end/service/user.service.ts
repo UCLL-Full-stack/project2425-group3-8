@@ -30,6 +30,22 @@ const authenticate = async ({email, password }: UserInput): Promise<Authenticati
 };
 
 
+const register = async (user: UserInput): Promise<AuthenticationResponse> => {
+    if(await userDb.userExistsByEmail(user.email)){
+        throw new Error('User already exists.')
+    }
+    const originalPaswd = user.password
+    const paswd = await bcrypt.hash(user.password, 10)
+    user.password = paswd
+    try{
+        await userDb.createUser(user)    
+    }catch(error){
+        throw (error)
+    }
+    user.password = originalPaswd
+    return authenticate(user)
+}
+
 const getUserByEmail = async (userInput: UserInput): Promise<User> => {
 
     try {
@@ -57,5 +73,6 @@ const getRole = async (userInput: UserInput): Promise<String> =>{
 export default {
     getUserByEmail,
     getRole,
-    authenticate
+    authenticate,
+    register
 }

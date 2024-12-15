@@ -27,7 +27,7 @@ app.use(
         '/user/login',
         '/event',
         '/player',
-        '/user/register ',
+        '/user/register',
         /^\/matches\/\d+\/[A-Za-z]+$/,
         '/matches',
         '/status',

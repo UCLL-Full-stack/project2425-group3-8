@@ -37,5 +37,16 @@ userRouter.post('/login', async (req: Request, res: Response, next: NextFunction
     }
 })
 
+userRouter.post('/register', async (req: Request, res: Response, next: NextFunction) => {
+    try{
+        const userInput = <UserInput>req.body;
+        const response = await userService.register(userInput);
+        console.log(response)
+        res.status(200).json( response )
+    } catch (error){
+        next(error)
+    }
+})
+
 export { userRouter }
 
