@@ -1,0 +1,171 @@
+{
+    "app.title": "Sport App",
+    "app.title.player": "My Matches",
+    "app.title.visitor": "My Registered Matches",
+    "home": {
+        "title": "Sport Events",
+        "nav": {
+            "home": "Home",
+            "MyMatches": "My Matches",
+            "MyRegisteredMatches": "My Registered Matches",
+            "Login": "Login",
+            "Logout": "Logout",
+            "Welcome": "Welcome"
+        },
+        "language": "Language"
+    },
+    "eventOverview": {
+        "startDate" : "Start Date",
+        "endDate" : "End Date",
+        "address" : "Address",
+        "sport" : "Sport",
+        "errorMessage" : "No events found"
+    },
+    "login": {
+        "titlePage": "Login",
+        "email": "Email",
+        "password": "Password",
+        "login": "Login",
+        "register": "Register",
+        "errorMessage": "Invalid email or password",
+        "statusMessage" : "logged in"
+    },
+    "addEvent": {
+        "titlePage": "Add Event",
+        "eventColumn":{
+            "title": "Event",
+            "name": "Name",
+            "startDate": "Start Date",
+            "endDate": "End Date"
+        },
+        "locationColumn": {
+            "title": "Address",
+            "city": "City",
+            "cityCode": "City Code",
+            "street": "Street",
+            "number": "Number"
+        },
+        "sportColumn": {
+            "title": "Sport",
+            "name": "Name",
+            "playerCount": "Player Count"
+        }
+    },
+    "deleteEvent": {
+        "message1": "Are you sure you want to delete this event?",
+        "message2": "There is no way back buddy..",
+        "yes": "Yes",
+        "no": "No"
+    },
+    "editEvent": {
+        "titlePage": "Edit Event",
+        "eventColumn":{
+            "title": "Event",
+            "name": "Name",
+            "startDate": "Start Date",
+            "endDate": "End Date"
+        },
+        "locationColumn": {
+            "title": "Address",
+            "city": "City",
+            "cityCode": "City Code",
+            "street": "Street",
+            "number": "Number"
+        },
+        "sportColumn": {
+            "title": "Sport",
+            "name": "Name",
+            "playerCount": "Player Count"
+        },
+        "cancel": "Cancel",
+        "save": "Save Changes"
+    },  
+    "matches": {
+        "title": "Event Details",
+        "matchesOverview": {
+            "date": "Date",
+            "teams": "Teams",
+            "result": "Result",
+            "winner": "Winner",
+            "players": "Players",
+            "actions": "Actions",
+            "errorMessage": "No matches found for this event",
+            "close": "Close"
+        },
+        "addMatches": {
+            "title": "Add Match",
+            "date": "Date",
+            "team1": "Team 1",
+            "team2": "Team 2",
+            "result": "Result",
+            "winner": "Winner",
+            "hour": "Hour",
+            "add": "Add Match"
+        },
+        "deleteMatch": {
+            "message1": "Are you sure you want to delete this match from this event?",
+            "message2": "There is no way back buddy..",
+            "yes": "Yes",
+            "no": "No"
+        },
+        "editMatches": {
+            "title": "Edit Match",
+            "date": "Date",
+            "team1": "Team 1",
+            "team2": "Team 2",
+            "result": "Result",
+            "winner": "Winner",
+            "hour": "Hour",
+            "save": "Save Changes",
+            "cancel": "Cancel"
+        },
+        "player": {
+            "title" : "Players in this match",
+            "players" : "Players",
+            "playerName" : "Player Name",
+            "errorMessage" : "No players found for this match",
+            "close" : "Close",
+            "message1" : "Are you sure you want to delete this player from this match?",
+            "message2" : "There is no way back buddy..",
+            "yes" : "Yes",
+            "no" : "No",
+            "addPlayer" : "Add Player to",
+            "team" : "Team",
+            "selectPlayer" : "Select a Player",
+            "errorMessage2" : "No players found for",
+            "add" : "Add",
+            "addToMatch" : "to the Match"
+        }
+    },
+    "playerPage" : {
+        "title" : "My matches:",
+        "matchName" : "Match Name",
+        "date" : "Date",
+        "hour" : "Hour",
+        "teams" : "Teams",
+        "result" : "Result",
+        "winner" : "Winner"
+    },
+    "visitorPage" : {
+        "title" : "My registered matches:",
+        "name" : "Name",
+        "startDate" : "Start Date",
+        "endDate" : "End Date",
+        "sport" : "Sport",
+        "location" : "Location",
+        "matches" : "Matches"
+    },
+
+    "register": {
+        "titlePage": "Register",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "email": "Email",
+        "phoneNumber": "Phone Number",
+        "password": "Password",
+        "repeatPassword": "Repeat Password",
+        "register": "Register",
+        "errorMessage1": "please fill in all fields of the form",
+        "errorMessage2": "passwords do not match"
+    }
+}

@@ -3,6 +3,7 @@ import { getPlayersByTeamAndMatch } from '../../services/MatchesService';
 import AddPlayer from './AddPlayer';
 import { Player } from '@types';
 import DeletePlayer from './DeletePlayer';
+import { useTranslation } from 'next-i18next';
 
 interface PlayerOverviewProps {
     matchId: number;
@@ -16,6 +17,7 @@ const PlayerOverview: React.FC<PlayerOverviewProps> = ({ matchId, teamName1, tea
     const [showDetails, setShowDetails] = useState(false);
     const [selectedPlayers, setSelectedPlayers] = useState<Player[]>([]);
     const [isAdmin, setIsAdmin] = useState<boolean>(false);
+    const { t } = useTranslation();
 
     useEffect(() => {
         const user = sessionStorage.getItem('loggedInUser')
@@ -112,15 +114,15 @@ const PlayerOverview: React.FC<PlayerOverviewProps> = ({ matchId, teamName1, tea
             {showDetails && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
                     <div className="bg-white p-6 rounded shadow-lg w-3/5  flex flex-col">
-                        <h3 className="text-xl mb-2 text-center">Players in this Match</h3>
+                        <h3 className="text-xl mb-2 text-center">{t("matches.player.title")} </h3>
 
                         <div className={`flex ${isAdmin ? 'space-x-8' : 'justify-center space-x-8'} flex-grow`}>
                             <div className="w-1/2">
-                                <h4 className="text-lg mb-2 text-center">{teamName1} Players</h4>
+                                <h4 className="text-lg mb-2 text-center">{teamName1} {t("matches.player.players")}</h4>
                                 <table className="table-auto border-collapse border border-gray-300 w-full text-center">
                                     <thead>
                                         <tr>
-                                            <th className="border border-gray-300 px-4 py-2 bg-gray-100">Player Name</th>
+                                            <th className="border border-gray-300 px-4 py-2 bg-gray-100">{t("matches.player.playerName")}</th>
                                             {isAdmin && (
                                                 <th className="border border-gray-300 px-4 py-2 bg-gray-100"></th>
                                             )}
@@ -145,7 +147,7 @@ const PlayerOverview: React.FC<PlayerOverviewProps> = ({ matchId, teamName1, tea
                                         ) : (
                                             <tr>
                                                 <td colSpan={isAdmin ? 2 : 1} className="border border-gray-300 px-4 py-2">
-                                                    No players found
+                                                {t("matches.player.errorMessage")}
                                                 </td>
                                             </tr>
                                         )}
@@ -154,11 +156,11 @@ const PlayerOverview: React.FC<PlayerOverviewProps> = ({ matchId, teamName1, tea
                             </div>
 
                             <div className="w-1/2">
-                                <h4 className="text-lg mb-2 text-center">{teamName2} Players</h4>
+                                <h4 className="text-lg mb-2 text-center">{teamName2} {t("matches.player.players")}</h4>
                                 <table className="table-auto border-collapse border border-gray-300 w-full text-center">
                                     <thead>
                                         <tr>
-                                            <th className="border border-gray-300 px-4 py-2 bg-gray-100">Player Name</th>
+                                            <th className="border border-gray-300 px-4 py-2 bg-gray-100">{t("matches.player.playerName")}</th>
                                             {isAdmin && (
                                                 <th className="border border-gray-300 px-4 py-2 bg-gray-100"></th>
                                             )}
@@ -183,7 +185,7 @@ const PlayerOverview: React.FC<PlayerOverviewProps> = ({ matchId, teamName1, tea
                                         ) : (
                                             <tr>
                                                 <td colSpan={isAdmin ? 2 : 1} className="border border-gray-300 px-4 py-2">
-                                                    No players found
+                                                {t("matches.player.errorMessage")}
                                                 </td>
                                             </tr>
                                         )}
@@ -204,7 +206,7 @@ const PlayerOverview: React.FC<PlayerOverviewProps> = ({ matchId, teamName1, tea
                                 className="bg-red-500 text-white px-4 py-2 rounded"
                                 onClick={handleCloseDetailsPopup}
                             >
-                                Close
+                                {t("matches.player.close")}
                             </button>
                         </div>
                     </div>

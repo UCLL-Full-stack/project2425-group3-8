@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import EventService from "@services/EventService";
+import { useTranslation } from "next-i18next";
 
 interface DeleteEventProps {
     eventId: number;
@@ -8,6 +9,7 @@ interface DeleteEventProps {
 
 const DeleteEvent: React.FC<DeleteEventProps> = ({ eventId, onDelete }) => {
     const [showPopup, setShowPopup] = useState(false);
+    const { t } = useTranslation();
 
     const handleDeleteClick = (e: React.FormEvent) => {
         e.stopPropagation()
@@ -81,10 +83,10 @@ const DeleteEvent: React.FC<DeleteEventProps> = ({ eventId, onDelete }) => {
                     textAlign: 'center',
                     borderRadius: '5px',
                 }}>
-                    <p className="text-xl">Are you sure you want to delete this event? "</p>
-                    <p className="text-xl flex justify-start">There is no way back buddy..</p>
-                    <button style={buttonStyle} onClick={confirmDelete}>Yes</button>
-                    <button style={buttonStyle} onClick={cancelDelete}>No</button>
+                    <p className="text-xl">{t("deleteEvent.message1")} "</p>
+                    <p className="text-xl flex justify-start">{t("deleteEvent.message2")}</p>
+                    <button style={buttonStyle} onClick={confirmDelete}>{t("deleteEvent.yes")}</button>
+                    <button style={buttonStyle} onClick={cancelDelete}>{t("deleteEvent.no")}</button>
                 </div>
             )}
         </div>

@@ -1,6 +1,7 @@
 import { Matches } from "@types";
 import { useState } from "react";
 import { editMatches } from "@services/MatchesService"; // Assuming you have an editMatches function in your service
+import { useTranslation } from "next-i18next";
 
 interface EditMatchProps {
     currentMatch: Matches;
@@ -16,6 +17,7 @@ const EditMatches: React.FC<EditMatchProps> = ({ currentMatch, selectedEvent, on
     const [winner, setWinner] = useState(currentMatch.winner || '');
     const [result, setResult] = useState(currentMatch.result || '');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const { t } = useTranslation();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -84,7 +86,7 @@ const EditMatches: React.FC<EditMatchProps> = ({ currentMatch, selectedEvent, on
                         className="bg-gray-100 p-4 rounded-md shadow-md w-11/12 max-w-md"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <h2 className="text-center text-xl font-semibold mb-4 text-black">Edit Match</h2>
+                        <h2 className="text-center text-xl font-semibold mb-4 text-black">{t("matches.editMatches.title")} </h2>
                         <form onSubmit={handleSubmit} className="space-y-3">
                             <div className="flex flex-col items-center text-black">
                                 <div className="mb-3 w-full max-w-xs">
@@ -92,7 +94,7 @@ const EditMatches: React.FC<EditMatchProps> = ({ currentMatch, selectedEvent, on
                                         htmlFor="team1"
                                         className="block font-medium mb-1 text-black"
                                     >
-                                        Team 1
+                                        {t("matches.editMatches.team1")}
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1 text-sm"
@@ -107,7 +109,7 @@ const EditMatches: React.FC<EditMatchProps> = ({ currentMatch, selectedEvent, on
                                         htmlFor="team2"
                                         className="block font-medium mb-1 text-black"
                                     >
-                                        Team 2
+                                        {t("matches.editMatches.team2")}
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1 text-sm"
@@ -122,7 +124,7 @@ const EditMatches: React.FC<EditMatchProps> = ({ currentMatch, selectedEvent, on
                                         htmlFor="date"
                                         className="block font-medium mb-1 text-black"
                                     >
-                                        Date
+                                        {t("matches.editMatches.date")}
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1 text-sm"
@@ -137,7 +139,7 @@ const EditMatches: React.FC<EditMatchProps> = ({ currentMatch, selectedEvent, on
                                         htmlFor="hour"
                                         className="block font-medium mb-1 text-black"
                                     >
-                                        Hour
+                                        {t("matches.editMatches.hour")}
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1 text-sm"
@@ -152,7 +154,7 @@ const EditMatches: React.FC<EditMatchProps> = ({ currentMatch, selectedEvent, on
                                         htmlFor="winner"
                                         className="block font-medium mb-1 text-black"
                                     >
-                                        Winner
+                                        {t("matches.editMatches.winner")}
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1 text-sm"
@@ -167,7 +169,7 @@ const EditMatches: React.FC<EditMatchProps> = ({ currentMatch, selectedEvent, on
                                         htmlFor="result"
                                         className="block font-medium mb-1 text-black"
                                     >
-                                        Result
+                                        {t("matches.editMatches.result")}
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1 text-sm"
@@ -184,13 +186,13 @@ const EditMatches: React.FC<EditMatchProps> = ({ currentMatch, selectedEvent, on
                                     className="bg-red-600 text-white px-4 py-2 rounded-full hover:bg-red-600 text-sm"
                                     onClick={() => setIsModalOpen(false)}
                                 >
-                                    Close
+                                    {t("matches.editMatches.cancel")}
                                 </button>
                                 <button
                                     type="submit"
                                     className="bg-blue-600 text-black px-4 py-2 rounded-full hover:bg-blue-600 text-sm"
                                 >
-                                    Save Changes
+                                    {t("matches.editMatches.save")}
                                 </button>
                             </div>
                         </form>

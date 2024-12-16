@@ -1,6 +1,7 @@
 import { Matches } from "@types";
 import { useState } from "react";
 import { addMatches } from "@services/MatchesService";
+import { useTranslation } from "next-i18next";
 
 interface AddMatchProps {
     eventId: number;
@@ -16,6 +17,7 @@ const AddMatches: React.FC<AddMatchProps> = ({ eventId, onAddMatch }) => {
     const [hour, setHour] = useState('');
     const [winner, setWinner] = useState('');
     const [result, setResult] = useState('');
+    const { t } = useTranslation();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -70,7 +72,7 @@ const AddMatches: React.FC<AddMatchProps> = ({ eventId, onAddMatch }) => {
                             d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                         />
                     </svg>
-                    Add match
+                    {t('matches.addMatches.title')}
                 </button>
             </div>
 
@@ -83,12 +85,12 @@ const AddMatches: React.FC<AddMatchProps> = ({ eventId, onAddMatch }) => {
                         className="bg-gray-100 p-4 rounded-md shadow-md w-11/12 max-w-md"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <h2 className="text-center text-xl font-semibold mb-4">Add Match</h2>
+                        <h2 className="text-center text-xl font-semibold mb-4">{t('matches.addMatches.title')}</h2>
                         <form onSubmit={handleSubmit} className="space-y-3">
                             <div className="flex flex-col items-center">
                                 <div className="mb-3 w-full max-w-xs">
                                     <label htmlFor="team1" className="block font-medium mb-1">
-                                        Team 1
+                                    {t('matches.addMatches.team1')}
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1 text-sm"
@@ -100,7 +102,7 @@ const AddMatches: React.FC<AddMatchProps> = ({ eventId, onAddMatch }) => {
                                 </div>
                                 <div className="mb-3 w-full max-w-xs">
                                     <label htmlFor="team2" className="block font-medium mb-1">
-                                        Team 2
+                                    {t('matches.addMatches.team2')}
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1 text-sm"
@@ -112,7 +114,7 @@ const AddMatches: React.FC<AddMatchProps> = ({ eventId, onAddMatch }) => {
                                 </div>
                                 <div className="mb-3 w-full max-w-xs">
                                     <label htmlFor="date" className="block font-medium mb-1">
-                                        Date
+                                    {t('matches.addMatches.date')}
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1 text-sm"
@@ -124,7 +126,7 @@ const AddMatches: React.FC<AddMatchProps> = ({ eventId, onAddMatch }) => {
                                 </div>
                                 <div className="mb-3 w-full max-w-xs">
                                     <label htmlFor="hour" className="block font-medium mb-1">
-                                        Hour
+                                    {t('matches.addMatches.hour')}
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1 text-sm"
@@ -136,7 +138,7 @@ const AddMatches: React.FC<AddMatchProps> = ({ eventId, onAddMatch }) => {
                                 </div>
                                 <div className="mb-3 w-full max-w-xs">
                                     <label htmlFor="winner" className="block font-medium mb-1">
-                                        Winner
+                                    {t('matches.addMatches.winner')}
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1 text-sm"
@@ -148,7 +150,7 @@ const AddMatches: React.FC<AddMatchProps> = ({ eventId, onAddMatch }) => {
                                 </div>
                                 <div className="mb-3 w-full max-w-xs">
                                     <label htmlFor="result" className="block font-medium mb-1">
-                                        Result
+                                    {t('matches.addMatches.result')}
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1 text-sm"
@@ -164,7 +166,7 @@ const AddMatches: React.FC<AddMatchProps> = ({ eventId, onAddMatch }) => {
                                     type="submit"
                                     className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 text-sm"
                                 >
-                                    Add Match
+                                    {t('matches.addMatches.add')}
                                 </button>
                             </div>
                         </form>

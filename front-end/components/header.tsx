@@ -2,10 +2,13 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { User } from '@types';
+import Language from './language/Language';
+import { useTranslation } from 'next-i18next';
 
 const Header: React.FC = () => {
   const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
   const router = useRouter();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const user = sessionStorage.getItem("loggedInUser");
@@ -24,22 +27,22 @@ const Header: React.FC = () => {
   return (
     <header className="p-3 mb-3 border-bottom bg-gray-600">
       <a className="fs-2 d-flex justify-content-center mb-2 mb-lg-0 text-white-50 text-decoration-none">
-        Sport Events
+        {t('home.title')}
       </a>
       <nav className="nav justify-content-center">
         <Link href="/" className="nav-link px-4 fs-5 text-white">
-          Home
+          {t('home.nav.home')}
         </Link>
 
         {loggedInUser?.role === 'player' && (
           <Link href="/player" className="nav-link px-4 fs-5 text-white">
-            My Matches
+            {t('home.nav.MyMatches')}
           </Link>
         )}
 
         {loggedInUser?.role === 'visitor' && (
           <Link href="/visitor" className="nav-link px-4 fs-5 text-white">
-            My Registered Matches
+            {t('home.nav.MyRegisteredMatches')}
           </Link>
         )}
 
@@ -50,19 +53,21 @@ const Header: React.FC = () => {
                 onClick={handleLogout}
                 className="nav-link px-4 fs-5 text-white cursor-pointer"
               >
-                Logout
+                {t('home.nav.Logout')}
               </a>
               <div className="text-white ms-3">
-                Welcome {loggedInUser.role}: {loggedInUser.email}!
+              {t('home.nav.Welcome')} {loggedInUser.role}: {loggedInUser.email}!
               </div>
             </div>
           </>
         ) : (
           <Link href="/login" className="nav-link px-4 fs-5 text-white">
-            Login
+            {t('home.nav.Login')}
           </Link>
         )}
+        
       </nav>
+      <Language />
     </header>
   );
 };

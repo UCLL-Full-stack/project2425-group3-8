@@ -1,6 +1,8 @@
 import { useState } from "react";
 import EventService from "../../services/EventService";
 import { CustomEvent } from "@types"; 
+import { useTranslation } from "next-i18next";
+import { t } from "i18next";
 interface AddEventProps {
     onEventAdded: () => void;
 }
@@ -16,6 +18,7 @@ const AddEvent: React.FC<AddEventProps> = ({ onEventAdded }) => {
     const [eventAddressNumber, setEventAddressNumber] = useState<number | undefined>(); 
     const [eventSportName, setEventSportName] = useState("");
     const [eventSportPlayerCount, setEventSportPlayerCount] = useState<number | undefined>();
+    const { t } = useTranslation();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -81,7 +84,7 @@ const AddEvent: React.FC<AddEventProps> = ({ onEventAdded }) => {
                             d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                         />
                     </svg>
-                    Add Event
+                    {t("addEvent.titlePage")}
                 </button>
             </div>
 
@@ -94,13 +97,13 @@ const AddEvent: React.FC<AddEventProps> = ({ onEventAdded }) => {
                         className="bg-gray-100 p-6 rounded-md shadow-md w-11/12 max-w-4xl"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <h2 className="text-center text-xl font-semibold mb-6">Add Event</h2>
+                        <h2 className="text-center text-xl font-semibold mb-6"> {t("addEvent.titlePage")}</h2>
                         <form onSubmit={handleSubmit} className="grid grid-cols-3 gap-6">
                             <div>
-                                <h3 className="text-lg font-semibold mb-4">Event</h3>
+                                <h3 className="text-lg font-semibold mb-4">{t("addEvent.eventColumn.title")}</h3>
                                 <div className="mb-4">
                                     <label htmlFor="name" className="block font-medium mb-1">
-                                        Name
+                                    {t("addEvent.eventColumn.name")}
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1"
@@ -112,7 +115,7 @@ const AddEvent: React.FC<AddEventProps> = ({ onEventAdded }) => {
                                 </div>
                                 <div className="mb-4">
                                     <label htmlFor="startDate" className="block font-medium mb-1">
-                                        Start Date
+                                    {t("addEvent.eventColumn.startDate")}
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1"
@@ -124,7 +127,7 @@ const AddEvent: React.FC<AddEventProps> = ({ onEventAdded }) => {
                                 </div>
                                 <div className="mb-4">
                                     <label htmlFor="endDate" className="block font-medium mb-1">
-                                        End Date
+                                    {t("addEvent.eventColumn.endDate")}
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1"
@@ -136,10 +139,10 @@ const AddEvent: React.FC<AddEventProps> = ({ onEventAdded }) => {
                                 </div>
                             </div>
                             <div>
-                                <h3 className="text-lg font-semibold mb-4">Address</h3>
+                                <h3 className="text-lg font-semibold mb-4">{t("addEvent.locationColumn.title")}</h3>
                                 <div className="mb-4">
                                     <label htmlFor="city" className="block font-medium mb-1">
-                                        City
+                                    
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1"
@@ -151,7 +154,7 @@ const AddEvent: React.FC<AddEventProps> = ({ onEventAdded }) => {
                                 </div>
                                 <div className="mb-4">
                                     <label htmlFor="cityCode" className="block font-medium mb-1">
-                                        City Code
+                                    {t("addEvent.locationColumn.cityCode")}
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1"
@@ -163,7 +166,7 @@ const AddEvent: React.FC<AddEventProps> = ({ onEventAdded }) => {
                                 </div>
                                 <div className="mb-4">
                                     <label htmlFor="street" className="block font-medium mb-1">
-                                        Street
+                                    {t("addEvent.locationColumn.street")}
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1"
@@ -175,7 +178,7 @@ const AddEvent: React.FC<AddEventProps> = ({ onEventAdded }) => {
                                 </div>
                                 <div className="mb-4">
                                     <label htmlFor="number" className="block font-medium mb-1">
-                                        Number
+                                    {t("addEvent.locationColumn.number")}
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1"
@@ -187,10 +190,10 @@ const AddEvent: React.FC<AddEventProps> = ({ onEventAdded }) => {
                                 </div>
                             </div>
                             <div>
-                                <h3 className="text-lg font-semibold mb-4">Sport</h3>
+                                <h3 className="text-lg font-semibold mb-4">{t("addEvent.sportColumn.title")}</h3>
                                 <div className="mb-4">
                                     <label htmlFor="sportName" className="block font-medium mb-1">
-                                        Sport Name
+                                    {t("addEvent.sportColumn.name")}
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1"
@@ -202,7 +205,7 @@ const AddEvent: React.FC<AddEventProps> = ({ onEventAdded }) => {
                                 </div>
                                 <div className="mb-4">
                                     <label htmlFor="playerCount" className="block font-medium mb-1">
-                                        Player Count
+                                    {t("addEvent.sportColumn.playerCount")}
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1"
@@ -221,7 +224,7 @@ const AddEvent: React.FC<AddEventProps> = ({ onEventAdded }) => {
                                     type="submit"
                                     className="bg-blue-600 hover:bg-blue-600 text-white px-6 py-2 rounded-full"
                                 >
-                                    Add Event
+                                    {t("addEvent.titlePage")}
                                 </button>
                             </div>
                         </form>

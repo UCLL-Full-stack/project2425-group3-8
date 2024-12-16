@@ -1,0 +1,171 @@
+{
+    "app.title": "Deporte App",
+    "app.title.player": "Mis partidos",
+    "app.title.visitor": "Mis partidos registrados",
+    "home": {
+        "title": "Eventos Deportivos",
+        "nav": {
+            "home": "Inicio",
+            "MyMatches": "Mis Partidos",
+            "MyRegisteredMatches": "Mis Partidos Registrados",
+            "Login": "Iniciar Sesión",
+            "Logout": "Cerrar Sesión",
+            "Welcome": "Bienvenido"
+        },
+        "language": "Idioma"
+    },
+    "eventOverview": {
+        "startDate" : "Fecha de Inicio",
+        "endDate" : "Fecha de Finalización",
+        "address" : "Dirección",
+        "sport" : "Deporte",
+        "errorMessage" : "No se han encontrado eventos"
+    },
+    "login": {
+        "titlePage": "Iniciar Sesión",
+        "email": "Correo Electrónico",
+        "password": "Contraseña",
+        "login": "Iniciar Sesión",
+        "register": "Registrarse",
+        "errorMessage": "Correo electrónico o contraseña inválidos",
+        "statusMessage" : "sesión iniciada"
+    },
+    "addEvent": {
+        "titlePage": "Añadir Evento",
+        "eventColumn":{
+            "title": "Evento",
+            "name": "Nombre",
+            "startDate": "Fecha de Inicio",
+            "endDate": "Fecha de Finalización"
+        },
+        "locationColumn": {
+            "title": "Dirección",
+            "city": "Ciudad",
+            "cityCode": "Código Postal",
+            "street": "Calle",
+            "number": "Número"
+        },
+        "sportColumn": {
+            "title": "Deporte",
+            "name": "Nombre",
+            "playerCount": "Número de Jugadores"
+        }
+    },
+    "deleteEvent": {
+        "message1": "¿Estás seguro de que quieres eliminar este evento?",
+        "message2": "No hay vuelta atrás amigo..",
+        "yes": "Sí",
+        "no": "No"
+    },
+    "editEvent": {
+        "titlePage": "Editar Evento",
+        "eventColumn":{
+            "title": "Evento",
+            "name": "Nombre",
+            "startDate": "Fecha de Inicio",
+            "endDate": "Fecha de Finalización"
+        },
+        "locationColumn": {
+            "title": "Dirección",
+            "city": "Ciudad",
+            "cityCode": "Código Postal",
+            "street": "Calle",
+            "number": "Número"
+        },
+        "sportColumn": {
+            "title": "Deporte",
+            "name": "Nombre",
+            "playerCount": "Número de Jugadores"
+        },
+        "cancel": "Cancelar",
+        "save": "Guardar"
+    },
+    "matches": {
+        "title": "Detalles Del Evento",
+        "matchesOverview": {
+            "date": "Fecha",
+            "teams": "Equipos",
+            "result": "Resultado",
+            "winner": "Ganador",
+            "players": "Jugadores",
+            "actions": "Acciones",
+            "errorMessage": "No se han encontrado partidos",
+            "close": "Cerrar"
+        },
+        "addMatches": {
+            "title": "Añadir Partido",
+            "date": "Fecha",
+            "team1": "Equipo 1",
+            "team2": "Equipo 2",
+            "result": "Resultado",
+            "winner": "Ganador",
+            "hour": "Hora",
+            "add": "Añadir Partido"
+        },
+        "deleteMatch": {
+            "message1": "¿Estás seguro de que quieres eliminar este partido?",
+            "message2": "No hay vuelta atrás amigo..",
+            "yes": "Sí",
+            "no": "No"
+        },
+        "editMatches": {
+            "title": "Editar Partido",
+            "date": "Fecha",
+            "team1": "Equipo 1",
+            "team2": "Equipo 2",
+            "result": "Resultado",
+            "winner": "Ganador",
+            "hour": "Hora",
+            "cancel": "Cancelar",
+            "save": "Guardar"
+        },
+        "player" :{
+            "title" : "Jugadores en este partido",
+            "players" : "Jugadores",
+            "playerName" : "nombre del jugador",
+            "errorMessage" : "No se encontraron jugadores para este partido",
+            "close" : "Cerrar",
+            "message1" : "¿Estás seguro de que quieres eliminar a este jugador de esta partida?",
+            "message2" : "No hay vuelta atrás amigo..",
+            "yes" : "Sí",
+            "no" : "No",
+            "addPlayer" : "Agregar jugador a",
+            "team" : "Equipo",
+            "selectPlayer" : "Selecciona un jugador",
+            "errorMessage2" : "No se encontraron jugadores para",
+            "add" : "Agregar",
+            "addToMatch" : "al partido"
+        }
+    },
+    "playerPage" : {
+        "title" : "Mis partidos:",
+        "matchName" : "Nombre del partido",
+        "date" : "Fecha",
+        "hour" : "Hora",
+        "teams" : "Equipos",
+        "result" : "Resultado",
+        "winner" : "Ganador"
+    },
+    "visitorPage" : {
+        "title" : "Mis partidos registrados:",
+        "name" : "Nombre",
+        "startDate" : "Fecha de Inicio",
+        "endDate" : "Fecha de Finalización",
+        "sport" : "Deporte",
+        "location" : "Ubicación",
+        "matches" : "Partidos"
+    },
+
+    "register": {
+        "title": "Registrarse",
+        "firstName" : "Nombre",
+        "lastName" : "Apellido",
+        "email" : "Correo Electrónico",
+        "phoneNumber" : "Número de Teléfono",
+        "password" : "Contraseña",
+        "repeatPassword" : "Repetir Contraseña",
+        "register" : "Registrarse",
+        "errorMessage1" : "por favor complete todos los campos del formulario",
+        "errorMessage2" : "Las contraseñas no coinciden"
+    }
+}

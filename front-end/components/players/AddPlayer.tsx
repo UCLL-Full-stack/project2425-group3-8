@@ -1,6 +1,7 @@
 import { Player } from "@types";
 import { useEffect, useState } from "react";
 import { addPlayerToMatch, getAllPlayers } from "../../services/PlayerService";
+import { useTranslation } from "next-i18next";
 
 interface AddPlayerProps {
     matchId: number;
@@ -11,6 +12,7 @@ interface AddPlayerProps {
 const AddPlayer: React.FC<AddPlayerProps> = ({ matchId, teamName, onAddPlayer }) => {
     const [players, setPlayers] = useState<Player[]>([]);
     const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
+    const { t } = useTranslation();
     
     useEffect(() => {
         const fetchPlayers = async () => {
@@ -59,7 +61,7 @@ const AddPlayer: React.FC<AddPlayerProps> = ({ matchId, teamName, onAddPlayer })
 
     return (
         <div>
-            <h4 className="text-lg mb-2 text-center">Add Player to {teamName} Team</h4>
+            <h4 className="text-lg mb-2 text-center">{t("matches.player.addPlayer")} {teamName} {t("matches.player.team")}</h4>
             <div>
                 {filteredPlayers.length > 0 ? (
                     <select
@@ -67,10 +69,9 @@ const AddPlayer: React.FC<AddPlayerProps> = ({ matchId, teamName, onAddPlayer })
                         onChange={(e) => {
                             const player = filteredPlayers.find((p) => p.id === parseInt(e.target.value));
                             setSelectedPlayer(player || null);
-                            console.log("Selected player:", player); 
                         }}
                     >
-                        <option value="">Select a player</option>
+                        <option value="">{t("matches.player.selectPlayer")}</option>
                         {filteredPlayers.map((player) => (
                             <option key={player.id} value={player.id}>
                                 {player.name}
@@ -78,7 +79,7 @@ const AddPlayer: React.FC<AddPlayerProps> = ({ matchId, teamName, onAddPlayer })
                         ))}
                     </select>
                 ) : (
-                    <p>No players found for {teamName}</p>
+                    <p>{t("matches.player.errorMessage2")} {teamName}</p>
                 )}
             </div>
 
@@ -87,7 +88,7 @@ const AddPlayer: React.FC<AddPlayerProps> = ({ matchId, teamName, onAddPlayer })
                     className="bg-blue-600 text-white px-4 py-2 rounded mt-4"
                     onClick={handleAddPlayer}
                 >
-                    Add {selectedPlayer.name} to the Match
+                    {t("matches.player.add")} {selectedPlayer.name} {t("matches.player.addToMatch")}
                 </button>
             )}
         </div>

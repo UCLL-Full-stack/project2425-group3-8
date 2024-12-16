@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import EventService from "../../services/EventService";
 import { CustomEvent } from "@types"; 
+import { useTranslation } from "next-i18next";
 
 interface EditEventProps {
     event: CustomEvent;
@@ -18,6 +19,7 @@ const EditEvent: React.FC<EditEventProps> = ({ event, onEventEdited }) => {
     const [eventAddressNumber, setEventAddressNumber] = useState(event.location.number);
     const [eventSportName, setEventSportName] = useState(event.sport.name);
     const [eventSportPlayerCount, setEventSportPlayerCount] = useState(event.sport.playerCount);
+    const { t } = useTranslation();
 
     useEffect(() => {
         setEventName(event.name);
@@ -102,13 +104,13 @@ const EditEvent: React.FC<EditEventProps> = ({ event, onEventEdited }) => {
                         className="bg-gray-100 p-6 rounded-md shadow-md w-11/12 max-w-4xl"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <h2 className="text-center text-xl font-semibold mb-6">Edit Event</h2>
+                        <h2 className="text-center text-xl font-semibold mb-6">{t("editEvent.titlePage")} </h2>
                         <form onSubmit={handleSubmit} className="grid grid-cols-3 gap-6">
                             <div>
-                                <h3 className="text-lg font-semibold mb-4">Event</h3>
+                                <h3 className="text-lg font-semibold mb-4">{t("editEvent.eventColumn.title")}</h3>
                                 <div className="mb-4">
                                     <label htmlFor="name" className="block font-medium mb-1">
-                                        Name
+                                    {t("editEvent.eventColumn.name")}
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1"
@@ -120,7 +122,7 @@ const EditEvent: React.FC<EditEventProps> = ({ event, onEventEdited }) => {
                                 </div>
                                 <div className="mb-4">
                                     <label htmlFor="startDate" className="block font-medium mb-1">
-                                        Start Date
+                                    {t("editEvent.eventColumn.startDate")}
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1"
@@ -132,7 +134,7 @@ const EditEvent: React.FC<EditEventProps> = ({ event, onEventEdited }) => {
                                 </div>
                                 <div className="mb-4">
                                     <label htmlFor="endDate" className="block font-medium mb-1">
-                                        End Date
+                                    {t("editEvent.eventColumn.endDate")}
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1"
@@ -144,10 +146,10 @@ const EditEvent: React.FC<EditEventProps> = ({ event, onEventEdited }) => {
                                 </div>
                             </div>
                             <div>
-                                <h3 className="text-lg font-semibold mb-4">Address</h3>
+                                <h3 className="text-lg font-semibold mb-4">{t("editEvent.locationColumn.title")}</h3>
                                 <div className="mb-4">
                                     <label htmlFor="city" className="block font-medium mb-1">
-                                        City
+                                    {t("editEvent.locationColumn.city")}
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1"
@@ -159,7 +161,7 @@ const EditEvent: React.FC<EditEventProps> = ({ event, onEventEdited }) => {
                                 </div>
                                 <div className="mb-4">
                                     <label htmlFor="cityCode" className="block font-medium mb-1">
-                                        City Code
+                                    {t("editEvent.locationColumn.cityCode")}
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1"
@@ -171,7 +173,7 @@ const EditEvent: React.FC<EditEventProps> = ({ event, onEventEdited }) => {
                                 </div>
                                 <div className="mb-4">
                                     <label htmlFor="street" className="block font-medium mb-1">
-                                        Street
+                                    {t("editEvent.locationColumn.street")}
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1"
@@ -183,7 +185,7 @@ const EditEvent: React.FC<EditEventProps> = ({ event, onEventEdited }) => {
                                 </div>
                                 <div className="mb-4">
                                     <label htmlFor="number" className="block font-medium mb-1">
-                                        Number
+                                    {t("editEvent.locationColumn.number")}
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1"
@@ -195,10 +197,10 @@ const EditEvent: React.FC<EditEventProps> = ({ event, onEventEdited }) => {
                                 </div>
                             </div>
                             <div>
-                                <h3 className="text-lg font-semibold mb-4">Sport</h3>
+                                <h3 className="text-lg font-semibold mb-4">{t("editEvent.sportColumn.title")}</h3>
                                 <div className="mb-4">
                                     <label htmlFor="sportName" className="block font-medium mb-1">
-                                        Sport Name
+                                    {t("editEvent.sportColumn.name")}
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1"
@@ -210,7 +212,7 @@ const EditEvent: React.FC<EditEventProps> = ({ event, onEventEdited }) => {
                                 </div>
                                 <div className="mb-4">
                                     <label htmlFor="playerCount" className="block font-medium mb-1">
-                                        Player Count
+                                    {t("editEvent.sportColumn.playerCount")}
                                     </label>
                                     <input
                                         className="w-full border border-gray-300 rounded px-2 py-1"
@@ -228,13 +230,13 @@ const EditEvent: React.FC<EditEventProps> = ({ event, onEventEdited }) => {
                                     type="button"
                                     onClick={() => setIsModalOpen(false)}
                                 >
-                                    Cancel
+                                    {t("editEvent.cancel")}
                                 </button>
                                 <button
                                     className="bg-blue-600 text-white px-4 py-2 rounded-full"
                                     type="submit"
                                 >
-                                    Save Changes
+                                    {t("editEvent.save")}
                                 </button>
                             </div>
                         </form>

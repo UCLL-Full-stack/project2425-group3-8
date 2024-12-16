@@ -1,11 +1,13 @@
 import { getVisitorMatches } from "@services/VisitorService";
 import { CustomEvent } from "@types";
+import { useTranslation } from "next-i18next";
 import { useEffect, useState } from "react";
 
 
 const VisitorMatchesOverview: React.FC = () => {
     const [events, setEvents] = useState<CustomEvent[]>([]);
     const [isVisitorEmail, setIsVisitorEmail] = useState<string>("");
+    const { t } = useTranslation();
 
     useEffect(() => {
         const user = sessionStorage.getItem('loggedInUser')
@@ -38,12 +40,12 @@ const VisitorMatchesOverview: React.FC = () => {
             >
                 <thead>
                     <tr style={{ backgroundColor: "#f4f4f4" }}>
-                        <th style={{ border: "1px solid #ddd", padding: "8px" }}>Name</th>
-                        <th style={{ border: "1px solid #ddd", padding: "8px" }}>Start Date</th>
-                        <th style={{ border: "1px solid #ddd", padding: "8px" }}>End Date</th>
-                        <th style={{ border: "1px solid #ddd", padding: "8px" }}>Sport</th>
-                        <th style={{ border: "1px solid #ddd", padding: "8px" }}>Location</th>
-                        <th style={{ border: "1px solid #ddd", padding: "8px" }}>Matches</th>
+                        <th style={{ border: "1px solid #ddd", padding: "8px" }}>{t("visitorPage.name")} </th>
+                        <th style={{ border: "1px solid #ddd", padding: "8px" }}>{t("visitorPage.startDate")}</th>
+                        <th style={{ border: "1px solid #ddd", padding: "8px" }}>{t("visitorPage.endDate")}</th>
+                        <th style={{ border: "1px solid #ddd", padding: "8px" }}>{t("visitorPage.sport")}</th>
+                        <th style={{ border: "1px solid #ddd", padding: "8px" }}>{t("visitorPage.location")}</th>
+                        <th style={{ border: "1px solid #ddd", padding: "8px" }}>{t("visitorPage.matches")}</th>
                     </tr>
                 </thead>
                 <tbody>

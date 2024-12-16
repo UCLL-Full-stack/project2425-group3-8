@@ -4,6 +4,7 @@ import PlayerOverview from '../players/PlayerOverview';
 import AddMatches from './AddMatches';
 import EditMatches from './EditMatches';
 import DeleteMatches from './DeleteMatches';
+import { useTranslation } from 'next-i18next';
 
 const MatchesOverview: React.FC<{ selectedEvent: Event; closePopUp: (showPopUp: boolean) => void }> = ({
   selectedEvent,
@@ -11,6 +12,7 @@ const MatchesOverview: React.FC<{ selectedEvent: Event; closePopUp: (showPopUp: 
 }) => {
   const [matches, setMatches] = useState<Matches[]>([]);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
 
@@ -50,7 +52,7 @@ const MatchesOverview: React.FC<{ selectedEvent: Event; closePopUp: (showPopUp: 
         )}
         <div className="flex items-center w-full mb-2">
 
-          <h2 className="text-2xl flex-grow text-center">Event Details</h2>
+          <h2 className="text-2xl flex-grow text-center">{t("matches.title")} </h2>
 
         </div>
 
@@ -58,13 +60,13 @@ const MatchesOverview: React.FC<{ selectedEvent: Event; closePopUp: (showPopUp: 
           <table className="table-auto border-collapse border border-gray-300 w-full text-center">
             <thead>
               <tr>
-                <th className="border border-gray-300 px-4 py-2 bg-gray-100">Date</th>
-                <th className="border border-gray-300 px-4 py-2 bg-gray-100">Teams</th>
-                <th className="border border-gray-300 px-4 py-2 bg-gray-100">Result</th>
-                <th className="border border-gray-300 px-4 py-2 bg-gray-100">Winner</th>
-                <th className="border border-gray-300 px-4 py-2 bg-gray-100">Players</th>
+                <th className="border border-gray-300 px-4 py-2 bg-gray-100">{t("matches.matchesOverview.date")}</th>
+                <th className="border border-gray-300 px-4 py-2 bg-gray-100">{t("matches.matchesOverview.teams")}</th>
+                <th className="border border-gray-300 px-4 py-2 bg-gray-100">{t("matches.matchesOverview.result")}</th>
+                <th className="border border-gray-300 px-4 py-2 bg-gray-100">{t("matches.matchesOverview.winner")}</th>
+                <th className="border border-gray-300 px-4 py-2 bg-gray-100">{t("matches.matchesOverview.players")}</th>
                 {isAdmin &&
-                  <th className="border border-gray-300 px-4 py-2 bg-gray-100">Actions</th>
+                  <th className="border border-gray-300 px-4 py-2 bg-gray-100">{t("matches.matchesOverview.actions")}</th>
                 }
               </tr>
             </thead>
@@ -97,11 +99,11 @@ const MatchesOverview: React.FC<{ selectedEvent: Event; closePopUp: (showPopUp: 
             </tbody>
           </table>
         ) : (
-          <p className="text-red-500 text-center">No matches for this event</p>
+          <p className="text-red-500 text-center">{t("matches.matchesOverview.errorMessage")}</p>
         )}
 
         <button className="bg-blue-600 text-white px-4 py-2 mt-4 rounded" onClick={() => { closePopUp(false); window.location.reload(); }}>
-          Close
+        {t("matches.matchesOverview.close")}
         </button>
       </div>
     </div>

@@ -6,6 +6,7 @@ import DeleteEvent from "./DeleteEvent";
 import AddEvent from "./AddEvent";
 import MatchesOverview from "../matches/MatchesOverview";
 import AddEventToVisitor from "@components/visitor/AddEventToVisitor";
+import { useTranslation } from "next-i18next";
 
 const EventOverview: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
@@ -13,6 +14,7 @@ const EventOverview: React.FC = () => {
   const [showPopUp, setShowPopUp] = useState<boolean>(false);
   const [selectedEvent, setSelectedEvent] = useState<Event>();
   const [isVisitor, setIsVisitor] = useState<boolean>(false);
+  const { t } = useTranslation();
 
   const fetchEvents = async () => {
     try {
@@ -97,15 +99,15 @@ const EventOverview: React.FC = () => {
                 )}
                 </div>
                 <p className="text-black">
-                  Start date: {new Date(event.startDate).toLocaleDateString()}
+                  {t("eventOverview.startDate")}: {new Date(event.startDate).toLocaleDateString()}
                 </p>
                 <p className="text-black">
-                  End date: {new Date(event.endDate).toLocaleDateString()}
+                {t("eventOverview.endDate")}: {new Date(event.endDate).toLocaleDateString()}
                 </p>
                 <p className="text-black">
-                  Address: {event.location.street} {event.location.number}, {event.location.cityCode} {event.location.city}
+                {t("eventOverview.address")}: {event.location.street} {event.location.number}, {event.location.cityCode} {event.location.city}
                 </p>
-                <p className="text-black">Sport: {event.sport.name}</p>
+                <p className="text-black">{t("eventOverview.sport")}: {event.sport.name}</p>
                 {isAdmin && (
                   <div className="flex justify-end">
                     <EditEvent event={event} onEventEdited={fetchEvents} />
@@ -117,7 +119,7 @@ const EventOverview: React.FC = () => {
               </div>
             ))
           ) : (
-            <p className="text-red-500">No events added yet</p>
+            <p className="text-red-500">{t('eventOverview.errorMessage')} </p>
           )}
         </div>
       </div>

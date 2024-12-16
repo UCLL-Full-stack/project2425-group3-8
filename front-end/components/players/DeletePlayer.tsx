@@ -2,6 +2,7 @@ import { deleteMatches } from "@services/MatchesService";
 import { useState } from "react";
 import {removedPlayerFromMatch} from "../../services/PlayerService";
 import { match } from "assert";
+import { useTranslation } from "next-i18next";
 
 interface DeletePlayerProps {
     playerId: number;
@@ -11,6 +12,7 @@ interface DeletePlayerProps {
 
 const DeletePlayer: React.FC<DeletePlayerProps> = ({ playerId, onDelete, matchId }) => {
     const [showPopup, setShowPopup] = useState(false);
+    const { t } = useTranslation();
 
     const handleDeleteClick = () => {
         setShowPopup(true);
@@ -78,10 +80,10 @@ const DeletePlayer: React.FC<DeletePlayerProps> = ({ playerId, onDelete, matchId
                     textAlign: 'center',
                     borderRadius: '5px',
                 }}>
-                    <p className="text-xl">Are you sure you want to delete this player from this match? "</p>
-                    <p className="text-xl flex justify-start">There is no way back buddy..</p>
-                    <button style={buttonStyle} onClick={confirmDelete}>Yes</button>
-                    <button style={buttonStyle} onClick={cancelDelete}>No</button>
+                    <p className="text-xl">{t("matches.player.message1")} "</p>
+                    <p className="text-xl flex justify-start">{t("matches.player.message2")}</p>
+                    <button style={buttonStyle} onClick={confirmDelete}>{t("matches.player.yes")}</button>
+                    <button style={buttonStyle} onClick={cancelDelete}>{t("matches.player.no")}</button>
                 </div>
             )}
         </div>

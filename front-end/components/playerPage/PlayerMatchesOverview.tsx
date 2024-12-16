@@ -1,12 +1,14 @@
 import { getEventNameByMatch } from "@services/MatchesService";
 import { getPlayerMatches } from "@services/PlayerService";
 import { Matches } from "@types";
+import { useTranslation } from "next-i18next";
 import { useEffect, useState } from "react";
 
 const PlayerMatchesOverview: React.FC = () => {
     const [matches, setMatches] = useState<Matches[]>([]);
     const [isPlayerEmail, setIsPlayerEmail] = useState<string>("");
     const [isEventName, setIsEventName] = useState<string | null>(null);
+    const { t } = useTranslation();
 
     useEffect(() => {
         const user = sessionStorage.getItem('loggedInUser')
@@ -49,12 +51,12 @@ const PlayerMatchesOverview: React.FC = () => {
             >
                 <thead>
                     <tr style={{ backgroundColor: "#f4f4f4" }}>
-                        <th style={{ border: "1px solid #ddd", padding: "8px" }}>Match Name</th>
-                        <th style={{ border: "1px solid #ddd", padding: "8px" }}>Date</th>
-                        <th style={{ border: "1px solid #ddd", padding: "8px" }}>Hour</th>
-                        <th style={{ border: "1px solid #ddd", padding: "8px" }}>Teams</th>
-                        <th style={{ border: "1px solid #ddd", padding: "8px" }}>Winner</th>
-                        <th style={{ border: "1px solid #ddd", padding: "8px" }}>Result</th>
+                        <th style={{ border: "1px solid #ddd", padding: "8px" }}>{t("playerPage.matchName")} </th>
+                        <th style={{ border: "1px solid #ddd", padding: "8px" }}>{t("playerPage.date")}</th>
+                        <th style={{ border: "1px solid #ddd", padding: "8px" }}>{t("playerPage.hour")}</th>
+                        <th style={{ border: "1px solid #ddd", padding: "8px" }}>{t("playerPage.teams")}</th>
+                        <th style={{ border: "1px solid #ddd", padding: "8px" }}>{t("playerPage.winner")}</th>
+                        <th style={{ border: "1px solid #ddd", padding: "8px" }}>{t("playerPage.result")}</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -1,4 +1,5 @@
 import { deleteMatches } from "@services/MatchesService";
+import { useTranslation } from "next-i18next";
 import { useState } from "react";
 
 interface DeleteEventProps {
@@ -8,6 +9,7 @@ interface DeleteEventProps {
 
 const DeleteMatches: React.FC<DeleteEventProps> = ({ eventId, onDelete }) => {
     const [showPopup, setShowPopup] = useState(false);
+    const { t } = useTranslation();
 
     const handleDeleteClick = () => {
         setShowPopup(true);
@@ -75,10 +77,10 @@ const DeleteMatches: React.FC<DeleteEventProps> = ({ eventId, onDelete }) => {
                     textAlign: 'center',
                     borderRadius: '5px',
                 }}>
-                    <p className="text-xl">Are you sure you want to delete this match from this event? </p>
-                    <p className="text-xl flex justify-start">There is no way back buddy..</p>
-                    <button style={buttonStyle} onClick={confirmDelete}>Yes</button>
-                    <button style={buttonStyle} onClick={cancelDelete}>No</button>
+                    <p className="text-xl">{t("matches.deleteMatch.message1")} </p>
+                    <p className="text-xl flex justify-start">{t("matches.deleteMatch.message2")}</p>
+                    <button style={buttonStyle} onClick={confirmDelete}>{t("matches.deleteMatch.yes")}</button>
+                    <button style={buttonStyle} onClick={cancelDelete}>{t("matches.deleteMatch.no")}</button>
                 </div>
             )}
         </div>
