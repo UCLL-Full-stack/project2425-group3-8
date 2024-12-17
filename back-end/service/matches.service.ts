@@ -21,7 +21,7 @@ const getPlayersByTeamAndMatch = async ( matchId: number, teamName: string) => {
 }
 
 const addMatches = async (matches: MatchesInput, eventId: number) => {
-
+    
     const IdEvent = await eventDb.getEventById(eventId);
 
     if (!IdEvent) {
