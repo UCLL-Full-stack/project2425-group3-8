@@ -12,7 +12,7 @@ const RegisterForm: React.FC = () => {
     const [password, setPassword] = useState<string>("")
     const [tempPassword, setTempPassword] = useState<string>("")
 
-    const [error, setError] = useState('');
+    const [error, setError] = useState<string | null>(null);
     const [statusText, setStatusText] = useState('')
     const { t } = useTranslation();
 
@@ -38,7 +38,7 @@ const RegisterForm: React.FC = () => {
     const handleSubmit = async (
         event: React.FormEvent<HTMLFormElement>,
     ) => {
-        setError('')
+        setError(null)
         event.preventDefault();
         setError(validate())
         const user: User = {
@@ -56,6 +56,7 @@ const RegisterForm: React.FC = () => {
                 sessionStorage.setItem("loggedInUser", JSON.stringify(response));
                 setStatusText('registerd user')
                 setTimeout(() => {
+                    setError(null)
                     router.push("/");
                 }, 2000);
             }

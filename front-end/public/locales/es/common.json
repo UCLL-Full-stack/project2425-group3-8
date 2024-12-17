@@ -33,6 +33,8 @@
     },
     "addEvent": {
         "titlePage": "Añadir Evento",
+        "submit": "Añadir Evento",
+        "cancel" : "Cancelar",
         "eventColumn":{
             "title": "Evento",
             "name": "Nombre",
@@ -50,6 +52,22 @@
             "title": "Deporte",
             "name": "Nombre",
             "playerCount": "Número de Jugadores"
+        },
+        "error": {
+            "name" : "Nombre requerido",
+            "startDate" : "Fecha de Inicio requerida",
+            "endDate" : "Fecha de Finalización requerida",
+            "startDateInPast" : "La Fecha de Inicio no puede estar en el pasado",
+            "endDateBeforeStartDate" : "La Fecha de Finalización no puede ser anterior a la Fecha de Inicio",
+            "city" : "Ciudad requerida",
+            "cityCode" : "Código Postal requerido",
+            "street" : "Calle requerida",
+            "number" : "Número requerido",
+            "number2" : "El número no puede ser negativo",
+            "sportName" : "Deporte requerido",
+            "playerCount" : "Número de Jugadores requerido",
+            "playerCount2" : "El número de jugadores no puede ser negativo",
+            "statusMessage" : "Evento añadido con éxito!"
         }
     },
     "deleteEvent": {
@@ -101,7 +119,14 @@
             "result": "Resultado",
             "winner": "Ganador",
             "hour": "Hora",
-            "add": "Añadir Partido"
+            "add": "Añadir Partido",
+            "errors" : {
+                "date" : "Fecha requerida",
+                "team1" : "Equipo 1 requerido",
+                "team2" : "Equipo 2 requerido",
+                "result" : "Resultado requerido",
+                "statusMessage" : "Partido añadido con éxito!"
+            }
         },
         "deleteMatch": {
             "message1": "¿Estás seguro de que quieres eliminar este partido?",

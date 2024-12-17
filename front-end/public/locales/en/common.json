@@ -33,6 +33,8 @@
     },
     "addEvent": {
         "titlePage": "Add Event",
+        "submit": "Add Event",
+        "cancel" : "Cancel",
         "eventColumn":{
             "title": "Event",
             "name": "Name",
@@ -50,6 +52,22 @@
             "title": "Sport",
             "name": "Name",
             "playerCount": "Player Count"
+        },
+        "error": {
+            "name" : "Name required",
+            "startDate" : "Start Date required",
+            "endDate" : "End Date required",
+            "startDateInPast" : "Start Date can't be in the past",
+            "endDateBeforeStartDate" : "End Date can't be before Start Date",
+            "city" : "City required",
+            "cityCode" : "City Code required",
+            "street" : "Street required",
+            "number" : "Number required",
+            "number2" : "Number can't be negative",
+            "sportName" : "Sport required",
+            "playerCount" : "Player Count required",
+            "playerCount2" : "Player Count can't be negative",
+            "statusMessage" : "Event added successfully!"
         }
     },
     "deleteEvent": {
@@ -101,7 +119,14 @@
             "result": "Result",
             "winner": "Winner",
             "hour": "Hour",
-            "add": "Add Match"
+            "add": "Add Match",
+            "errors" : {
+                "date" : "Date required",
+                "team1" : "Team 1 required",
+                "team2" : "Team 2 required",
+                "hour" : "Hour required",
+                "statusMessage" : "Match added successfully!"
+            }
         },
         "deleteMatch": {
             "message1": "Are you sure you want to delete this match from this event?",
