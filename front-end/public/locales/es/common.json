@@ -10,7 +10,8 @@
             "MyRegisteredMatches": "Mis Partidos Registrados",
             "Login": "Iniciar Sesión",
             "Logout": "Cerrar Sesión",
-            "Welcome": "Bienvenido"
+            "Welcome": "Bienvenido",
+            "events": "Eventos"
         },
         "language": "Idioma"
     },
@@ -167,5 +168,10 @@
         "register" : "Registrarse",
         "errorMessage1" : "por favor complete todos los campos del formulario",
         "errorMessage2" : "Las contraseñas no coinciden"
+    },
+    "logingegevens": {
+        "email": "Correo Electrónico",
+        "password": "Contraseña",
+        "role": "Rol"
     }
 }

@@ -34,6 +34,11 @@ const Header: React.FC = () => {
           {t('home.nav.home')}
         </Link>
 
+        <Link href="/event" className="nav-link px-4 fs-5 text-white">
+          {t('home.nav.events')}
+        </Link>
+
+
         {loggedInUser?.role === 'player' && (
           <Link href="/player" className="nav-link px-4 fs-5 text-white">
             {t('home.nav.MyMatches')}

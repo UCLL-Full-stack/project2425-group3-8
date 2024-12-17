@@ -10,7 +10,8 @@
             "MyRegisteredMatches": "My Registered Matches",
             "Login": "Login",
             "Logout": "Logout",
-            "Welcome": "Welcome"
+            "Welcome": "Welcome",
+            "events": "Events"
         },
         "language": "Language"
     },
@@ -167,5 +168,10 @@
         "register": "Register",
         "errorMessage1": "please fill in all fields of the form",
         "errorMessage2": "passwords do not match"
+    },
+    "logingegevens": {
+        "email": "Email",
+        "password": "Password",
+        "role": "Role"
     }
 }
