@@ -49,6 +49,7 @@ const EventService = {
     DeleteEventById,
     AddEvent,
     EditEvent,
+
 };
 
 export default EventService;

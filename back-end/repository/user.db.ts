@@ -72,8 +72,27 @@ const createUser = async (user: UserInput): Promise<User> => {
     }
 };
 
+const getUserByJustEmail = async (email: string): Promise<User> => {
+    try {
+        const UserPrisma = await database.user.findFirst({
+            where: {
+                email: email,
+            },
+        });
+
+        if (UserPrisma === null) {
+            throw new Error('User not found');
+        }
+
+        return User.from(UserPrisma);
+    } catch (error) {
+        throw error;
+    }
+};
+
 export default {
     getUserByEmail,
     userExistsByEmail,
     createUser,
+    getUserByJustEmail,
 };

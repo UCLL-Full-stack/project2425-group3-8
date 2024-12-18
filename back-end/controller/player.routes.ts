@@ -24,7 +24,7 @@
  *             $ref: '#/components/schemas/Match'
  *         team:
  *           type: string
- *     Match:
+ *     Matches:
  *       type: object
  *       properties:
  *         id:

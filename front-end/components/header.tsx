@@ -62,6 +62,9 @@ const Header: React.FC = () => {
               </a>
               <div className="text-white ms-3">
               {t('home.nav.Welcome')} {loggedInUser.role}: {loggedInUser.email}!
+              <Link href={`/user/${loggedInUser.email}`} className="text-white ms-2">
+                  {loggedInUser.email}
+                </Link>
               </div>
             </div>
           </>

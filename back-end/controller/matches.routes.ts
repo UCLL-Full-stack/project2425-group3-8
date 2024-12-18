@@ -7,7 +7,7 @@
  *       scheme: bearer
  *       bearerFormat: JWT
  *   schemas:
- *     Match:
+ *     Matches:
  *       type: object
  *       properties:
  *         date:

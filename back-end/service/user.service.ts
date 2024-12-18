@@ -70,9 +70,18 @@ const getRole = async (userInput: UserInput): Promise<String> =>{
     }
 }
 
+const getUserByJustEmail = async (email: string): Promise<User> => {
+   const user = await userDb.getUserByJustEmail(email)
+    if(!user){
+         throw new Error('User not found')
+    }
+    return user
+}
+
 export default {
     getUserByEmail,
     getRole,
     authenticate,
-    register
+    register,
+    getUserByJustEmail
 }
