@@ -6,7 +6,7 @@ import UserService from "@services/userService";
 
 const UserDetailsPage = () => {
   const { query } = useRouter();
-  const { email } = query; 
+  const { email } = query;
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -14,16 +14,9 @@ const UserDetailsPage = () => {
     if (email) {
       const fetchUserData = async () => {
         try {
-          const response = await UserService.getUserByJustMail(email as string); 
-          console.log("mail:", email)
-          console.log("Response", response)
-          if (response.ok) {
-            const userData = await response.json();
-            setUser(userData);
-            setLoading(false);
-          } else {
-            console.error("Failed to fetch user data");
-          }
+          const response = await UserService.getUserByJustMail(email as string);
+          setUser(response);
+          setLoading(false);
         } catch (error) {
           console.error("Error fetching user data:", error);
           setLoading(false);
