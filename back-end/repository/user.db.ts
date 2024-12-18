@@ -2,7 +2,7 @@ import database from './database';
 import { Admin } from '../model/Admin';
 import { Location } from '../model/Location';
 import { User } from '../model/User';
-import { UserInput } from '../types';
+import { Role, UserInput } from '../types';
 
 const getUserByEmail = async (email: string): Promise<User> => {
     try {
@@ -90,9 +90,28 @@ const getUserByJustEmail = async (email: string): Promise<User> => {
     }
 };
 
+const getUsers = async (): Promise<UserInput[]> => {
+    try {
+        const users = await database.user.findMany();
+        
+        return users.map(user => ({
+            fullName: user.fullName,
+            phoneNumber: user.phoneNumber,
+            email: user.email,
+            password: user.password,
+            role: user.role as Role,
+        }));
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        throw error;
+    }
+};
+
+
 export default {
     getUserByEmail,
     userExistsByEmail,
     createUser,
     getUserByJustEmail,
+    getUsers,
 };

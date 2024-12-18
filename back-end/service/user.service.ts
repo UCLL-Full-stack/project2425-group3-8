@@ -78,10 +78,19 @@ const getUserByJustEmail = async (email: string): Promise<User> => {
     return user
 }
 
+const getUsers = async (): Promise<UserInput[]> => {
+    try {
+        return await userDb.getUsers()
+    } catch (error) {
+        throw error
+    }
+};
+
 export default {
     getUserByEmail,
     getRole,
     authenticate,
     register,
-    getUserByJustEmail
+    getUserByJustEmail,
+    getUsers
 }

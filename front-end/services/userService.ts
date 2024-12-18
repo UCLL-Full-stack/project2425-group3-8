@@ -63,11 +63,26 @@ const getUserByJustMail = async (email: string) => {
     return await response.json();
 }
 
+const getUsers = async () => {
+    const user = sessionStorage.getItem('loggedInUser');
+    let item = null;
+    if (user) {
+        item = JSON.parse(user);
+    }
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/all`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + item.token },
+    });
+
+    return await response.json();
+}
+
 const UserService = {
     getUserByMail,
     loginUser,
     registerUser,
-    getUserByJustMail
+    getUserByJustMail,
+    getUsers
 };
 
 export default UserService;
