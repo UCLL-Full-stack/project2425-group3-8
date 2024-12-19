@@ -107,6 +107,21 @@ const getUsers = async (): Promise<UserInput[]> => {
     }
 };
 
+const getAllEmails = async (): Promise<string[]> => {
+    try {
+        const emails = await database.user.findMany({
+            select: {
+                email: true,
+            },
+        });
+
+        return emails.map((email) => email.email);
+    } catch (error) {
+        console.error('Error fetching emails:', error);
+        throw error;
+    }
+}
+
 
 export default {
     getUserByEmail,
@@ -114,4 +129,5 @@ export default {
     createUser,
     getUserByJustEmail,
     getUsers,
+    getAllEmails,
 };

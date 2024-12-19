@@ -273,5 +273,32 @@ userRouter.get('/all', async (req: Request, res: Response, next: NextFunction) =
     }
 })
 
+/**
+ * @swagger
+ * /user/all/emails:
+ *  get:
+ *   security:
+ *    - bearerAuth: []
+ *   summary: Get all emails
+ *   description: Get all emails
+ *   responses:
+ *    200:
+ *     description: Emails found
+ *     content:
+ *      application/json:
+ *       schema:
+ *        type: array
+ *        items:
+ *         type: string
+ */
+userRouter.get('/all/emails', async (req: Request, res: Response, next: NextFunction) => {
+    try{
+        const response = await userService.getAllEmails();
+        res.status(200).json( response )
+    } catch (error){
+        next(error)
+    }
+})
+
 export { userRouter }
 
