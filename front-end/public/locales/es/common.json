@@ -20,7 +20,7 @@
         "endDate" : "Fecha de Finalización",
         "address" : "Dirección",
         "sport" : "Deporte",
-        "errorMessage" : "No se han encontrado eventos"
+        "errorMessage" : "Necesitas iniciar sesión para ver todos los eventos"
     },
     "login": {
         "titlePage": "Iniciar Sesión",

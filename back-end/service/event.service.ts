@@ -1,6 +1,7 @@
 import { Event } from "../model/Event"
 import eventDb from "../repository/event.db"
 import { EventInput, EventInputPost } from "../types";
+import matchesService from "./matches.service";
 
 const getAllEvents = async (): Promise<Event[]> => {
     try {

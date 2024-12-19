@@ -20,7 +20,7 @@
         "endDate" : "End Date",
         "address" : "Address",
         "sport" : "Sport",
-        "errorMessage" : "No events found"
+        "errorMessage" : "You need to log in to see all events"
     },
     "login": {
         "titlePage": "Login",
