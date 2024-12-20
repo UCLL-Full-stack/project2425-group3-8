@@ -31,14 +31,14 @@ jest.mock('@services/userService', () => ({
 
 window.React = React;
 
-test('renders email and password fields', () => {
+test('When going to login page, a form is loaded with Email and Password', () => {
   render(<LoginForm />);
 
   expect(screen.getByLabelText('Email'));
   expect(screen.getByLabelText('Password'));
 });
 
-test('submits form with valid data', async () => {
+test('When on login page, and you try to log in with correct data, you get logged in', async () => {
     const mockLoginUser = require('@services/userService').loginUser;
     mockLoginUser.mockResolvedValueOnce({ email: 'johndoe@gmail.com' });
   
@@ -55,7 +55,7 @@ test('submits form with valid data', async () => {
     });
 });
 
-test('displays error message on invalid login', async () => {
+test('When you are on login page, and you enter wrong data, you get error messages', async () => {
     const mockLoginUser = require('@services/userService').loginUser;
     mockLoginUser.mockRejectedValueOnce(new Error('Invalid credentials'));
   
@@ -71,7 +71,7 @@ test('displays error message on invalid login', async () => {
   });
 });
 
-test('displays generic error message on unexpected error', async () => {
+test('When on login page and you enter wrong data, you get error message', async () => {
     const mockLoginUser = require('@services/userService').loginUser;
     mockLoginUser.mockRejectedValueOnce('Unexpected error');
   

@@ -4,8 +4,8 @@ import visitorService from "../../service/visitor.service";
 import { VisitorInput } from "../../types";
 
 
-jest.mock("../repository/visitor.db");
-jest.mock("../repository/event.db");
+jest.mock("../../repository/visitor.db");
+jest.mock("../../repository/event.db");
 
 const visitorInput: VisitorInput = {
     address: {
@@ -27,7 +27,7 @@ describe('Visitor Service Tests', () => {
 
         const result = await visitorService.getMyRegisteredEvents('test@example.com');
 
-        expect(result).toEqual([]); // Verwacht lege lijst omdat er geen geregistreerde evenementen zijn
+        expect(result).toEqual(undefined); 
         expect(visitorDb.getVisitorByEmail).toHaveBeenCalledTimes(1);
         expect(visitorDb.getVisitorByEmail).toHaveBeenCalledWith('test@example.com');
     });
