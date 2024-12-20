@@ -53,10 +53,6 @@ const AddEvent: React.FC<AddEventProps> = ({ onEventAdded }) => {
             setEventStartDateError(t("addEvent.error.startDate"));
             isValid = false;
         }
-        if (eventStartDate > new Date().toISOString()) {
-            setEventStartDateError(t("addEvent.error.startDateInPast"));
-            isValid = false;
-        }
         if (!eventEndDate) {
             setEventEndDateError(t("addEvent.error.endDate"));
             isValid = false;
