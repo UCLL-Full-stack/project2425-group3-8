@@ -96,8 +96,6 @@ userRouter.post('/', async (req: Request, res: Response) => {
  * @swagger
  * /user/login:
  *  post:
- *   security:
- *    - bearerAuth: []
  *   summary: Authenticate user
  *   description: Authenticate user
  *   requestBody:
@@ -146,8 +144,6 @@ userRouter.post('/login', async (req: Request, res: Response, next: NextFunction
  * @swagger
  * /user/register:
  *  post:
- *   security:
- *    - bearerAuth: [] 
  *   summary: Register user
  *   description: Register user
  *   requestBody:

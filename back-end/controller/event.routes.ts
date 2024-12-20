@@ -122,6 +122,8 @@ const eventRouter = express.Router();
  * @swagger
  * /event:
  *   get:
+ *     security:
+ *      - bearerAuth: [] 
  *     summary: Get a list of all events
  *     responses:
  *       200:

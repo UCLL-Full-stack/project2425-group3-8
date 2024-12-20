@@ -150,6 +150,8 @@ playerRouter.delete("/:matchId/:playerId", async (req, res) => {
  * @swagger
  * /player:
  *   get:
+ *     security:
+ *      - bearerAuth: [] 
  *     summary: Get all players
  *     description: Get all players
  *     responses:
