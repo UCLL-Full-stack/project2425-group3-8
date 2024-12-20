@@ -5,7 +5,6 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import { GetServerSideProps } from 'next';
-import LoginOverview from '@components/home/loginOverview';
 
 const Home: React.FC = () => {
   const { t } = useTranslation();
@@ -13,13 +12,13 @@ const Home: React.FC = () => {
     <>
       <Head>
         <title>{t('app.title')}</title>
-        <meta name="description" content="Login gegevens" />
+        <meta name="description" content="All Events" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Header />
       <main>
         <div >
-           <LoginOverview/>
+            <EventOverview/>
         </div>
       </main>
     </>

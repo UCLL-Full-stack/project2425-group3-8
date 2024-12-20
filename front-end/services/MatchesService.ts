@@ -1,9 +1,14 @@
 import MatchesOverview from '@components/matches/MatchesOverview';
 
 const getPlayersByTeamAndMatch = async (matchesId: number, teamName: string) => {
+    const user = sessionStorage.getItem('loggedInUser');
+    let item = null;
+    if (user) {
+        item = JSON.parse(user);
+    }
     return await fetch(`${process.env.NEXT_PUBLIC_API_URL}/matches/${matchesId}/${teamName}`, {
         method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + item.token },
     });
 };
 

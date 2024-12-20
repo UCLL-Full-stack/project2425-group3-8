@@ -24,9 +24,14 @@ const removedPlayerFromMatch = async (playerId: number, matchId: number) => {
 }
 
 const getAllPlayers = async () => {
+    const user = sessionStorage.getItem('loggedInUser');
+    let item = null;
+    if (user) {
+        item = JSON.parse(user);
+    }
     return await fetch(`${process.env.NEXT_PUBLIC_API_URL}/player`, {
         method: 'GET',
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + item.token }
     })
 }
 

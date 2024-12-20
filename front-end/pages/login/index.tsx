@@ -1,4 +1,5 @@
 import Header from "@components/header";
+import LoginOverview from "@components/home/loginOverview";
 import LoginForm from "@components/login/loginForm";
 import { GetServerSideProps } from "next";
 import { useTranslation } from "next-i18next";
@@ -18,6 +19,9 @@ const Login: React.FC = () => {
       <main>
         <div className='d-flex justify-content-center'>
             <LoginForm />
+        </div>
+        <div>
+          <LoginOverview />
         </div>
       </main>
       </>
